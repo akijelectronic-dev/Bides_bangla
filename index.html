@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#6366f1">
+<meta name="description" content="Bidesh Bangla - বিদেশ যাত্রার সহযোগী। ২৪+ দেশের ভাষা, খবর, নামাজের সময়, ভিসা গাইড, বিমানবন্দর তথ্য — সম্পূর্ণ বাংলায়।">
+<meta name="keywords" content="বিদেশ, ভাষা শেখা, নামাজের সময়, মালয়েশিয়া, সৌদি, জাপান, প্রবাসী, ভিসা, বাংলা, নিউজ, এয়ারপোর্ট গাইড">
+<meta name="author" content="Bidesh Bangla">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bidesh Bangla - বিদেশ যাত্রার সহযোগী">
+<meta property="og:description" content="২৪+ দেশের ভাষা, খবর, নামাজ, ভিসা তথ্য ও গাইড — সব বাংলায়!">
+<meta property="og:image" content="https://akijelectronic-dev.github.io/Bides_bangla/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
+<link rel="manifest" href='data:application/manifest+json,{"name":"Bidesh Bangla","short_name":"Bidesh","start_url":"./","display":"standalone","background_color":"%236366f1","theme_color":"%236366f1","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🌍%3C/text%3E%3C/svg%3E","sizes":"any","type":"image/svg+xml"}]}'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<title>Bidesh Bangla — বিদেশ যাত্রার সহযোগী</title>
+
+<style>
+/* ============================================================
+   RESET & VARIABLES
+   ============================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
+:root{
+  --brand:#6366f1;--brand-dark:#4f46e5;--brand-light:#818cf8;--brand-soft:#eef2ff;
+  --accent:#10b981;--accent-soft:#ecfdf5;
+  --warning:#f59e0b;--danger:#ef4444;
+  --bg:#fafbff;--bg-alt:#f1f5f9;
+  --surface:#ffffff;--surface-hover:#f8fafc;
+  --text:#0f172a;--text-secondary:#475569;--text-muted:#94a3b8;
+  --border:#e2e8f0;--border-light:#f1f5f9;
+  --shadow-xs:0 1px 2px rgba(15,23,42,.04);
+  --shadow-sm:0 1px 3px rgba(15,23,42,.08),0 1px 2px rgba(15,23,42,.04);
+  --shadow-md:0 4px 6px -1px rgba(15,23,42,.08),0 2px 4px -1px rgba(15,23,42,.04);
+  --shadow-lg:0 10px 15px -3px rgba(15,23,42,.08),0 4px 6px -2px rgba(15,23,42,.04);
+  --shadow-xl:0 20px 25px -5px rgba(15,23,42,.1),0 10px 10px -5px rgba(15,23,42,.04);
+  --shadow-brand:0 10px 25px -5px rgba(99,102,241,.3);
+  --radius:16px;--radius-md:12px;--radius-sm:8px;--radius-full:9999px;
+  --transition:.25s cubic-bezier(.4,0,.2,1);
+  --transition-smooth:.4s cubic-bezier(.16,1,.3,1);
+  --font-bn:'Hind Siliguri',system-ui,sans-serif;
+  --font-en:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+
+[data-theme="dark"]{
+  --bg:#0b1020;--bg-alt:#131a2e;
+  --surface:#1a2238;--surface-hover:#222c47;
+  --text:#f8fafc;--text-secondary:#cbd5e1;--text-muted:#64748b;
+  --border:#2a3552;--border-light:#1e2844;
+  --brand-soft:rgba(99,102,241,.15);--accent-soft:rgba(16,185,129,.15);
+  --shadow-xs:0 1px 2px rgba(0,0,0,.2);--shadow-sm:0 1px 3px rgba(0,0,0,.3);
+  --shadow-md:0 4px 6px rgba(0,0,0,.3);--shadow-lg:0 10px 15px rgba(0,0,0,.4);
+  --shadow-xl:0 20px 25px rgba(0,0,0,.5);
+}
+
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-bn);background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh;overflow-x:hidden;transition:background var(--transition),color var(--transition);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding-bottom:env(safe-area-inset-bottom)}
+::selection{background:var(--brand);color:#fff}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--bg-alt)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--brand),var(--brand-dark));border-radius:10px;border:2px solid var(--bg-alt)}
+::-webkit-scrollbar-thumb:hover{background:var(--brand-dark)}
+*:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:var(--radius-sm)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+.container{max-width:1240px;margin:0 auto;padding:0 24px}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.75);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border-light);transition:all var(--transition)}
+[data-theme="dark"] .header{background:rgba(26,34,56,.75);border-bottom-color:var(--border)}
+.header.scrolled{box-shadow:var(--shadow-sm);background:rgba(255,255,255,.95)}
+[data-theme="dark"] .header.scrolled{background:rgba(26,34,56,.95)}
+
+.header-inner{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;background:none;border:none;font-family:inherit;color:inherit;padding:0;transition:transform var(--transition)}
+.brand:hover{transform:scale(1.02)}
+.brand-logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:var(--shadow-brand);flex-shrink:0}
+.brand-text{display:flex;flex-direction:column;line-height:1.1;text-align:left}
+.brand-name{font-size:17px;font-weight:700;color:var(--text);font-family:var(--font-en);letter-spacing:-.02em}
+.brand-tag{font-size:11px;color:var(--text-muted);font-weight:500}
+
+.nav{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.nav-link{padding:9px 16px;color:var(--text-secondary);background:transparent;border:none;border-radius:var(--radius-full);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.nav-link:hover{color:var(--text);background:var(--surface-hover)}
+.nav-link.active{color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-dark));box-shadow:var(--shadow-brand)}
+.nav-link i{font-size:14px}
+.header-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--transition);font-size:15px}
+.icon-btn:hover{background:var(--brand);color:#fff;border-color:var(--brand);transform:translateY(-1px)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;padding:70px 24px 80px;text-align:center;overflow:hidden;background:radial-gradient(circle at 20% 0%,rgba(99,102,241,.18),transparent 50%),radial-gradient(circle at 80% 100%,rgba(16,185,129,.15),transparent 50%),linear-gradient(180deg,var(--bg),var(--bg-alt))}
+[data-theme="dark"] .hero{background:radial-gradient(circle at 20% 0%,rgba(99,102,241,.25),transparent 50%),radial-gradient(circle at 80% 100%,rgba(16,185,129,.2),transparent 50%),linear-gradient(180deg,var(--bg),var(--bg-alt))}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(99,102,241,.12) 1px,transparent 0);background-size:32px 32px;opacity:.5;pointer-events:none;mask-image:radial-gradient(ellipse at center,black 30%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at center,black 30%,transparent 80%)}
+.hero-content{position:relative;z-index:2;max-width:840px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;background:var(--brand-soft);color:var(--brand-dark);border:1px solid rgba(99,102,241,.2);border-radius:var(--radius-full);font-size:13px;font-weight:600;margin-bottom:24px;animation:fadeUp .6s ease both}
+[data-theme="dark"] .hero-badge{color:var(--brand-light)}
+.hero-badge-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulseDot 2s ease infinite}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+.hero h1{font-size:clamp(30px,5.5vw,52px);font-weight:700;line-height:1.15;letter-spacing:-.025em;margin-bottom:20px;color:var(--text);animation:fadeUp .6s .1s ease both}
+.hero h1 .gradient{background:linear-gradient(135deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{font-size:clamp(15px,1.8vw,18px);color:var(--text-secondary);max-width:600px;margin:0 auto 40px;line-height:1.7;animation:fadeUp .6s .2s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.search-hero{position:relative;max-width:600px;margin:0 auto;animation:fadeUp .6s .3s ease both}
+.search-hero input{width:100%;padding:18px 60px 18px 26px;border:2px solid var(--border);border-radius:var(--radius-full);font-family:inherit;font-size:16px;background:var(--surface);color:var(--text);outline:none;transition:all var(--transition);box-shadow:var(--shadow-md)}
+.search-hero input:focus{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft),var(--shadow-lg);transform:translateY(-2px)}
+.search-hero input::placeholder{color:var(--text-muted)}
+.search-hero-icon{position:absolute;right:24px;top:50%;transform:translateY(-50%);color:var(--brand);font-size:20px;pointer-events:none}
+
+.hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,60px);margin-top:50px;flex-wrap:wrap;animation:fadeUp .6s .4s ease both}
+.hero-stat{display:flex;flex-direction:column;align-items:center;min-width:90px}
+.hero-stat-value{font-family:var(--font-en);font-size:clamp(26px,3.5vw,34px);font-weight:800;color:var(--brand);line-height:1.2;letter-spacing:-.03em}
+.hero-stat-label{font-size:13px;color:var(--text-muted);font-weight:500;margin-top:4px}
+
+/* Quick Action Grid */
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-top:40px;position:relative;z-index:2;max-width:800px;margin-left:auto;margin-right:auto}
+.quick-action{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 14px;text-align:center;cursor:pointer;transition:all var(--transition-smooth);font-family:inherit;color:inherit;box-shadow:var(--shadow-xs)}
+.quick-action:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:var(--shadow-lg)}
+.quick-action-icon{font-size:32px;margin-bottom:8px;display:block}
+.quick-action-name{font-size:13px;font-weight:700;color:var(--text)}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section{padding:60px 0}
+.section-alt{background:var(--bg-alt)}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.section-title{font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.02em;color:var(--text);line-height:1.2}
+.section-sub{font-size:14px;color:var(--text-muted);margin-top:6px;font-weight:500}
+.section-badge{font-size:13px;font-weight:600;color:var(--brand-dark);background:var(--brand-soft);padding:6px 16px;border-radius:var(--radius-full);border:1px solid rgba(99,102,241,.15)}
+[data-theme="dark"] .section-badge{color:var(--brand-light)}
+
+/* ============================================================
+   COUNTRY GRID
+   ============================================================ */
+.country-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.country-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 20px 22px;text-align:center;cursor:pointer;transition:all var(--transition-smooth);overflow:hidden;font-family:inherit;color:inherit;width:100%;box-shadow:var(--shadow-xs)}
+.country-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--brand),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform var(--transition-smooth)}
+.country-card:hover{transform:translateY(-6px);border-color:transparent;box-shadow:var(--shadow-xl)}
+.country-card:hover::before{transform:scaleX(1)}
+.country-flag{font-size:48px;display:block;margin-bottom:12px;transition:transform var(--transition-smooth);filter:drop-shadow(0 4px 8px rgba(0,0,0,.1))}
+.country-card:hover .country-flag{transform:scale(1.15) rotate(-5deg)}
+.country-name{font-family:var(--font-en);font-size:16px;font-weight:700;color:var(--text);margin-bottom:3px;letter-spacing:-.01em}
+.country-name-bn{font-size:13px;color:var(--brand);font-weight:600;margin-bottom:10px}
+.country-lang{font-size:11px;color:var(--text-muted);background:var(--bg-alt);padding:4px 12px;border-radius:var(--radius-full);display:inline-block;font-weight:600;border:1px solid var(--border-light)}
+.country-hot{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#f43f5e,#e11d48);color:#fff;font-family:var(--font-en);font-size:9px;padding:3px 10px;border-radius:var(--radius-full);font-weight:700;letter-spacing:.05em;box-shadow:0 4px 10px rgba(244,63,94,.4)}
+.country-fav{position:absolute;top:12px;left:12px;width:32px;height:32px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-full);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:all var(--transition);z-index:2;padding:0}
+.country-fav:hover{transform:scale(1.15);border-color:var(--warning);color:var(--warning)}
+.country-fav.active{background:var(--warning);border-color:var(--warning);color:#fff}
+
+/* ============================================================
+   TABS
+   ============================================================ */
+.tabs{display:flex;gap:6px;padding:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-full);overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;max-width:100%;box-shadow:var(--shadow-xs)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 20px;background:transparent;border:none;border-radius:var(--radius-full);cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;color:var(--text-secondary);transition:all var(--transition);white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.tab:hover{color:var(--text);background:var(--surface-hover)}
+.tab.active{color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-dark));box-shadow:var(--shadow-brand)}
+
+/* ============================================================
+   CARDS / PHRASE
+   ============================================================ */
+.phrase-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px;box-shadow:var(--shadow-xs)}
+.phrase-cat{font-size:16px;font-weight:700;color:var(--brand);margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--border-light);display:flex;align-items:center;gap:10px}
+.phrase-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 12px;border-bottom:1px solid var(--border-light);border-radius:var(--radius-sm);transition:background var(--transition)}
+.phrase-row:last-child{border-bottom:none}
+.phrase-row:hover{background:var(--surface-hover)}
+.phrase-content{flex:1;min-width:0}
+.phrase-bn{font-size:15px;font-weight:600;color:var(--text);margin-bottom:5px}
+.phrase-foreign{font-size:15px;color:var(--brand);font-weight:700;margin-bottom:4px;word-break:break-word}
+.phrase-pron{font-size:12px;color:var(--warning);font-style:italic;margin-bottom:3px}
+.phrase-en{font-size:12px;color:var(--text-muted);font-style:italic}
+
+.speak-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border:none;border-radius:var(--radius-full);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all var(--transition);white-space:nowrap;box-shadow:var(--shadow-brand);flex-shrink:0}
+.speak-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 12px 25px -5px rgba(99,102,241,.5)}
+.speak-btn:active{transform:scale(.98)}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.vocab-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px 16px;text-align:center;cursor:pointer;transition:all var(--transition-smooth);font-family:inherit;color:inherit;box-shadow:var(--shadow-xs)}
+.vocab-card:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:var(--shadow-lg)}
+.vocab-bn{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+.vocab-foreign{font-size:15px;color:var(--brand);font-weight:700;margin-bottom:4px;word-break:break-word}
+.vocab-pron{font-size:11px;color:var(--warning);font-style:italic;margin-bottom:3px}
+.vocab-en{font-size:11px;color:var(--text-muted)}
+
+/* News */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
+.news-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all var(--transition-smooth);display:flex;flex-direction:column;box-shadow:var(--shadow-xs)}
+.news-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-xl);border-color:transparent}
+.news-image{width:100%;height:200px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));display:flex;align-items:center;justify-content:center;font-size:64px;color:#fff;overflow:hidden;position:relative}
+.news-image img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+.news-card:hover .news-image img{transform:scale(1.08)}
+.news-body{padding:20px;display:flex;flex-direction:column;flex:1}
+.news-source{display:inline-flex;align-items:center;gap:6px;background:var(--brand-soft);color:var(--brand-dark);padding:4px 12px;border-radius:var(--radius-full);font-size:11px;font-weight:700;margin-bottom:12px;align-self:flex-start;font-family:var(--font-en)}
+[data-theme="dark"] .news-source{color:var(--brand-light)}
+.news-title{font-size:16px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-desc{font-size:13px;color:var(--text-secondary);line-height:1.7;flex:1;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-muted);padding-top:14px;border-top:1px solid var(--border-light);font-weight:500}
+.news-read{color:var(--brand);font-weight:700}
+
+/* Loading/Empty */
+.loading-box{grid-column:1/-1;text-align:center;padding:80px 20px}
+.loading-box .spinner{width:44px;height:44px;border:4px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-box p{color:var(--text-secondary);font-size:15px;font-weight:500}
+.empty-box{grid-column:1/-1;text-align:center;padding:80px 20px}
+.empty-box .empty-icon{font-size:64px;margin-bottom:20px;display:block;opacity:.7}
+.empty-box .empty-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.empty-box .empty-desc{font-size:14px;color:var(--text-secondary);margin-bottom:24px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border:none;border-radius:var(--radius-full);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all var(--transition);white-space:nowrap;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;box-shadow:var(--shadow-brand)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 15px 30px -5px rgba(99,102,241,.4)}
+
+/* Country Detail */
+.country-hero{position:relative;padding:70px 24px 60px;text-align:center;color:#fff;overflow:hidden;background:linear-gradient(135deg,var(--brand),var(--brand-dark))}
+.country-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.15),transparent 40%),radial-gradient(circle at 80% 80%,rgba(255,255,255,.1),transparent 40%);pointer-events:none}
+.country-hero-inner{position:relative;z-index:2;max-width:800px;margin:0 auto}
+.country-hero-flag{font-size:clamp(72px,15vw,120px);display:block;margin-bottom:16px;filter:drop-shadow(0 12px 30px rgba(0,0,0,.3))}
+.country-hero h1{font-family:var(--font-en);font-size:clamp(28px,5vw,46px);font-weight:800;margin-bottom:6px;letter-spacing:-.03em}
+.country-hero-bn{font-size:clamp(15px,2vw,18px);opacity:.9;margin-bottom:6px;font-weight:500}
+.country-hero-lang{font-size:14px;opacity:.85;margin-bottom:24px}
+.country-info-chips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.chip{background:rgba(255,255,255,.18);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);padding:9px 18px;border-radius:var(--radius-full);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.back-btn{position:absolute;top:20px;left:20px;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:rgba(255,255,255,.18);backdrop-filter:blur(10px);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:var(--radius-full);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--transition);z-index:3}
+.back-btn:hover{background:rgba(255,255,255,.3);transform:translateX(-4px)}
+
+/* Info cards */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;text-align:center;transition:all var(--transition);box-shadow:var(--shadow-xs)}
+.info-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--brand)}
+.info-icon{font-size:36px;margin-bottom:12px;display:block}
+.info-label{font-size:12px;color:var(--text-muted);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.info-value{font-size:15px;color:var(--text);font-weight:700}
+
+/* Emergency */
+.emergency-box{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:32px;border-radius:var(--radius);box-shadow:0 20px 40px -10px rgba(239,68,68,.4)}
+.emergency-box h2{font-size:20px;font-weight:700;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.emergency-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.emergency-item{background:rgba(255,255,255,.18);backdrop-filter:blur(10px);padding:18px 16px;border-radius:var(--radius-md);text-align:center;border:1px solid rgba(255,255,255,.25);transition:all var(--transition);text-decoration:none;color:inherit;display:block}
+.emergency-item:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}
+.emergency-number{font-family:var(--font-en);font-size:20px;font-weight:800;display:block;margin-bottom:6px}
+.emergency-label{font-size:12px;opacity:.95;font-weight:500}
+
+/* Search */
+.search-wrap{position:relative;margin-bottom:22px}
+.search-input{width:100%;padding:14px 52px 14px 22px;background:var(--surface);border:2px solid var(--border);border-radius:var(--radius-full);font-family:inherit;font-size:15px;color:var(--text);outline:none;transition:all var(--transition)}
+.search-input:focus{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.search-icon{position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none}
+
+/* About */
+.about-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px;box-shadow:var(--shadow-xs)}
+.about-box p{color:var(--text-secondary);font-size:15px;line-height:1.9;margin-bottom:16px}
+.about-box p:last-child{margin-bottom:0}
+.about-box strong{color:var(--brand);font-weight:700}
+
+/* Footer */
+.footer{background:var(--surface);border-top:1px solid var(--border);padding:60px 24px 24px;margin-top:60px}
+.footer-inner{max-width:1240px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px}
+.footer-col h4{font-size:15px;font-weight:800;color:var(--text);margin-bottom:16px;letter-spacing:-.01em}
+.footer-col p,.footer-col a{font-size:14px;color:var(--text-secondary);text-decoration:none;display:block;margin-bottom:10px;cursor:pointer;transition:color var(--transition);font-weight:500}
+.footer-col a:hover{color:var(--brand);transform:translateX(3px)}
+.footer-bottom{padding-top:24px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--text-muted)}
+.footer-brand{color:var(--brand);font-weight:700;font-family:var(--font-en)}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none;max-width:calc(100vw - 48px)}
+.toast{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--brand);padding:14px 20px;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;animation:slideIn .3s ease;pointer-events:auto;max-width:400px;color:var(--text)}
+.toast.success{border-left-color:var(--accent)}
+.toast.error{border-left-color:var(--danger)}
+.toast.warning{border-left-color:var(--warning)}
+@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(400px);opacity:0}}
+
+/* Pages */
+.page{display:none;min-height:70vh;animation:fadeIn .4s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* Back to top */
+.back-top{position:fixed;bottom:24px;left:24px;width:46px;height:46px;border-radius:var(--radius-full);background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:var(--shadow-brand);opacity:0;visibility:hidden;transform:translateY(20px);transition:all var(--transition);z-index:100}
+.back-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.back-top:hover{transform:translateY(-4px)}
+
+/* ===== UNIVERSAL SEARCH ===== */
+.search-result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;display:flex;align-items:center;gap:18px;transition:all var(--transition);box-shadow:var(--shadow-xs);cursor:pointer}
+.search-result-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--brand)}
+.search-result-flag{font-size:40px;flex-shrink:0;filter:drop-shadow(0 4px 8px rgba(0,0,0,.1))}
+.search-result-content{flex:1;min-width:0}
+.search-result-country{font-size:12px;color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.search-result-bn{font-size:15px;color:var(--text-muted);font-style:italic;margin-bottom:6px}
+.search-result-foreign{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;word-break:break-word}
+.search-result-pron{font-size:13px;color:var(--warning);font-style:italic;margin-bottom:3px}
+.search-result-en{font-size:12px;color:var(--text-muted)}
+
+/* ===== WORD OF THE DAY ===== */
+.wod-card{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;padding:24px;border-radius:var(--radius);box-shadow:0 20px 40px -10px rgba(99,102,241,.4);margin-bottom:20px}
+.wod-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.wod-label{font-size:13px;opacity:.9;font-weight:600}
+.wod-country{font-size:14px;opacity:.9}
+.wod-btn{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);padding:10px 18px;border-radius:var(--radius-full);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:all var(--transition)}
+.wod-btn:hover{background:rgba(255,255,255,.3)}
+.wod-body{text-align:center;padding:16px 0}
+.wod-bn{font-size:32px;font-weight:700;margin-bottom:8px}
+.wod-foreign{font-size:24px;font-weight:700;color:#ffd700;margin-bottom:8px}
+.wod-pron{font-size:14px;opacity:.9;margin-bottom:8px}
+.wod-en{font-size:13px;opacity:.7;font-style:italic}
+
+/* ===== QUIZ ===== */
+.quiz-question{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm);max-width:600px;margin:0 auto}
+.quiz-question-text{font-size:22px;font-weight:700;text-align:center;margin-bottom:24px;color:var(--text)}
+.quiz-question-lang{font-size:12px;color:var(--brand);text-align:center;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.quiz-options{display:grid;gap:10px;margin-bottom:20px}
+.quiz-option{padding:16px 20px;background:var(--bg-alt);border:2px solid var(--border);border-radius:var(--radius-md);cursor:pointer;font-family:inherit;font-size:15px;font-weight:600;color:var(--text);text-align:left;transition:all var(--transition);display:flex;align-items:center;gap:12px}
+.quiz-option:hover:not(:disabled){background:var(--brand-soft);border-color:var(--brand);transform:translateX(4px)}
+.quiz-option:disabled{cursor:not-allowed}
+.quiz-option.correct{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.quiz-option.wrong{background:rgba(239,68,68,.1);border-color:var(--danger);color:var(--danger)}
+.quiz-option-letter{width:32px;height:32px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+.quiz-progress{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:13px;color:var(--text-muted);font-weight:600}
+.quiz-progress-bar{height:6px;background:var(--bg-alt);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--brand),var(--accent));border-radius:10px;transition:width .4s ease}
+.quiz-result{text-align:center;padding:40px 20px}
+.quiz-result-icon{font-size:80px;margin-bottom:20px}
+.quiz-result-score{font-size:48px;font-weight:800;color:var(--brand);margin-bottom:8px}
+.quiz-result-msg{font-size:16px;color:var(--text-secondary);margin-bottom:24px}
+
+/* ===== NAMAZ ===== */
+.namaz-hijri{text-align:center;background:linear-gradient(135deg,#10b981,#047857);color:#fff;border-radius:var(--radius);padding:24px;margin-bottom:20px;box-shadow:0 20px 40px -10px rgba(16,185,129,.4)}
+.namaz-hijri-label{font-size:13px;opacity:.9;margin-bottom:6px}
+.namaz-hijri-date{font-size:22px;font-weight:700}
+.namaz-hijri-sub{font-size:14px;opacity:.85;margin-top:4px}
+.namaz-hijri-city{font-size:13px;opacity:.8;margin-top:8px}
+.namaz-next{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;padding:24px;border-radius:var(--radius);margin-bottom:20px;text-align:center;box-shadow:var(--shadow-brand)}
+.namaz-next-label{font-size:13px;opacity:.9;margin-bottom:6px}
+.namaz-next-name{font-size:28px;font-weight:800;margin-bottom:4px}
+.namaz-next-time{font-size:24px;font-weight:700;color:#ffd700;font-family:var(--font-en)}
+.namaz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.namaz-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;transition:all var(--transition);box-shadow:var(--shadow-xs)}
+.namaz-item.next{border:2px solid var(--brand);background:var(--brand-soft)}
+.namaz-item.sunrise{opacity:.7}
+.namaz-item-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.namaz-item-icon{font-size:28px}
+.namaz-item-name{font-size:16px;font-weight:700;color:var(--text)}
+.namaz-item-en{font-size:11px;color:var(--text-muted);font-family:var(--font-en)}
+.namaz-item-next{margin-left:auto;background:var(--brand);color:#fff;font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700}
+.namaz-item-time{font-size:24px;font-weight:800;color:var(--brand);font-family:var(--font-en);letter-spacing:-.02em}
+
+/* ===== AIRPORT ===== */
+.airport-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;display:flex;gap:16px;align-items:flex-start;box-shadow:var(--shadow-xs)}
+.airport-step-no{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--font-en);box-shadow:var(--shadow-brand)}
+.airport-step-body{flex:1}
+.airport-step-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px}
+.airport-step-desc{font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:6px}
+.airport-step-time{display:inline-block;background:var(--brand-soft);color:var(--brand);font-size:11px;padding:3px 12px;border-radius:20px;font-weight:700}
+
+.airport-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;position:relative;box-shadow:var(--shadow-xs);transition:all var(--transition)}
+.airport-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.airport-item.essential{border-left:4px solid var(--danger)}
+.airport-item-badge{position:absolute;top:12px;right:12px;background:var(--danger);color:#fff;font-size:9px;padding:2px 8px;border-radius:20px;font-weight:700}
+.airport-item-icon{font-size:32px;margin-bottom:10px;display:block}
+.airport-item-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+.airport-item-desc{font-size:13px;color:var(--text-secondary);line-height:1.7}
+.airport-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+
+/* PWA Banner */
+.pwa-banner{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow-xl);display:none;align-items:center;gap:14px;z-index:9999;max-width:calc(100vw - 40px)}
+.pwa-banner.show{display:flex;animation:pwaSlideUp .4s ease}
+@keyframes pwaSlideUp{from{transform:translate(-50%,20px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+.pwa-icon{font-size:32px}
+.pwa-text{flex:1;font-size:13px;font-weight:600;color:var(--text)}
+.pwa-btn{padding:8px 16px;background:var(--brand);color:#fff;border:none;border-radius:var(--radius-full);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.pwa-close{background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;padding:4px}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:1000px){
+  .nav-link span{display:none}
+  .nav-link{padding:9px 12px}
+  .nav-link i{font-size:16px}
+}
+
+@media(max-width:768px){
+  .container{padding:0 18px}
+  .section{padding:44px 0}
+  .hero{padding:50px 20px 60px}
+  .hero-stats{gap:20px;margin-top:36px}
+  .country-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .country-card{padding:20px 14px}
+  .country-flag{font-size:38px}
+  .country-name{font-size:14px}
+  .country-name-bn{font-size:12px}
+  .news-grid{grid-template-columns:1fr}
+  .news-image{height:180px}
+  .phrase-card{padding:18px 14px}
+  .phrase-row{flex-direction:column;align-items:flex-start;gap:12px}
+  .speak-btn{width:100%;justify-content:center}
+  .vocab-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+  .info-grid{grid-template-columns:1fr 1fr}
+  .footer{padding:40px 20px 20px}
+  .footer-grid{gap:24px}
+  .back-top{bottom:20px;left:20px}
+  .toast-wrap{bottom:80px;right:16px;left:16px}
+  .toast{max-width:100%}
+  .about-box{padding:24px 20px}
+  .emergency-box{padding:24px 20px}
+  .search-result-card{flex-wrap:wrap}
+  .search-result-flag{font-size:32px}
+  .namaz-grid{grid-template-columns:1fr 1fr}
+  .quick-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:480px){
+  .hero h1{font-size:24px}
+  .hero-stat-value{font-size:22px}
+  .country-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .country-card{padding:16px 12px}
+  .country-flag{font-size:34px;margin-bottom:8px}
+  .country-name{font-size:13px}
+  .country-name-bn{font-size:11px}
+  .country-lang{font-size:10px;padding:3px 9px}
+  .section-title{font-size:20px}
+  .tabs{padding:5px}
+  .tab{padding:8px 14px;font-size:13px}
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .info-grid{grid-template-columns:1fr}
+  .emergency-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .country-hero{padding:60px 20px 40px}
+  .back-btn{top:12px;left:12px;padding:8px 14px;font-size:12px}
+  .chip{font-size:11px;padding:7px 12px}
+  .namaz-grid{grid-template-columns:1fr}
+  .quiz-question{padding:20px 16px}
+  .quiz-question-text{font-size:18px}
+  .quiz-option{font-size:14px;padding:14px 16px}
+  .wod-bn{font-size:26px}
+  .wod-foreign{font-size:20px}
+}
+
+@media print{
+  .header,.footer,.back-top,.hero,.speak-btn,.tabs,.icon-btn{display:none!important}
+  body{background:#fff;color:#000}
+  .country-card,.phrase-card,.vocab-card{border:1px solid #ddd;box-shadow:none}
+}
+</style>
+</head>
+
+<body>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <button class="brand" onclick="showPage('home')">
+      <div class="brand-logo">🌍</div>
+      <div class="brand-text">
+        <span class="brand-name">Bidesh Bangla</span>
+        <span class="brand-tag">বিদেশ যাত্রার সহযোগী</span>
+      </div>
+    </button>
+
+    <nav class="nav">
+      <button class="nav-link active" onclick="showPage('home')" data-nav="home">
+        <i class="fas fa-house"></i> <span>হোম</span>
+      </button>
+      <button class="nav-link" onclick="showPage('search')" data-nav="search">
+        <i class="fas fa-magnifying-glass"></i> <span>অনুবাদ</span>
+      </button>
+      <button class="nav-link" onclick="showPage('news')" data-nav="news">
+        <i class="fas fa-newspaper"></i> <span>খবর</span>
+      </button>
+      <button class="nav-link" onclick="showPage('namaz')" data-nav="namaz">
+        <i class="fas fa-mosque"></i> <span>নামাজ</span>
+      </button>
+      <button class="nav-link" onclick="showPage('airport')" data-nav="airport">
+        <i class="fas fa-plane-departure"></i> <span>এয়ারপোর্ট</span>
+      </button>
+      <button class="nav-link" onclick="showPage('quiz')" data-nav="quiz">
+        <i class="fas fa-graduation-cap"></i> <span>কুইজ</span>
+      </button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleTheme()" title="থিম">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     MAIN
+     ============================================================ -->
+<main id="main">
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        ২৪+ দেশ • রিয়েল-টাইম খবর • নামাজের সময়
+      </div>
+      <h1>বিদেশ যাচ্ছেন?<br><span class="gradient">আমরা আছি আপনার সাথে</span></h1>
+      <p class="hero-desc">ভাষা শিখুন • খবর জানুন • নামাজের সময় দেখুন • ভিসা তথ্য পান<br>সব কিছু এক জায়গায়, সম্পূর্ণ বাংলায়।</p>
+      
+      <div class="search-hero">
+        <input type="search" id="heroSearch" placeholder="দেশ বা ভাষা খুঁজুন..." oninput="handleSearch(this.value)" autocomplete="off">
+        <i class="fas fa-search search-hero-icon"></i>
+      </div>
+
+      <div class="quick-grid">
+        <button class="quick-action" onclick="showPage('namaz')">
+          <span class="quick-action-icon">🕌</span>
+          <span class="quick-action-name">নামাজের সময়</span>
+        </button>
+        <button class="quick-action" onclick="showPage('airport')">
+          <span class="quick-action-icon">✈️</span>
+          <span class="quick-action-name">এয়ারপোর্ট গাইড</span>
+        </button>
+        <button class="quick-action" onclick="showPage('news')">
+          <span class="quick-action-icon">📰</span>
+          <span class="quick-action-name">লাইভ খবর</span>
+        </button>
+        <button class="quick-action" onclick="showPage('quiz')">
+          <span class="quick-action-icon">🎓</span>
+          <span class="quick-action-name">ভাষা কুইজ</span>
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-value" id="statCountries">24</span>
+          <span class="hero-stat-label">দেশ</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">500+</span>
+          <span class="hero-stat-label">বাক্য ও শব্দ</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">🔊</span>
+          <span class="hero-stat-label">ভয়েস</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORD OF THE DAY -->
+  <section class="section" style="padding:30px 0">
+    <div class="container">
+      <div class="wod-card">
+        <div class="wod-header">
+          <div>
+            <div class="wod-label">🌟 আজকের শব্দ</div>
+            <div class="wod-country" id="wodCountry">Loading...</div>
+          </div>
+          <button class="wod-btn" id="wodSpeakBtn">
+            <i class="fas fa-volume-up"></i> শুনুন
+          </button>
+        </div>
+        <div class="wod-body">
+          <div class="wod-bn" id="wodBn">Loading...</div>
+          <div class="wod-foreign" id="wodForeign"></div>
+          <div class="wod-pron" id="wodPron"></div>
+          <div class="wod-en" id="wodEn"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTRIES -->
+  <section class="section" id="countries">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">🌏 দেশ নির্বাচন করুন</h2>
+          <p class="section-sub">আপনার গন্তব্য দেশে ক্লিক করুন</p>
+        </div>
+        <span class="section-badge" id="countryCount">24 দেশ</span>
+      </div>
+      <div class="country-grid" id="countryGrid"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section section-alt" id="about">
+    <div class="container">
+      <div class="about-box">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">ℹ️ আমাদের সম্পর্কে</h2>
+            <p class="section-sub">যা কিছু জানা দরকার, সব এক জায়গায়</p>
+          </div>
+        </div>
+        <p><strong>Bidesh Bangla</strong> — একটি সম্পূর্ণ ফ্রি প্ল্যাটফর্ম যা বিদেশ যাত্রীদের জন্য তৈরি। এখানে আপনি <strong>২৪+ দেশের ভাষা</strong>, প্রয়োজনীয় বাক্য, শব্দকোষ, জরুরি নাম্বার, নামাজের সময়সূচী, ভিসা তথ্য, বিমানবন্দর গাইড এবং <strong>রিয়েল-টাইম খবর</strong> পাবেন — সবকিছু <strong>বাংলায়</strong>।</p>
+        <p>আমাদের লক্ষ্য হলো প্রবাসী বাংলাদেশিদের জীবন সহজ করা। বিদেশ যাওয়ার আগে প্রস্তুতি নিন, বিদেশে থাকলে ভাষা শিখুন এবং সর্বশেষ তথ্য জানুন।</p>
+        <p>🌟 <strong>সম্পূর্ণ ফ্রি</strong> • 📱 <strong>মোবাইল ফ্রেন্ডলি</strong> • 🔊 <strong>ভয়েস সাপোর্ট</strong> • 🕌 <strong>নামাজের সময়</strong> • 📰 <strong>লাইভ নিউজ</strong></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- UNIVERSAL SEARCH PAGE -->
+<div class="page" id="page-search">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">🔍 সর্বজনীন অনুবাদ</h2>
+          <p class="section-sub">বাংলায় লিখুন — সব দেশের অনুবাদ দেখুন</p>
+        </div>
+        <span class="section-badge" id="searchCount">24 দেশ</span>
+      </div>
+
+      <div class="search-wrap">
+        <input type="search" class="search-input" id="universalSearch" placeholder="বাংলায় লিখুন (যেমন: ধন্যবাদ, পানি, সাহায্য...)" oninput="handleUniversalSearch(this.value)" autocomplete="off">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+
+      <div class="tabs" style="margin-bottom:24px" id="quickTags">
+        <button class="tab active" onclick="quickSearch('ধন্যবাদ')">ধন্যবাদ</button>
+        <button class="tab" onclick="quickSearch('পানি')">পানি</button>
+        <button class="tab" onclick="quickSearch('সাহায্য')">সাহায্য</button>
+        <button class="tab" onclick="quickSearch('খাবার')">খাবার</button>
+        <button class="tab" onclick="quickSearch('ভালো')">ভালো</button>
+        <button class="tab" onclick="quickSearch('কত')">কত?</button>
+        <button class="tab" onclick="quickSearch('হ্যাঁ')">হ্যাঁ</button>
+        <button class="tab" onclick="quickSearch('না')">না</button>
+      </div>
+
+      <div id="searchResults"></div>
+    </div>
+  </section>
+</div>
+
+<!-- NEWS PAGE -->
+<div class="page" id="page-news">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">📰 সর্বশেষ খবর</h2>
+          <p class="section-sub">রিয়েল-টাইম আপডেট • GNews API</p>
+        </div>
+        <span class="section-badge" id="newsBadge">🟢 লাইভ</span>
+      </div>
+
+      <div class="tabs" style="margin-bottom:24px">
+        <button class="tab active" onclick="loadNews('general',this)">🌐 সাধারণ</button>
+        <button class="tab" onclick="loadNews('nation',this)">🇧🇩 জাতীয়</button>
+        <button class="tab" onclick="loadNews('business',this)">💼 ব্যবসা</button>
+        <button class="tab" onclick="loadNews('world',this)">🌍 বিশ্ব</button>
+        <button class="tab" onclick="loadNews('sports',this)">⚽ খেলাধুলা</button>
+        <button class="tab" onclick="loadNews('technology',this)">💻 টেক</button>
+      </div>
+
+      <div class="news-grid" id="newsGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- NAMAZ PAGE -->
+<div class="page" id="page-namaz">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">🕌 নামাজের সময়সূচী</h2>
+          <p class="section-sub">নির্বাচিত দেশ ও শহরের নির্ভুল সময়</p>
+        </div>
+        <span class="section-badge" id="namazDate">আজ</span>
+      </div>
+
+      <div class="phrase-card" style="margin-bottom:20px">
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <select id="namazCountry" class="search-input" style="flex:1;min-width:200px;padding-right:20px" onchange="onNamazCountryChange()">
+            <!-- JS populate -->
+          </select>
+          <select id="namazCity" class="search-input" style="flex:1;min-width:200px;padding-right:20px" onchange="loadNamazTimes()">
+            <!-- JS populate -->
+          </select>
+        </div>
+      </div>
+
+      <div id="namazResult"></div>
+    </div>
+  </section>
+</div>
+
+<!-- AIRPORT PAGE -->
+<div class="page" id="page-airport">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">✈️ বিমানবন্দর গাইড</h2>
+          <p class="section-sub">প্রথমবার বিদেশ যাচ্ছেন? ধাপে ধাপে শিখুন</p>
+        </div>
+      </div>
+
+      <div class="tabs" style="margin-bottom:24px">
+        <button class="tab active" onclick="showAirportTab('before',this)">🏠 যাওয়ার আগে</button>
+        <button class="tab" onclick="showAirportTab('documents',this)">📄 কাগজপত্র</button>
+        <button class="tab" onclick="showAirportTab('departure',this)">🛫 প্রস্থান</button>
+        <button class="tab" onclick="showAirportTab('arrival',this)">🛬 আগমন</button>
+        <button class="tab" onclick="showAirportTab('mistakes',this)">⚠️ ভুল</button>
+      </div>
+
+      <div id="airportContent"></div>
+    </div>
+  </section>
+</div>
+
+<!-- QUIZ PAGE -->
+<div class="page" id="page-quiz">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">🎓 ভাষা কুইজ</h2>
+          <p class="section-sub">আপনার শেখা পরীক্ষা করুন</p>
+        </div>
+        <span class="section-badge" id="quizScore">স্কোর: 0</span>
+      </div>
+
+      <div id="quizSetup">
+        <div class="phrase-card" style="text-align:center;max-width:500px;margin:0 auto">
+          <div class="phrase-cat" style="justify-content:center">🎯 কোন দেশের কুইজ?</div>
+          <select id="quizCountry" class="search-input" style="margin-bottom:16px;padding-right:20px">
+            <!-- JS populate -->
+          </select>
+          <button class="btn btn-primary" onclick="startQuiz()" style="width:100%">
+            🚀 কুইজ শুরু করুন
+          </button>
+        </div>
+      </div>
+
+      <div id="quizPlay" style="display:none"></div>
+    </div>
+  </section>
+</div>
+
+<!-- COUNTRY DETAIL PAGE -->
+<div class="page" id="page-country">
+  <div class="country-hero" id="countryHero"></div>
+  <section class="section" style="padding-top:32px">
+    <div class="container">
+      <div class="tabs" id="countryTabs" style="margin-bottom:24px">
+        <button class="tab active" onclick="showCountryTab('phrases',this)">💬 ভাষা শিখুন</button>
+        <button class="tab" onclick="showCountryTab('vocab',this)">📖 শব্দকোষ</button>
+        <button class="tab" onclick="showCountryTab('news',this)">📰 খবর</button>
+        <button class="tab" onclick="showCountryTab('guide',this)">✈️ গাইড</button>
+        <button class="tab" onclick="showCountryTab('emergency',this)">🚨 জরুরি</button>
+      </div>
+      <div id="countryContent"></div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>🌍 Bidesh Bangla</h4>
+        <p>প্রবাসী বাংলাদেশিদের জন্য সম্পূর্ণ ফ্রি ভাষা ও তথ্য প্ল্যাটফর্ম। ২৪+ দেশের ভাষা, খবর, নামাজের সময়, গাইড ও জরুরি তথ্য।</p>
+      </div>
+      <div class="footer-col">
+        <h4>দ্রুত লিংক</h4>
+        <a onclick="showPage('home')">🏠 হোম</a>
+        <a onclick="showPage('search')">🔍 অনুবাদ</a>
+        <a onclick="showPage('news')">📰 খবর</a>
+        <a onclick="showPage('namaz')">🕌 নামাজ</a>
+        <a onclick="showPage('airport')">✈️ এয়ারপোর্ট</a>
+      </div>
+      <div class="footer-col">
+        <h4>জনপ্রিয় দেশ</h4>
+        <a onclick="openCountry('malaysia')">🇲🇾 মালয়েশিয়া</a>
+        <a onclick="openCountry('saudi')">🇸🇦 সৌদি আরব</a>
+        <a onclick="openCountry('uae')">🇦🇪 UAE</a>
+        <a onclick="openCountry('japan')">🇯🇵 জাপান</a>
+      </div>
+      <div class="footer-col">
+        <h4>যোগাযোগ</h4>
+        <p>📧 info@bideshbangla.com</p>
+        <p>💬 WhatsApp: +880 1989 309665</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2024 <span class="footer-brand">Bidesh Bangla</span> — Made with ❤️ for Bangladeshi Expats
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" onclick="scrollToTop()" aria-label="উপরে">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+'use strict';
+
+/* ============================================================
+   CONFIG
+   ============================================================ */
+const CONFIG = {
+  API_KEY: '7feb17194f24c6c44c2c4f7bb19d42f0',
+  GNEWS_HEADLINES: 'https://gnews.io/api/v4/top-headlines',
+  GNEWS_SEARCH: 'https://gnews.io/api/v4/search',
+  CORS_PROXIES: [
+    'https://corsproxy.io/?url=',
+    'https://api.allorigins.win/raw?url=',
+    'https://api.codetabs.com/v1/proxy?quest='
+  ],
+  CACHE_DURATION: 30 * 60 * 1000,
+  PREFIX: 'bb_'
+};
+
+const state = {
+  currentCountry: null,
+  currentNewsTopic: 'general',
+  newsCache: {},
+  favorites: new Set()
+};
+
+/* Helpers */
+const $ = id => document.getElementById(id);
+const $$ = sel => document.querySelectorAll(sel);
+
+const esc = str => {
+  if (str == null) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+};
+
+const escJs = str => String(str || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"');
+
+const debounce = (fn, ms = 300) => {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+};
+
+const timeAgo = date => {
+  const s = Math.floor((Date.now() - new Date(date)) / 1000);
+  if (s < 60) return 'এইমাত্র';
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m} মিনিট আগে`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h} ঘণ্টা আগে`;
+  const d = Math.floor(h / 24);
+  if (d < 7) return `${d} দিন আগে`;
+  if (d < 30) return `${Math.floor(d / 7)} সপ্তাহ আগে`;
+  return new Date(date).toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' });
+};
+
+const truncate = (str, len = 130) => !str ? '' : (str.length > len ? str.substring(0, len).trim() + '...' : str);
+
+const store = {
+  get(k, d = null) { try { const v = localStorage.getItem(CONFIG.PREFIX + k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(CONFIG.PREFIX + k, JSON.stringify(v)); } catch {} }
+};
+
+function toast(msg, type = 'info', dur = 3000) {
+  const wrap = $('toastWrap');
+  if (!wrap) return;
+  const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span>${icons[type] || icons.info}</span><span>${esc(msg)}</span>`;
+  wrap.appendChild(el);
+  setTimeout(() => { el.style.animation = 'slideOut .3s ease forwards'; setTimeout(() => el.remove(), 300); }, dur);
+}
+
+/* Theme */
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  store.set('theme', next);
+  const icon = $('themeIcon');
+  if (icon) icon.className = next === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = next === 'light' ? '#6366f1' : '#0b1020';
+}
+function initTheme() {
+  const saved = store.get('theme', 'light');
+  document.documentElement.setAttribute('data-theme', saved);
+  const icon = $('themeIcon');
+  if (icon) icon.className = saved === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+}
+
+/* Fetch with CORS proxy */
+async function fetchWithProxy(url) {
+  try {
+    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (res.ok) return res;
+  } catch (e) { console.log('Direct failed, trying proxy'); }
+  for (const proxy of CONFIG.CORS_PROXIES) {
+    try {
+      const res = await fetch(proxy + encodeURIComponent(url));
+      if (res.ok) { console.log('Proxy OK:', proxy); return res; }
+    } catch (e) { console.log('Proxy failed:', proxy); }
+  }
+  throw new Error('সব সার্ভার ব্যর্থ');
+}
+
+/* Favorites */
+function loadFavorites() { const s = store.get('favorites', []); state.favorites = new Set(Array.isArray(s) ? s : []); }
+function saveFavorites() { store.set('favorites', [...state.favorites]); }
+function isFav(k) { return state.favorites.has(k); }
+function toggleFav(k, e) {
+  if (e) e.stopPropagation();
+  if (state.favorites.has(k)) { state.favorites.delete(k); toast('বুকমার্ক সরানো হয়েছে', 'info', 1500); }
+  else { state.favorites.add(k); toast('বুকমার্কে যোগ হয়েছে ⭐', 'success', 1500); }
+  saveFavorites();
+  renderCountries();
+}
+
+/* Navigation */
+function showPage(id) {
+  $$('.page').forEach(p => p.classList.remove('active'));
+  const target = $('page-' + id);
+  if (target) target.classList.add('active');
+  $$('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.nav === id));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  if (id === 'news') loadNews(state.currentNewsTopic);
+  if (id === 'namaz') { initNamazSelect(); loadNamazTimes(); }
+  if (id === 'airport') renderAirportTab('before');
+  if (id === 'quiz') initQuizSelect();
+  if (id === 'search' && !$('searchResults').innerHTML) {
+    $('searchResults').innerHTML = `<div class="empty-box"><span class="empty-icon">🔍</span><div class="empty-title">বাংলায় কিছু লিখুন</div><div class="empty-desc">যেমন: ধন্যবাদ, পানি, সাহায্য, খাবার</div></div>`;
+  }
+  
+  if (history.replaceState) history.replaceState(null, '', '#' + id);
+}
+
+function scrollToId(id) { const el = $(id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+/* Country rendering */
+const handleSearch = debounce(q => renderCountries(q), 200);
+
+function renderCountries(filter = '') {
+  const grid = $('countryGrid');
+  if (!grid) return;
+  const q = filter.toLowerCase().trim();
+  let list = Object.entries(COUNTRIES);
+  if (q) {
+    list = list.filter(([_, c]) => c.name.toLowerCase().includes(q) || c.nameBn.includes(q) || c.lang.toLowerCase().includes(q) || c.langBn.includes(q));
+  }
+  list.sort((a, b) => {
+    const aF = isFav(a[0]) ? 1 : 0, bF = isFav(b[0]) ? 1 : 0;
+    if (aF !== bF) return bF - aF;
+    const aH = a[1].hot ? 1 : 0, bH = b[1].hot ? 1 : 0;
+    if (aH !== bH) return bH - aH;
+    return a[1].name.localeCompare(b[1].name);
+  });
+  const count = $('countryCount');
+  if (count) count.textContent = `${list.length} দেশ`;
+  if (list.length === 0) {
+    grid.innerHTML = `<div class="empty-box"><span class="empty-icon">🔍</span><div class="empty-title">কোনো দেশ পাওয়া যায়নি</div><div class="empty-desc">অন্য কীওয়ার্ড দিয়ে চেষ্টা করুন</div><button class="btn btn-primary" onclick="handleSearch('');document.getElementById('heroSearch').value=''">🔄 সব দেখুন</button></div>`;
+    return;
+  }
+  grid.innerHTML = list.map(([key, c]) => `
+    <div class="country-card" onclick="openCountry('${key}')" role="button" tabindex="0">
+      ${c.hot ? '<span class="country-hot">🔥 HOT</span>' : ''}
+      <button class="country-fav ${isFav(key) ? 'active' : ''}" onclick="toggleFav('${key}',event)" aria-label="বুকমার্ক">${isFav(key) ? '★' : '☆'}</button>
+      <span class="country-flag">${c.flag}</span>
+      <div class="country-name">${esc(c.name)}</div>
+      <div class="country-name-bn">${esc(c.nameBn)}</div>
+      <span class="country-lang">${esc(c.lang)}</span>
+    </div>
+  `).join('');
+}
+
+function openCountry(key) {
+  const c = COUNTRIES[key];
+  if (!c) return;
+  state.currentCountry = key;
+  document.title = `${c.nameBn} - ভাষা ও তথ্য | Bidesh Bangla`;
+  if (history.replaceState) history.replaceState(null, '', '#country/' + key);
+  const hero = $('countryHero');
+  hero.style.background = c.color || 'linear-gradient(135deg,#6366f1,#4f46e5)';
+  hero.innerHTML = `
+    <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> ফিরুন</button>
+    <div class="country-hero-inner">
+      <span class="country-hero-flag">${c.flag}</span>
+      <h1>${esc(c.name)}</h1>
+      <div class="country-hero-bn">${esc(c.nameBn)}</div>
+      <div class="country-hero-lang">🗣️ ${esc(c.langBn)}</div>
+      <div class="country-info-chips">
+        <div class="chip">💰 ${esc(c.currency)}</div>
+        <div class="chip">🕐 ${esc(c.timezone)}</div>
+        <div class="chip">🌤️ ${esc(c.weather)}</div>
+      </div>
+    </div>`;
+  $$('#countryTabs .tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+  $$('.page').forEach(p => p.classList.remove('active'));
+  $('page-country').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  renderTab('phrases');
+  $$('.nav-link').forEach(a => a.classList.remove('active'));
+}
+
+function showCountryTab(tab, el) {
+  $$('#countryTabs .tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderTab(tab);
+}
+
+function renderTab(tab) {
+  const c = COUNTRIES[state.currentCountry];
+  if (!c) return;
+  const content = $('countryContent');
+  if (!content) return;
+  switch (tab) {
+    case 'phrases': content.innerHTML = renderPhrases(c); break;
+    case 'vocab': content.innerHTML = renderVocab(c); break;
+    case 'news': content.innerHTML = renderCountryNews(c); break;
+    case 'guide': content.innerHTML = renderGuide(c); break;
+    case 'emergency': content.innerHTML = renderEmergency(c); break;
+  }
+}
+
+function renderPhrases(c) {
+  if (!c.phrases || Object.keys(c.phrases).length === 0) return renderEmpty('📝', 'বাক্য শীঘ্রই', 'যোগ করা হচ্ছে');
+  let html = '';
+  for (const [cat, list] of Object.entries(c.phrases)) {
+    html += `<div class="phrase-card"><div class="phrase-cat">${esc(cat)}</div>`;
+    html += list.map(p => `
+      <div class="phrase-row">
+        <div class="phrase-content">
+          <div class="phrase-bn">${esc(p.bn)}</div>
+          <div class="phrase-foreign">${esc(p.foreign)}</div>
+          ${p.pron ? `<div class="phrase-pron">🗣️ ${esc(p.pron)}</div>` : ''}
+          <div class="phrase-en">${esc(p.en)}</div>
+        </div>
+        <button class="speak-btn" onclick="speak('${escJs(p.foreign)}','${escJs(c.lang)}')"><i class="fas fa-volume-up"></i> শুনুন</button>
+      </div>`).join('');
+    html += '</div>';
+  }
+  return html;
+}
+
+function renderVocab(c) {
+  if (!c.vocab || Object.keys(c.vocab).length === 0) return renderEmpty('📖', 'শব্দকোষ শীঘ্রই', 'যোগ করা হচ্ছে');
+  let html = `<div class="search-wrap"><input type="search" class="search-input" placeholder="🔍 শব্দ খুঁজুন..." oninput="filterVocab(this.value)"><i class="fas fa-search search-icon"></i></div>`;
+  for (const [cat, list] of Object.entries(c.vocab)) {
+    html += `<h3 style="margin:24px 0 14px;color:var(--brand);font-size:16px;font-weight:700">${esc(cat)}</h3><div class="vocab-grid">`;
+    html += list.map(v => `<button class="vocab-card" onclick="speak('${escJs(v.foreign)}','${escJs(c.lang)}')">
+      <div class="vocab-bn">${esc(v.bn)}</div><div class="vocab-foreign">${esc(v.foreign)}</div>
+      ${v.pron ? `<div class="vocab-pron">${esc(v.pron)}</div>` : ''}<div class="vocab-en">${esc(v.en)}</div>
+    </button>`).join('');
+    html += '</div>';
+  }
+  return html;
+}
+
+function filterVocab(query) {
+  const c = COUNTRIES[state.currentCountry];
+  if (!c || !c.vocab) return;
+  const q = query.toLowerCase().trim();
+  const content = $('countryContent');
+  if (!q) { content.innerHTML = renderVocab(c); return; }
+  let all = [];
+  Object.values(c.vocab).forEach(a => all = all.concat(a));
+  const filtered = all.filter(v => v.bn.includes(q) || v.foreign.toLowerCase().includes(q) || v.en.toLowerCase().includes(q) || (v.pron && v.pron.includes(q)));
+  let html = `<div class="search-wrap"><input type="search" class="search-input" value="${esc(q)}" oninput="filterVocab(this.value)"><i class="fas fa-search search-icon"></i></div>`;
+  if (filtered.length === 0) html += renderEmpty('🔍', 'পাওয়া যায়নি', `"${esc(q)}" এর জন্য কিছু নেই`);
+  else {
+    html += '<div class="vocab-grid">';
+    html += filtered.map(v => `<button class="vocab-card" onclick="speak('${escJs(v.foreign)}','${escJs(c.lang)}')">
+      <div class="vocab-bn">${esc(v.bn)}</div><div class="vocab-foreign">${esc(v.foreign)}</div>
+      ${v.pron ? `<div class="vocab-pron">${esc(v.pron)}</div>` : ''}<div class="vocab-en">${esc(v.en)}</div>
+    </button>`).join('');
+    html += '</div>';
+  }
+  content.innerHTML = html;
+}
+
+function renderGuide(c) {
+  return `
+    <div class="info-grid">
+      <div class="info-card"><span class="info-icon">💰</span><div class="info-label">মুদ্রা</div><div class="info-value">${esc(c.currency)}</div></div>
+      <div class="info-card"><span class="info-icon">🕐</span><div class="info-label">সময়</div><div class="info-value">${esc(c.timezone)}</div></div>
+      <div class="info-card"><span class="info-icon">🌤️</span><div class="info-label">আবহাওয়া</div><div class="info-value">${esc(c.weather)}</div></div>
+      <div class="info-card"><span class="info-icon">🗣️</span><div class="info-label">ভাষা</div><div class="info-value">${esc(c.langBn)}</div></div>
+    </div>
+    <div class="phrase-card">
+      <div class="phrase-cat">📌 গুরুত্বপূর্ণ তথ্য</div>
+      ${[['🛂','ভিসা প্রসেস','দূতাবাসে যোগাযোগ করুন বা অনলাইনে আবেদন করুন'],
+        ['🎫','টিকিট বুকিং','সস্তা টিকিটের জন্য আগে থেকে বুক করুন'],
+        ['🏠','বাসা ভাড়া','এলাকাভেদে ভাড়া ভিন্ন — যাচাই করে নিন'],
+        ['💰','টাকা পাঠানো','ব্যাংক বা অনুমোদিত এক্সচেঞ্জ ব্যবহার করুন'],
+        ['📱','সিম কার্ড','স্থানীয় সিম কিনে সস্তায় কথা বলুন'],
+        ['🛡️','নিরাপত্তা','কাগজপত্র সবসময় সাথে রাখুন']]
+        .map(([i, t, d]) => `<div class="phrase-row"><div class="phrase-content"><div class="phrase-bn">${i} ${esc(t)}</div><div class="phrase-en">${esc(d)}</div></div></div>`).join('')}
+    </div>`;
+}
+
+function renderEmergency(c) {
+  if (!c.emergency || c.emergency.length === 0) return renderEmpty('🚨', 'জরুরি তথ্য শীঘ্রই', 'যোগ করা হচ্ছে');
+  return `<div class="emergency-box"><h2><span>🚨</span> জরুরি নাম্বার — ${esc(c.name)}</h2>
+    <div class="emergency-grid">${c.emergency.map(e => `<a href="tel:${esc(e.num)}" class="emergency-item"><span class="emergency-number">${esc(e.num)}</span><span class="emergency-label">${esc(e.label)}</span></a>`).join('')}</div></div>`;
+}
+
+function renderEmpty(icon, title, desc) {
+  return `<div class="empty-box"><span class="empty-icon">${icon}</span><div class="empty-title">${esc(title)}</div><div class="empty-desc">${esc(desc)}</div></div>`;
+}
+
+/* News */
+async function loadNews(topic = 'general') {
+  state.currentNewsTopic = topic;
+  const grid = $('newsGrid');
+  if (!grid) return;
+  const cacheKey = `hl_${topic}`;
+  const cached = state.newsCache[cacheKey];
+  if (cached && Date.now() - cached.t < CONFIG.CACHE_DURATION) { renderNews(cached.data, grid); return; }
+  grid.innerHTML = `<div class="loading-box"><div class="spinner"></div><p>খবর লোড হচ্ছে...</p></div>`;
+  try {
+    const params = new URLSearchParams({ lang: 'bn', country: 'bd', max: 12, apikey: CONFIG.API_KEY });
+    if (topic !== 'general') params.set('topic', topic);
+    const url = `${CONFIG.GNEWS_HEADLINES}?${params}`;
+    const response = await fetchWithProxy(url);
+    if (!response.ok) throw new Error(getErr(response.status));
+    const data = await response.json();
+    if (!data.articles || data.articles.length === 0) { grid.innerHTML = renderEmpty('😕', 'কোনো খবর নেই', 'কিছুক্ষণ পর আবার চেষ্টা'); return; }
+    state.newsCache[cacheKey] = { data: data.articles, t: Date.now() };
+    renderNews(data.articles, grid);
+    const badge = $('newsBadge');
+    if (badge) badge.textContent = `🟢 ${new Date().toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' })}`;
+  } catch (error) {
+    console.error(error);
+    grid.innerHTML = `<div class="empty-box"><span class="empty-icon">⚠️</span><div class="empty-title">খবর লোড করা যায়নি</div><div class="empty-desc">${esc(error.message)}</div><button class="btn btn-primary" onclick="loadNews('${topic}')">🔄 আবার চেষ্টা</button></div>`;
+  }
+}
+
+function getErr(status) {
+  const m = { 400: 'ভুল অনুরোধ', 401: 'API Key সঠিক নয়', 403: 'অ্যাক্সেস নেই', 429: 'আজকের লিমিট শেষ', 500: 'সার্ভার সমস্যা' };
+  return m[status] || `ত্রুটি: ${status}`;
+}
+
+function renderNews(articles, container) {
+  container.innerHTML = articles.map(a => {
+    const date = timeAgo(a.publishedAt);
+    const img = a.image ? `<img src="${esc(a.image)}" alt="" loading="lazy" onerror="this.onerror=null;this.parentNode.innerHTML='📰'">` : '📰';
+    return `<article class="news-card" onclick="window.open('${escJs(a.url)}','_blank','noopener,noreferrer')">
+      <div class="news-image">${img}</div>
+      <div class="news-body">
+        <span class="news-source">🌐 ${esc(a.source?.name || 'Unknown')}</span>
+        <h3 class="news-title">${esc(a.title)}</h3>
+        <p class="news-desc">${esc(truncate(a.description || 'বিস্তারিত পড়তে ক্লিক করুন', 130))}</p>
+        <div class="news-meta"><span>📅 ${esc(date)}</span><span class="news-read">পড়ুন →</span></div>
+      </div></article>`;
+  }).join('');
+}
+
+function renderCountryNews(c) {
+  return `<div style="text-align:center;margin-bottom:24px"><button class="btn btn-primary" onclick="loadCountryNews('${state.currentCountry}')"><i class="fas fa-newspaper"></i> ${esc(c.nameBn)} সম্পর্কিত খবর</button></div>
+    <div class="news-grid" id="countryNewsGrid">${renderEmpty('📰', 'খবর লোড করুন', 'উপরের বাটনে ক্লিক করুন')}</div>`;
+}
+
+async function loadCountryNews(key) {
+  const c = COUNTRIES[key];
+  if (!c) return;
+  const grid = $('countryNewsGrid');
+  if (!grid) return;
+  grid.innerHTML = `<div class="loading-box"><div class="spinner"></div><p>খবর লোড হচ্ছে...</p></div>`;
+  try {
+    const params = new URLSearchParams({ q: c.newsQuery || `${c.name} Bangladesh`, lang: 'bn', max: 6, apikey: CONFIG.API_KEY });
+    const response = await fetchWithProxy(`${CONFIG.GNEWS_SEARCH}?${params}`);
+    if (!response.ok) throw new Error(getErr(response.status));
+    const data = await response.json();
+    if (!data.articles || data.articles.length === 0) { grid.innerHTML = renderEmpty('😕', 'কোনো খবর নেই', 'কিছুক্ষণ পর আবার চেষ্টা'); return; }
+    renderNews(data.articles, grid);
+  } catch (error) {
+    grid.innerHTML = `<div class="empty-box"><span class="empty-icon">⚠️</span><div class="empty-title">ব্যর্থ</div><div class="empty-desc">${esc(error.message)}</div></div>`;
+  }
+}
+
+/* Speech */
+function speak(text, langHint) {
+  if (!('speechSynthesis' in window)) { toast('ভয়েস সাপোর্ট নেই', 'error'); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  const map = { 'Bahasa Melayu':'ms-MY','Arabic':'ar-SA','Japanese':'ja-JP','Korean':'ko-KR','Italian':'it-IT','English':'en-US','English/Malay':'en-US','English/French':'en-US','Thai':'th-TH','Turkish':'tr-TR','Mandarin':'zh-CN','German':'de-DE','Spanish':'es-ES','Dhivehi/English':'en-US','Bahasa Indonesia':'id-ID' };
+  u.lang = map[langHint] || 'en-US';
+  u.rate = 0.85; u.pitch = 1;
+  window.speechSynthesis.speak(u);
+}
+
+/* ============================================================
+   UNIVERSAL SEARCH
+   ============================================================ */
+let SEARCH_INDEX = null;
+
+function buildSearchIndex() {
+  if (SEARCH_INDEX) return SEARCH_INDEX;
+  const idx = [];
+  Object.entries(COUNTRIES).forEach(([key, c]) => {
+    if (c.phrases) {
+      Object.values(c.phrases).forEach(list => {
+        list.forEach(p => idx.push({ country: key, countryName: c.nameBn, flag: c.flag, bn: p.bn, foreign: p.foreign, pron: p.pron || '', en: p.en || '', lang: c.lang }));
+      });
+    }
+    if (c.vocab) {
+      Object.values(c.vocab).forEach(list => {
+        list.forEach(v => idx.push({ country: key, countryName: c.nameBn, flag: c.flag, bn: v.bn, foreign: v.foreign, pron: v.pron || '', en: v.en || '', lang: c.lang }));
+      });
+    }
+  });
+  SEARCH_INDEX = idx;
+  console.log(`📚 Search index: ${idx.length} entries`);
+  return idx;
+}
+
+function quickSearch(term) {
+  const inp = $('universalSearch');
+  if (inp) inp.value = term;
+  handleUniversalSearch(term);
+}
+
+function handleUniversalSearch(query) {
+  const container = $('searchResults');
+  if (!container) return;
+  const q = (query || '').trim().toLowerCase();
+  if (q.length < 1) {
+    container.innerHTML = `<div class="empty-box"><span class="empty-icon">🔍</span><div class="empty-title">বাংলায় কিছু লিখুন</div><div class="empty-desc">উপরের ট্যাগ থেকে বেছে নিন অথবা টাইপ করুন</div></div>`;
+    const badge = $('searchCount'); if (badge) badge.textContent = `24 দেশ`;
+    return;
+  }
+  const index = buildSearchIndex();
+  const results = index.filter(r => r.bn.toLowerCase().includes(q) || r.en.toLowerCase().includes(q) || r.pron.toLowerCase().includes(q) || r.foreign.toLowerCase().includes(q));
+  const grouped = {};
+  results.forEach(r => { if (!grouped[r.country]) grouped[r.country] = r; });
+  const list = Object.values(grouped);
+  const badge = $('searchCount');
+  if (badge) badge.textContent = `${list.length} দেশে পাওয়া গেছে`;
+  if (list.length === 0) {
+    container.innerHTML = `<div class="empty-box"><span class="empty-icon">😕</span><div class="empty-title">"${esc(query)}" এর কোনো অনুবাদ নেই</div><div class="empty-desc">অন্য শব্দ দিয়ে চেষ্টা করুন</div></div>`;
+    return;
+  }
+  container.innerHTML = `
+    <div style="margin-bottom:20px;padding:12px 16px;background:var(--brand-soft);border-radius:var(--radius-md);border:1px solid rgba(99,102,241,.2)">
+      <div style="font-size:13px;font-weight:700;color:var(--brand);margin-bottom:4px">📖 "${esc(query)}" — ${list.length}টি দেশে অনুবাদ</div>
+      <div style="font-size:12px;color:var(--text-secondary)">যেকোনো কার্ডে ক্লিক করে উচ্চারণ শুনুন</div>
+    </div>
+    ${list.map(r => `
+      <div class="search-result-card" onclick="speak('${escJs(r.foreign)}','${escJs(r.lang)}')">
+        <div class="search-result-flag">${r.flag}</div>
+        <div class="search-result-content">
+          <div class="search-result-country">${esc(r.countryName)} • ${esc(r.lang)}</div>
+          <div class="search-result-bn">"${esc(r.bn)}"</div>
+          <div class="search-result-foreign">${esc(r.foreign)}</div>
+          ${r.pron ? `<div class="search-result-pron">🗣️ ${esc(r.pron)}</div>` : ''}
+          ${r.en ? `<div class="search-result-en">${esc(r.en)}</div>` : ''}
+        </div>
+        <button class="speak-btn" onclick="event.stopPropagation();speak('${escJs(r.foreign)}','${escJs(r.lang)}')" style="padding:10px 14px"><i class="fas fa-volume-up"></i></button>
+      </div>`).join('')}`;
+}
+
+/* ============================================================
+   WORD OF THE DAY
+   ============================================================ */
+function renderWordOfTheDay() {
+  const index = buildSearchIndex();
+  if (index.length === 0) return;
+  const today = new Date();
+  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  const wod = index[seed % index.length];
+  if (!$('wodBn')) return;
+  $('wodCountry').textContent = `${wod.flag} ${wod.countryName}`;
+  $('wodBn').textContent = wod.bn;
+  $('wodForeign').textContent = wod.foreign;
+  $('wodPron').textContent = wod.pron ? `🗣️ ${wod.pron}` : '';
+  $('wodEn').textContent = wod.en || '';
+  const btn = $('wodSpeakBtn');
+  if (btn) btn.onclick = () => speak(wod.foreign, wod.lang);
+}
+
+/* ============================================================
+   NAMAZ TIMES
+   ============================================================ */
+const NAMAZ_CITIES = {
+  malaysia: { country: 'Malaysia', cities: ['Kuala Lumpur', 'Penang', 'Johor Bahru'], default: 'Kuala Lumpur' },
+  saudi: { country: 'Saudi Arabia', cities: ['Riyadh', 'Jeddah', 'Makkah', 'Madinah', 'Dammam'], default: 'Riyadh' },
+  uae: { country: 'United Arab Emirates', cities: ['Dubai', 'Abu Dhabi', 'Sharjah'], default: 'Dubai' },
+  qatar: { country: 'Qatar', cities: ['Doha', 'Al Rayyan'], default: 'Doha' },
+  kuwait: { country: 'Kuwait', cities: ['Kuwait City', 'Hawalli'], default: 'Kuwait City' },
+  oman: { country: 'Oman', cities: ['Muscat', 'Salalah'], default: 'Muscat' },
+  bahrain: { country: 'Bahrain', cities: ['Manama', 'Riffa'], default: 'Manama' },
+  jordan: { country: 'Jordan', cities: ['Amman', 'Zarqa'], default: 'Amman' },
+  japan: { country: 'Japan', cities: ['Tokyo', 'Osaka', 'Nagoya'], default: 'Tokyo' },
+  southkorea: { country: 'South Korea', cities: ['Seoul', 'Busan', 'Incheon'], default: 'Seoul' },
+  italy: { country: 'Italy', cities: ['Rome', 'Milan', 'Naples'], default: 'Rome' },
+  uk: { country: 'United Kingdom', cities: ['London', 'Birmingham', 'Manchester'], default: 'London' },
+  usa: { country: 'United States', cities: ['New York', 'Los Angeles', 'Chicago'], default: 'New York' },
+  canada: { country: 'Canada', cities: ['Toronto', 'Vancouver', 'Montreal'], default: 'Toronto' },
+  australia: { country: 'Australia', cities: ['Sydney', 'Melbourne', 'Brisbane'], default: 'Sydney' },
+  singapore: { country: 'Singapore', cities: ['Singapore'], default: 'Singapore' },
+  thailand: { country: 'Thailand', cities: ['Bangkok', 'Phuket'], default: 'Bangkok' },
+  turkey: { country: 'Turkey', cities: ['Istanbul', 'Ankara'], default: 'Istanbul' },
+  china: { country: 'China', cities: ['Beijing', 'Shanghai'], default: 'Beijing' },
+  germany: { country: 'Germany', cities: ['Berlin', 'Frankfurt'], default: 'Berlin' },
+  maldives: { country: 'Maldives', cities: ['Male'], default: 'Male' },
+  brunei: { country: 'Brunei', cities: ['Bandar Seri Begawan'], default: 'Bandar Seri Begawan' },
+  indonesia: { country: 'Indonesia', cities: ['Jakarta', 'Bali'], default: 'Jakarta' },
+  spain: { country: 'Spain', cities: ['Madrid', 'Barcelona'], default: 'Madrid' }
+};
+
+function initNamazSelect() {
+  const cSel = $('namazCountry');
+  if (!cSel || cSel.options.length > 0) return;
+  cSel.innerHTML = Object.entries(NAMAZ_CITIES).map(([key]) => {
+    const c = COUNTRIES[key];
+    return c ? `<option value="${key}">${c.flag} ${c.nameBn}</option>` : '';
+  }).join('');
+  cSel.value = 'malaysia';
+  updateCitySelect();
+}
+
+function updateCitySelect() {
+  const cSel = $('namazCountry');
+  const citySel = $('namazCity');
+  if (!cSel || !citySel) return;
+  const data = NAMAZ_CITIES[cSel.value];
+  if (!data) return;
+  citySel.innerHTML = data.cities.map(c => `<option value="${c}">${c}</option>`).join('');
+  citySel.value = data.default;
+}
+
+function onNamazCountryChange() { updateCitySelect(); loadNamazTimes(); }
+
+async function loadNamazTimes() {
+  const cSel = $('namazCountry');
+  const citySel = $('namazCity');
+  if (!cSel || !citySel) return;
+  const countryKey = cSel.value;
+  const city = citySel.value;
+  const data = NAMAZ_CITIES[countryKey];
+  if (!data) return;
+  const result = $('namazResult');
+  if (!result) return;
+  const dateBadge = $('namazDate');
+  if (dateBadge) dateBadge.textContent = new Date().toLocaleDateString('bn-BD', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  result.innerHTML = `<div class="loading-box"><div class="spinner"></div><p>নামাজের সময় লোড হচ্ছে...</p></div>`;
+  try {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    const url = `https://api.aladhan.com/v1/timingsByCity/${dd}-${mm}-${yyyy}?city=${encodeURIComponent(city)}&country=${encodeURIComponent(data.country)}&method=2`;
+    const res = await fetch(url);
+    const json = await res.json();
+    if (json.code !== 200 || !json.data) throw new Error('API এরর');
+    renderNamazTimes(json.data, city);
+  } catch (err) {
+    console.error(err);
+    result.innerHTML = `<div class="empty-box"><span class="empty-icon">⚠️</span><div class="empty-title">নামাজের সময় লোড করা যায়নি</div><div class="empty-desc">${esc(err.message)}</div><button class="btn btn-primary" onclick="loadNamazTimes()">🔄 আবার চেষ্টা</button></div>`;
+  }
+}
+
+function renderNamazTimes(data, city) {
+  const result = $('namazResult');
+  const t = data.timings;
+  const prayers = [
+    { key: 'Fajr', bn: 'ফজর', icon: '🌅' },
+    { key: 'Sunrise', bn: 'সূর্যোদয়', icon: '☀️' },
+    { key: 'Dhuhr', bn: 'যোহর', icon: '🌤️' },
+    { key: 'Asr', bn: 'আসর', icon: '🌇' },
+    { key: 'Maghrib', bn: 'মাগরিব', icon: '🌆' },
+    { key: 'Isha', bn: 'ইশা', icon: '🌙' }
+  ];
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  let nextPrayer = null, nextTime = Infinity;
+  prayers.forEach(p => {
+    if (p.key === 'Sunrise') return;
+    const timeStr = t[p.key].split(' ')[0];
+    const [h, m] = timeStr.split(':').map(Number);
+    const pMin = h * 60 + m;
+    if (pMin > nowMin && pMin < nextTime) { nextTime = pMin; nextPrayer = p.key; }
+  });
+  if (!nextPrayer) nextPrayer = 'Fajr';
+  const hijri = data.date.hijri;
+  result.innerHTML = `
+    <div class="namaz-hijri">
+      <div class="namaz-hijri-label">📅 হিজরি তারিখ</div>
+      <div class="namaz-hijri-date">${hijri.day} ${hijri.month.en} ${hijri.year} হিজরি</div>
+      <div class="namaz-hijri-sub">${hijri.month.ar} — ${hijri.weekday.en}</div>
+      <div class="namaz-hijri-city">📍 ${esc(city)}</div>
+    </div>
+    <div class="namaz-next">
+      <div class="namaz-next-label">🕌 পরবর্তী নামাজ</div>
+      <div class="namaz-next-name">${prayers.find(p => p.key === nextPrayer)?.bn || nextPrayer}</div>
+      <div class="namaz-next-time">${t[nextPrayer]}</div>
+    </div>
+    <div class="namaz-grid">
+      ${prayers.map(p => {
+        const isNext = p.key === nextPrayer;
+        const isSunrise = p.key === 'Sunrise';
+        return `<div class="namaz-item ${isNext ? 'next' : ''} ${isSunrise ? 'sunrise' : ''}">
+          <div class="namaz-item-header">
+            <span class="namaz-item-icon">${p.icon}</span>
+            <div><div class="namaz-item-name">${p.bn}</div><div class="namaz-item-en">${p.key}</div></div>
+            ${isNext ? '<span class="namaz-item-next">NEXT</span>' : ''}
+          </div>
+          <div class="namaz-item-time">${t[p.key]}</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="margin-top:20px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;font-size:12px;color:var(--text-muted);line-height:1.7">
+      <strong style="color:var(--text)">ℹ️ নোট:</strong> সময়গুলো Aladhan API (ISNA method) থেকে। স্থানীয় মসজিদের সময়ে হালকা পার্থক্য থাকতে পারে। <strong>সূর্যোদয়</strong> নামাজ নয়।
+    </div>`;
+}
+
+/* ============================================================
+   AIRPORT GUIDE
+   ============================================================ */
+const AIRPORT_GUIDE = {
+  before: { title: '🏠 বিমানবন্দরে যাওয়ার আগে', items: [
+    { title: '১. টিকিট ও ফ্লাইট চেক', desc: 'টিকিটে লেখা ফ্লাইট নম্বর, তারিখ, সময়, টার্মিনাল সব চেক করুন। বিমান সংস্থার ওয়েবসাইটে ফ্লাইট আপডেট দেখুন।', icon: '🎫' },
+    { title: '২. পাসপোর্ট ও ভিসা চেক', desc: 'পাসপোর্টের মেয়াদ কমপক্ষে ৬ মাস থাকতে হবে। ভিসার মেয়াদ ও ধরন ভালোভাবে দেখুন।', icon: '🛂' },
+    { title: '৩. ব্যাগ গোছানো', desc: 'হ্যান্ড ব্যাগ (৭ কেজি) + চেক-ইন ব্যাগ (২০-৩০ কেজি)। বিমান সংস্থার ওয়েট লিমিট দেখুন।', icon: '🧳' },
+    { title: '৪. নিষিদ্ধ জিনিস বাদ', desc: 'হ্যান্ড ব্যাগে পানি, লিকুইড (১০০ml+) ধারালো জিনিস, পাওয়ার ব্যাংক সীমিত রাখবেন না।', icon: '🚫' },
+    { title: '৫. ওষুধ ও মূল্যবান জিনিস', desc: 'প্রেসক্রিপশনের ওষুধ হ্যান্ড ব্যাগে রাখুন। টাকা, সোনা, ল্যাপটপ হ্যান্ড ব্যাগে রাখুন।', icon: '💊' },
+    { title: '৬. ডলার/পাউন্ড ক্যাশ', desc: 'কমপক্ষে ২০০-৩০০ ডলার বা সমতুল্য ক্যাশ হাতে রাখুন।', icon: '💵' },
+    { title: '৭. মোবাইল ও চার্জার', desc: 'মোবাইল ফুল চার্জ করে নিন। পাওয়ার ব্যাংক (১০০ Wh এর কম) হ্যান্ড ব্যাগে আনুন।', icon: '📱' },
+    { title: '৮. এয়ারপোর্টে পৌঁছানোর সময়', desc: 'আন্তর্জাতিক ফ্লাইটের জন্য কমপক্ষে ৩ ঘণ্টা আগে পৌঁছান। ঢাকার হযরত শাহজালালে ৪ ঘণ্টা ভালো।', icon: '⏰' }
+  ]},
+  documents: { title: '📄 প্রয়োজনীয় কাগজপত্র', items: [
+    { title: 'পাসপোর্ট (মূল)', desc: 'মেয়াদ ৬ মাস+ হতে হবে। ছেঁড়া বা বিকৃত হলে সমস্যা হবে।', icon: '🛂', essential: true },
+    { title: 'ভিসা', desc: 'গন্তব্য দেশের বৈধ ভিসা বা ই-ভিসা প্রিন্টআউট।', icon: '📋', essential: true },
+    { title: 'এয়ার টিকিট', desc: 'প্রিন্টআউট বা মোবাইলে সেভ করা ই-টিকিট।', icon: '🎫', essential: true },
+    { title: 'ফটো (৪-৬ কপি)', desc: 'ভিসা, চাকরি বা অন্য কাজে লাগতে পারে।', icon: '📷' },
+    { title: 'ব্যাংক স্টেটমেন্ট', desc: 'কিছু দেশে ইমিগ্রেশনে দেখাতে চাইতে পারে।', icon: '💳' },
+    { title: 'ট্রাভেল ইন্স্যুরেন্স', desc: 'কিছু দেশে বাধ্যতামূলক (যেমন: শেনজেন)।', icon: '🛡️' },
+    { title: 'হোটেল বুকিং', desc: 'থাকার প্রমাণপত্র।', icon: '🏨' },
+    { title: 'ভ্যাকসিনেশন কার্ড', desc: 'কিছু দেশে পীতজ্বরের টিকা বাধ্যতামূলক।', icon: '💉' },
+    { title: 'চাকরির চুক্তিপত্র', desc: 'কর্মী ভিসার জন্য জরুরি।', icon: '📝' },
+    { title: 'ডক্টর প্রেসক্রিপশন', desc: 'নিয়মিত ওষুধ থাকলে প্রেসক্রিপশন আনুন।', icon: '💊' }
+  ]},
+  departure: { title: '🛫 প্রস্থান — ধাপে ধাপে', steps: [
+    { no: 1, title: 'টার্মিনালে প্রবেশ', desc: 'ডিপার্চার গেটে ৩-৪ ঘণ্টা আগে পৌঁছান। টিকিট ও পাসপোর্ট দেখিয়ে ভেতরে ঢুকুন।', time: '০ মিনিট' },
+    { no: 2, title: 'লাগেজ স্ক্যান', desc: 'প্রবেশ গেটে ব্যাগ X-ray মেশিন দিয়ে স্ক্যান হবে।', time: '৫-১০ মিনিট' },
+    { no: 3, title: 'চেক-ইন কাউন্টার', desc: 'এয়ারলাইনের কাউন্টারে টিকিট ও পাসপোর্ট দিন। বোর্ডিং পাস ও ব্যাগ ট্যাগ নিন।', time: '১৫-৩০ মিনিট' },
+    { no: 4, title: 'ইমিগ্রেশন', desc: 'অফিসারকে পাসপোর্ট, বোর্ডিং পাস ও ভিসা দেখান। কিছু প্রশ্ন করতে পারে।', time: '১০-২০ মিনিট' },
+    { no: 5, title: 'সিকিউরিটি চেক', desc: 'হ্যান্ড ব্যাগ X-ray, বডি স্ক্যান। মোবাইল, ল্যাপটপ আলাদা ট্রেতে দিন।', time: '৫-১৫ মিনিট' },
+    { no: 6, title: 'ডিউটি ফ্রি', desc: 'চাইলে কেনাকাটা করুন। সময়ের খেয়াল রাখুন।', time: 'ঐচ্ছিক' },
+    { no: 7, title: 'বোর্ডিং গেট', desc: 'বোর্ডিং পাসে লেখা গেট নম্বর দেখুন। গেটে পৌঁছে অপেক্ষা করুন।', time: '৩০ মিনিট আগে' },
+    { no: 8, title: 'বোর্ডিং', desc: 'গেট খুললে টিকিট ও পাসপোর্ট দেখিয়ে ভেতরে যান। সিট নম্বর খুঁজে নিন।', time: '৩০ মিনিট আগে' }
+  ]},
+  arrival: { title: '🛬 আগমন — গন্তব্যে পৌঁছে', steps: [
+    { no: 1, title: 'বিমান থেকে নামা', desc: 'সিট বেল্ট খুলে ধীরে নামুন। হ্যান্ড ব্যাগ সাথে নিন।' },
+    { no: 2, title: 'ইমিগ্রেশন', desc: 'পাসপোর্ট, ভিসা, বোর্ডিং পাস দেখান। ফিঙ্গারপ্রিন্ট দিতে হতে পারে।' },
+    { no: 3, title: 'ব্যাগেজ ক্লেইম', desc: 'লাগেজ বেল্টে যান। ফ্লাইট নম্বরের বেল্টে অপেক্ষা করুন। ব্যাগ ট্যাগ মিলিয়ে দেখুন।' },
+    { no: 4, title: 'কাস্টমস', desc: 'Green Channel (সব ঠিক) বা Red Channel (ঘোষণা)। সন্দেহ হলে খুলে দেখতে পারে।' },
+    { no: 5, title: 'কারেন্সি এক্সচেঞ্জ', desc: 'এয়ারপোর্টেই টাকা ভাঙান। রেট কিছুটা কম।' },
+    { no: 6, title: 'সিম কার্ড', desc: 'স্থানীয় সিম কিনুন। পাসপোর্ট লাগবে।' },
+    { no: 7, title: 'ট্রান্সপোর্ট', desc: 'ট্যাক্সি, বাস বা ট্রেনে হোটেল/বাসায় যান। আগে ভাড়া ঠিক করুন।' },
+    { no: 8, title: 'চেক-ইন', desc: 'পাসপোর্ট দিন, রুম নিন। জিনিসপত্র গুছিয়ে রাখুন।' }
+  ]},
+  mistakes: { title: '⚠️ সাধারণ ভুল', items: [
+    { title: '❌ দেরিতে পৌঁছানো', desc: 'ফ্লাইট মিস হতে পারে। সবসময় ৩-৪ ঘণ্টা আগে যান।', icon: '⏰' },
+    { title: '❌ নিষিদ্ধ জিনিস হ্যান্ড ব্যাগে', desc: 'পানি, লিকুইড, ধারালো জিনিস — সব আটকে দেবে।', icon: '🚫' },
+    { title: '❌ কাগজপত্র আলাদা রাখা', desc: 'সব কাগজ এক জায়গায় (ফাইল কভারে) রাখুন।', icon: '📁' },
+    { title: '❌ অতিরিক্ত ব্যাগ', desc: 'ওয়েট লিমিটের বেশি হলে জরিমানা দিতে হবে।', icon: '⚖️' },
+    { title: '❌ ইমিগ্রেশনকে মিথ্যা বলা', desc: 'মিথ্যা ধরলে ফেরত পাঠানো হতে পারে। সত্য বলুন।', icon: '🗣️' },
+    { title: '❌ অন্য কারো ব্যাগ বহন', desc: 'অপরিচিত কারো ব্যাগ নেবেন না — ড্রাগস থাকতে পারে।', icon: '🚨' },
+    { title: '❌ ক্যাশ না রাখা', desc: 'জরুরিতে ২০০-৩০০ ডলার হাতে রাখুন।', icon: '💵' },
+    { title: '❌ মোবাইল চার্জ না করা', desc: 'ফ্লাইটের আগে ফোন ফুল চার্জ করুন। পাওয়ার ব্যাংক আনুন।', icon: '📱' }
+  ]}
+};
+
+function showAirportTab(tab, el) {
+  $$('#page-airport .tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderAirportTab(tab);
+}
+
+function renderAirportTab(tab) {
+  const content = $('airportContent');
+  if (!content) return;
+  const data = AIRPORT_GUIDE[tab];
+  if (!data) return;
+  let html = `<div style="margin-bottom:20px"><h3 style="font-size:20px;font-weight:700;color:var(--brand);margin-bottom:6px">${data.title}</h3>`;
+  if (data.steps) {
+    html += `<p style="font-size:14px;color:var(--text-secondary)">ধাপে ধাপে সম্পূর্ণ প্রক্রিয়া</p></div>`;
+    html += data.steps.map(s => `
+      <div class="airport-step">
+        <div class="airport-step-no">${s.no}</div>
+        <div class="airport-step-body">
+          <div class="airport-step-title">${esc(s.title)}</div>
+          <div class="airport-step-desc">${esc(s.desc)}</div>
+          ${s.time ? `<span class="airport-step-time">⏱️ ${esc(s.time)}</span>` : ''}
+        </div>
+      </div>`).join('');
+  } else if (data.items) {
+    html += `<p style="font-size:14px;color:var(--text-secondary)">${data.items.length}টি গুরুত্বপূর্ণ বিষয়</p></div>`;
+    html += '<div class="airport-grid">';
+    html += data.items.map(it => `
+      <div class="airport-item ${it.essential ? 'essential' : ''}">
+        ${it.essential ? '<span class="airport-item-badge">জরুরি</span>' : ''}
+        <span class="airport-item-icon">${it.icon}</span>
+        <div class="airport-item-title">${esc(it.title)}</div>
+        <div class="airport-item-desc">${esc(it.desc)}</div>
+      </div>`).join('');
+    html += '</div>';
+  }
+  content.innerHTML = html;
+}
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+const quizState = { country: null, questions: [], current: 0, score: 0, answered: false };
+
+function initQuizSelect() {
+  const sel = $('quizCountry');
+  if (!sel || sel.options.length > 0) return;
+  sel.innerHTML = Object.entries(COUNTRIES)
+    .filter(([k, c]) => c.phrases && Object.keys(c.phrases).length > 0)
+    .map(([k, c]) => `<option value="${k}">${c.flag} ${c.nameBn} (${c.langBn})</option>`).join('');
+}
+
+function startQuiz() {
+  const countryKey = $('quizCountry').value;
+  const c = COUNTRIES[countryKey];
+  if (!c || !c.phrases) return;
+  let allPhrases = [];
+  Object.values(c.phrases).forEach(list => { allPhrases = allPhrases.concat(list); });
+  if (allPhrases.length < 4) { toast('পর্যাপ্ত বাক্য নেই', 'warning'); return; }
+  const shuffled = [...allPhrases].sort(() => Math.random() - 0.5).slice(0, Math.min(10, allPhrases.length));
+  quizState.country = countryKey;
+  quizState.questions = shuffled;
+  quizState.current = 0;
+  quizState.score = 0;
+  $('quizSetup').style.display = 'none';
+  $('quizPlay').style.display = 'block';
+  const badge = $('quizScore'); if (badge) badge.textContent = 'স্কোর: 0';
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const c = COUNTRIES[quizState.country];
+  const q = quizState.questions[quizState.current];
+  const total = quizState.questions.length;
+  const current = quizState.current + 1;
+  let allPhrases = [];
+  Object.values(c.phrases).forEach(list => { allPhrases = allPhrases.concat(list); });
+  const wrongOptions = allPhrases.filter(p => p.foreign !== q.foreign).sort(() => Math.random() - 0.5).slice(0, 3);
+  const options = [...wrongOptions, q].sort(() => Math.random() - 0.5);
+  $('quizPlay').innerHTML = `
+    <div class="quiz-question">
+      <div class="quiz-progress"><span>প্রশ্ন ${current}/${total}</span><span>স্কোর: ${quizState.score}</span></div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${(current/total)*100}%"></div></div>
+      <div class="quiz-question-lang">${c.flag} ${c.nameBn} — ${c.langBn}</div>
+      <div class="quiz-question-text">"${esc(q.bn)}" — এর অর্থ কী?</div>
+      <div class="quiz-options">
+        ${options.map((opt, i) => `
+          <button class="quiz-option" onclick="answerQuiz(this)" data-correct="${opt.foreign === q.foreign}">
+            <span class="quiz-option-letter">${String.fromCharCode(65+i)}</span>
+            <span>${esc(opt.foreign)}${opt.pron ? ` <small style="opacity:.6">(${esc(opt.pron)})</small>` : ''}</span>
+          </button>`).join('')}
+      </div>
+    </div>`;
+  quizState.answered = false;
+}
+
+function answerQuiz(btn) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+  const isCorrect = btn.dataset.correct === 'true';
+  $$('.quiz-option').forEach(opt => {
+    opt.disabled = true;
+    if (opt.dataset.correct === 'true') opt.classList.add('correct');
+  });
+  if (isCorrect) { quizState.score++; if (navigator.vibrate) navigator.vibrate(50); }
+  else { btn.classList.add('wrong'); if (navigator.vibrate) navigator.vibrate([50,30,50]); }
+  const badge = $('quizScore'); if (badge) badge.textContent = `স্কোর: ${quizState.score}`;
+  setTimeout(() => {
+    quizState.current++;
+    if (quizState.current >= quizState.questions.length) showQuizResult();
+    else renderQuizQuestion();
+  }, 1500);
+}
+
+function showQuizResult() {
+  const total = quizState.questions.length;
+  const score = quizState.score;
+  const pct = Math.round((score/total) * 100);
+  let icon, msg;
+  if (pct >= 90) { icon = '🏆'; msg = 'অসাধারণ! আপনি এক্সপার্ট!'; }
+  else if (pct >= 70) { icon = '🎉'; msg = 'দুর্দান্ত! আরেকটু প্র্যাকটিস!'; }
+  else if (pct >= 50) { icon = '👍'; msg = 'ভালো! আবার চেষ্টা করুন'; }
+  else { icon = '📚'; msg = 'আরও শিখতে হবে — আবার চেষ্টা!'; }
+  $('quizPlay').innerHTML = `
+    <div class="quiz-result">
+      <div class="quiz-result-icon">${icon}</div>
+      <div class="quiz-result-score">${score}/${total}</div>
+      <div style="font-size:24px;font-weight:700;color:var(--brand);margin-bottom:12px">${pct}%</div>
+      <div class="quiz-result-msg">${msg}</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="startQuiz()">🔄 আবার খেলুন</button>
+        <button class="btn" style="background:var(--bg-alt);color:var(--text)" onclick="backToQuizSetup()">⬅️ অন্যদেশ</button>
+      </div>
+    </div>`;
+}
+
+function backToQuizSetup() {
+  $('quizPlay').style.display = 'none';
+  $('quizSetup').style.display = 'block';
+}
+
+/* ============================================================
+   PWA
+   ============================================================ */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (sessionStorage.getItem('pwa_dismissed')) return;
+  const banner = document.createElement('div');
+  banner.className = 'pwa-banner show';
+  banner.innerHTML = `
+    <div class="pwa-icon">📱</div>
+    <div class="pwa-text"><div>অ্যাপের মতো ইনস্টল করুন</div><div style="font-size:11px;color:var(--text-muted);font-weight:400">হোম স্ক্রিনে যোগ করুন</div></div>
+    <button class="pwa-btn" onclick="installPWA()">ইনস্টল</button>
+    <button class="pwa-close" onclick="dismissPWA()">✕</button>`;
+  document.body.appendChild(banner);
+});
+
+async function installPWA() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') toast('✅ ইনস্টল সফল!', 'success');
+  deferredPrompt = null;
+  dismissPWA();
+}
+function dismissPWA() {
+  const b = document.querySelector('.pwa-banner');
+  if (b) b.remove();
+  sessionStorage.setItem('pwa_dismissed', '1');
+}
+
+/* ============================================================
+   SCROLL & INIT
+   ============================================================ */
+function initScroll() {
+  const header = $('header');
+  const backTop = $('backTop');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (header) header.classList.toggle('scrolled', y > 20);
+        if (backTop) backTop.classList.toggle('show', y > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
+function initRouter() {
+  const h = location.hash.replace('#', '');
+  if (h.startsWith('country/')) {
+    const k = h.replace('country/', '');
+    if (COUNTRIES[k]) { setTimeout(() => openCountry(k), 100); return; }
+  }
+  if (['news', 'namaz', 'airport', 'quiz', 'search'].includes(h)) { setTimeout(() => showPage(h), 100); return; }
+  showPage('home');
+}
+
+function initKeyboard() {
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      const p = document.querySelector('.page.active');
+      if (p && p.id === 'page-country') showPage('home');
+    }
+  });
+}
+
+function initNetwork() {
+  window.addEventListener('online', () => toast('🌐 অনলাইন', 'success', 1500));
+  window.addEventListener('offline', () => toast('📴 অফলাইন', 'warning', 2000));
+}
+
+function init() {
+  console.log('%c🌍 Bidesh Bangla v4.0', 'color:#6366f1;font-size:20px;font-weight:bold');
+  console.log('%c✨ Complete Edition — All Features', 'color:#10b981;font-size:14px');
+  loadFavorites();
+  initTheme();
+  renderCountries();
+  initScroll();
+  initNetwork();
+  initKeyboard();
+  initRouter();
+  setTimeout(() => {
+    buildSearchIndex();
+    renderWordOfTheDay();
+    initQuizSelect();
+    initNamazSelect();
+    const sr = $('searchResults');
+    if (sr && !sr.innerHTML) {
+      sr.innerHTML = `<div class="empty-box"><span class="empty-icon">🔍</span><div class="empty-title">বাংলায় কিছু লিখুন</div><div class="empty-desc">যেমন: ধন্যবাদ, পানি, সাহায্য, খাবার</div></div>`;
+    }
+  }, 400);
+  console.log(`📊 ${Object.keys(COUNTRIES).length} দেশ • 🕌 নামাজ • ✈️ এয়ারপোর্ট • 🎓 কুইজ • 🔍 সার্চ`);
+}
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+
+/* ============================================================
+   COUNTRIES DATA
+   ============================================================ */
+const COUNTRIES = {
+  malaysia: {
+    name: 'Malaysia', nameBn: 'মালয়েশিয়া', flag: '🇲🇾',
+    lang: 'Bahasa Melayu', langBn: 'মালয় ভাষা',
+    color: 'linear-gradient(135deg,#0066cc,#003d7a)', hot: true,
+    currency: 'RM (Ringgit)', timezone: 'BD +2 ঘণ্টা', weather: '২৫-৩৫°C', newsQuery: 'Malaysia Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'Assalamualaikum', pron:'আসসালামুয়ালাইকুম', en:'Islamic greeting'},
+        {bn:'শুভ সকাল', foreign:'Selamat pagi', pron:'সেলামাত পাগি', en:'Good morning'},
+        {bn:'শুভ সন্ধ্যা', foreign:'Selamat petang', pron:'সেলামাত পেতাং', en:'Good evening'},
+        {bn:'কেমন আছেন?', foreign:'Apa khabar?', pron:'আপা খাবার?', en:'How are you?'},
+        {bn:'আমি ভালো আছি', foreign:'Saya baik', pron:'সায়া বাইক', en:'I am fine'},
+        {bn:'ধন্যবাদ', foreign:'Terima kasih', pron:'তেরিমা কাসিহ', en:'Thank you'},
+        {bn:'আপনার নাম কি?', foreign:'Apa nama awak?', pron:'আপা নামা আওয়াক?', en:'Your name?'},
+        {bn:'বিদায়', foreign:'Selamat tinggal', pron:'সেলামাত তিঙ্গাল', en:'Goodbye'}
+      ],
+      '💬 দৈনন্দিন': [
+        {bn:'আমি বুঝতে পারছি না', foreign:'Saya tidak faham', pron:'সায়া তিদাক ফাহাম', en:"I don't understand"},
+        {bn:'ধীরে বলুন', foreign:'Cakap perlahan', pron:'চাকাপ পারলাহান', en:'Speak slowly'},
+        {bn:'সাহায্য করুন', foreign:'Tolong saya', pron:'তোলোং সায়া', en:'Help me'},
+        {bn:'আমি বাংলাদেশ থেকে', foreign:'Saya dari Bangladesh', pron:'সায়া দারি বাংলাদেশ', en:'From Bangladesh'},
+        {bn:'ঠিক আছে', foreign:'Boleh', pron:'বোলেহ', en:'Okay'},
+        {bn:'হ্যাঁ', foreign:'Ya', pron:'ইয়া', en:'Yes'},
+        {bn:'না', foreign:'Tidak', pron:'তিদাক', en:'No'}
+      ],
+      '🛒 কেনাকাটা': [
+        {bn:'দাম কত?', foreign:'Berapa harga?', pron:'বেরাপা হারগা?', en:'How much?'},
+        {bn:'কম হবে?', foreign:'Boleh kurang?', pron:'বোলেহ কুরাং?', en:'Any discount?'},
+        {bn:'খুব বেশি', foreign:'Terlalu mahal', pron:'তেরলালু মাহাল', en:'Too expensive'},
+        {bn:'এটা কিনবো', foreign:'Saya nak beli ini', pron:'সায়া নাক বেলি ইনি', en:'I will buy this'}
+      ],
+      '🍜 খাবার': [
+        {bn:'পানি', foreign:'Air', pron:'আইর', en:'Water'},
+        {bn:'ভাত', foreign:'Nasi', pron:'নাসি', en:'Rice'},
+        {bn:'মুরগি', foreign:'Ayam', pron:'আয়াম', en:'Chicken'},
+        {bn:'গরু', foreign:'Daging lembu', pron:'দাগিং লেমবু', en:'Beef'},
+        {bn:'মাছ', foreign:'Ikan', pron:'ইকান', en:'Fish'},
+        {bn:'ঝাল ছাড়া', foreign:'Tanpa pedas', pron:'তানপা পেদাস', en:'No spicy'}
+      ],
+      '🚕 যাতায়াত': [
+        {bn:'কোথায় যাবো?', foreign:'Ke mana?', pron:'কে মানা?', en:'Where to?'},
+        {bn:'বাস স্টেশন', foreign:'Stesen bas', pron:'স্টেসেন বাস', en:'Bus station'},
+        {bn:'ট্যাক্সি', foreign:'Teksi', pron:'তেকসি', en:'Taxi'},
+        {bn:'এখানে থামুন', foreign:'Berhenti sini', pron:'বেরহেন্তি সিনি', en:'Stop here'},
+        {bn:'টিকিট কত?', foreign:'Berapa tiket?', pron:'বেরাপা তিকেত?', en:'Ticket price?'}
+      ],
+      '🚨 জরুরি': [
+        {bn:'সাহায্য!', foreign:'Tolong!', pron:'তোলোং!', en:'Help!'},
+        {bn:'পুলিশ ডাকুন', foreign:'Panggil polis', pron:'পাঙ্গিল পোলিস', en:'Call police'},
+        {bn:'আমি অসুস্থ', foreign:'Saya sakit', pron:'সায়া সাকিত', en:'I am sick'},
+        {bn:'পাসপোর্ট হারিয়েছে', foreign:'Pasport hilang', pron:'পাসপোর্ট হিলাং', en:'Passport lost'}
+      ]
+    },
+    vocab: {
+      '🔢 সংখ্যা': [
+        {bn:'এক', foreign:'Satu', pron:'সাতু', en:'One'},
+        {bn:'দুই', foreign:'Dua', pron:'দুয়া', en:'Two'},
+        {bn:'তিন', foreign:'Tiga', pron:'তিগা', en:'Three'},
+        {bn:'চার', foreign:'Empat', pron:'এমপাত', en:'Four'},
+        {bn:'পাঁচ', foreign:'Lima', pron:'লিমা', en:'Five'},
+        {bn:'দশ', foreign:'Sepuluh', pron:'সেপুলুহ', en:'Ten'},
+        {bn:'একশ', foreign:'Seratus', pron:'সেরাতুস', en:'Hundred'}
+      ],
+      '🎨 রং': [
+        {bn:'লাল', foreign:'Merah', pron:'মেরাহ', en:'Red'},
+        {bn:'নীল', foreign:'Biru', pron:'বিরু', en:'Blue'},
+        {bn:'সবুজ', foreign:'Hijau', pron:'হিজাউ', en:'Green'},
+        {bn:'হলুদ', foreign:'Kuning', pron:'কুনিং', en:'Yellow'},
+        {bn:'কালো', foreign:'Hitam', pron:'হিতাম', en:'Black'},
+        {bn:'সাদা', foreign:'Putih', pron:'পুতিহ', en:'White'}
+      ],
+      '👨‍👩‍👧 পরিবার': [
+        {bn:'বাবা', foreign:'Ayah', pron:'আয়াহ', en:'Father'},
+        {bn:'মা', foreign:'Ibu', pron:'ইবু', en:'Mother'},
+        {bn:'ভাই', foreign:'Abang/Adik', pron:'আবাং/আদিক', en:'Brother'},
+        {bn:'বোন', foreign:'Kakak/Adik', pron:'কাকাক/আদিক', en:'Sister'}
+      ],
+      '🕐 সময়': [
+        {bn:'সকাল', foreign:'Pagi', pron:'পাগি', en:'Morning'},
+        {bn:'দুপুর', foreign:'Tengah hari', pron:'তেঙ্গাহ হারি', en:'Noon'},
+        {bn:'রাত', foreign:'Malam', pron:'মালাম', en:'Night'},
+        {bn:'আজ', foreign:'Hari ini', pron:'হারি ইনি', en:'Today'},
+        {bn:'কাল', foreign:'Esok', pron:'এসোক', en:'Tomorrow'}
+      ]
+    },
+    emergency: [
+      {num:'999', label:'পুলিশ / অ্যাম্বুলেন্স'},
+      {num:'994', label:'ফায়ার সার্ভিস'},
+      {num:'+60 3-2141 2000', label:'বাংলাদেশ দূতাবাস'},
+      {num:'15999', label:'শ্রমিক হেল্পলাইন'}
+    ]
+  },
+  
+  saudi: {
+    name: 'Saudi Arabia', nameBn: 'সৌদি আরব', flag: '🇸🇦',
+    lang: 'Arabic', langBn: 'আরবি',
+    color: 'linear-gradient(135deg,#006c35,#004d26)', hot: true,
+    currency: 'SAR (রিয়াল)', timezone: 'BD -3 ঘণ্টা', weather: 'গ্রীষ্মে ৪০°C+', newsQuery: 'Saudi Arabia Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'السلام عليكم', pron:'আস-সালামু আলাইকুম', en:'Peace be upon you'},
+        {bn:'কেমন আছেন?', foreign:'كيف حالك؟', pron:'কাইফা হালাক?', en:'How are you?'},
+        {bn:'আলহামদুলিল্লাহ', foreign:'الحمد لله', pron:'আলহামদুলিল্লাহ', en:'Praise be to God'},
+        {bn:'শুভ সকাল', foreign:'صباح الخير', pron:'সাবাহ আল-খাইর', en:'Good morning'},
+        {bn:'ধন্যবাদ', foreign:'شكراً', pron:'শুকরান', en:'Thank you'},
+        {bn:'বিদায়', foreign:'مع السلامة', pron:'মাআ আস-সালামা', en:'Goodbye'}
+      ],
+      '💬 দৈনন্দিন': [
+        {bn:'আমার নাম...', foreign:'اسمي...', pron:'ইসমি...', en:'My name is...'},
+        {bn:'আমি বাংলাদেশী', foreign:'أنا بنغلاديشي', pron:'আনা বাংগলাদিশি', en:'I am Bangladeshi'},
+        {bn:'আমি বুঝি না', foreign:'لا أفهم', pron:'লা আফহাম', en:"I don't understand"},
+        {bn:'ধীরে বলুন', foreign:'تحدث ببطء', pron:'তাহাদ্দাস বেবুত', en:'Speak slowly'},
+        {bn:'ইনশাআল্লাহ', foreign:'إن شاء الله', pron:'ইনশা আল্লাহ', en:'God willing'},
+        {bn:'মাশাআল্লাহ', foreign:'ما شاء الله', pron:'মাশা আল্লাহ', en:'What God willed'}
+      ],
+      '🛒 কেনাকাটা': [
+        {bn:'দাম কত?', foreign:'كم السعر؟', pron:'কাম আস-সির?', en:'How much?'},
+        {bn:'কম হবে?', foreign:'هل يمكن تخفيض؟', pron:'হাল ইয়ুমকিন তাখফিদ?', en:'Can you reduce?'},
+        {bn:'খুব বেশি', foreign:'غالي جداً', pron:'গালি জিদ্দান', en:'Too expensive'}
+      ],
+      '🍜 খাবার': [
+        {bn:'পানি', foreign:'ماء', pron:'মা', en:'Water'},
+        {bn:'ভাত', foreign:'أرز', pron:'আরুজ', en:'Rice'},
+        {bn:'মুরগি', foreign:'دجاج', pron:'দিজাজ', en:'Chicken'},
+        {bn:'গরুর মাংস', foreign:'لحم بقري', pron:'লাহম বাকারি', en:'Beef'},
+        {bn:'রুটি', foreign:'خبز', pron:'খুবজ', en:'Bread'}
+      ],
+      '🚨 জরুরি': [
+        {bn:'সাহায্য!', foreign:'!ساعدني', pron:'সাইদনি!', en:'Help me!'},
+        {bn:'পুলিশ', foreign:'شرطة', pron:'শুরতা', en:'Police'},
+        {bn:'অ্যাম্বুলেন্স', foreign:'إسعاف', pron:'ইসআফ', en:'Ambulance'},
+        {bn:'আমি অসুস্থ', foreign:'أنا مريض', pron:'আনা মারিদ', en:'I am sick'}
+      ]
+    },
+    vocab: {
+      '🔢 সংখ্যা': [
+        {bn:'এক', foreign:'واحد', pron:'ওয়াহিদ', en:'One'},
+        {bn:'দুই', foreign:'اثنان', pron:'ইসনান', en:'Two'},
+        {bn:'তিন', foreign:'ثلاثة', pron:'সালাসা', en:'Three'},
+        {bn:'দশ', foreign:'عشرة', pron:'আশারা', en:'Ten'}
+      ],
+      '🎨 রং': [
+        {bn:'লাল', foreign:'أحمر', pron:'আহমার', en:'Red'},
+        {bn:'নীল', foreign:'أزرق', pron:'আজরাক', en:'Blue'},
+        {bn:'সবুজ', foreign:'أخضر', pron:'আখদার', en:'Green'},
+        {bn:'কালো', foreign:'أسود', pron:'আসওয়াদ', en:'Black'},
+        {bn:'সাদা', foreign:'أبيض', pron:'আবইয়াদ', en:'White'}
+      ],
+      '👨‍👩‍👧 পরিবার': [
+        {bn:'বাবা', foreign:'أب', pron:'আব', en:'Father'},
+        {bn:'মা', foreign:'أم', pron:'উম', en:'Mother'},
+        {bn:'ভাই', foreign:'أخ', pron:'আখ', en:'Brother'},
+        {bn:'বোন', foreign:'أخت', pron:'উখত', en:'Sister'}
+      ]
+    },
+    emergency: [
+      {num:'999', label:'পুলিশ / অ্যাম্বুলেন্স'},
+      {num:'997', label:'অ্যাম্বুলেন্স'},
+      {num:'998', label:'ফায়ার সার্ভিস'},
+      {num:'+966 11 488 0000', label:'বাংলাদেশ দূতাবাস'}
+    ]
+  },
+  
+  uae: {
+    name: 'UAE', nameBn: 'সংযুক্ত আরব আমিরাত', flag: '🇦🇪',
+    lang: 'Arabic', langBn: 'আরবি',
+    color: 'linear-gradient(135deg,#00732f,#004d1f)', hot: true,
+    currency: 'AED (দিরহাম)', timezone: 'BD -2 ঘণ্টা', weather: '৩৫-৪৫°C', newsQuery: 'UAE Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'السلام عليكم', pron:'আস-সালামু আলাইকুম', en:'Peace be upon you'},
+        {bn:'কেমন আছেন?', foreign:'كيف حالك؟', pron:'কাইফা হালাক?', en:'How are you?'},
+        {bn:'ধন্যবাদ', foreign:'شكراً', pron:'শুকরান', en:'Thank you'}
+      ],
+      '💬 দৈনন্দিন': [
+        {bn:'আমি বাংলাদেশী', foreign:'أنا بنغلاديشي', pron:'আনা বাংগলাদিশি', en:'I am Bangladeshi'},
+        {bn:'সাহায্য করুন', foreign:'ساعدني', pron:'সাইদনি', en:'Help me'}
+      ],
+      '🚨 জরুরি': [
+        {bn:'সাহায্য!', foreign:'!ساعدني', pron:'সাইদনি!', en:'Help!'},
+        {bn:'পুলিশ', foreign:'شرطة', pron:'শুরতা', en:'Police'}
+      ]
+    },
+    vocab: {
+      '🔢 সংখ্যা': [
+        {bn:'এক', foreign:'واحد', pron:'ওয়াহিদ', en:'One'},
+        {bn:'দুই', foreign:'اثنان', pron:'ইসনান', en:'Two'},
+        {bn:'তিন', foreign:'ثلاثة', pron:'সালাসা', en:'Three'}
+      ]
+    },
+    emergency: [
+      {num:'999', label:'পুলিশ'},
+      {num:'998', label:'অ্যাম্বুলেন্স'},
+      {num:'+971 2 444 1111', label:'বাংলাদেশ দূতাবাস'}
+    ]
+  },
+  
+  qatar: {
+    name: 'Qatar', nameBn: 'কাতার', flag: '🇶🇦',
+    lang: 'Arabic', langBn: 'আরবি',
+    color: 'linear-gradient(135deg,#8d1b3d,#5a1128)',
+    currency: 'QAR (রিয়াল)', timezone: 'BD -3 ঘণ্টা', weather: '৩০-৪৫°C', newsQuery: 'Qatar Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'السلام عليكم', pron:'আস-সালামু আলাইকুম', en:'Peace be upon you'},
+        {bn:'ধন্যবাদ', foreign:'شكراً', pron:'শুকরান', en:'Thank you'}
+      ],
+      '🚨 জরুরি': [
+        {bn:'সাহায্য!', foreign:'!ساعدني', pron:'সাইদনি!', en:'Help!'},
+        {bn:'পুলিশ', foreign:'شرطة', pron:'শুরতা', en:'Police'}
+      ]
+    },
+    vocab: {
+      '🔢 সংখ্যা': [
+        {bn:'এক', foreign:'واحد', pron:'ওয়াহিদ', en:'One'},
+        {bn:'দুই', foreign:'اثنان', pron:'ইসনান', en:'Two'}
+      ]
+    },
+    emergency: [
+      {num:'999', label:'ইমার্জেন্সি'},
+      {num:'+974 4451 6666', label:'বাংলাদেশ দূতাবাস'}
+    ]
+  },
+  
+  kuwait: {
+    name: 'Kuwait', nameBn: 'কুয়েত', flag: '🇰🇼',
+    lang: 'Arabic', langBn: 'আরবি',
+    color: 'linear-gradient(135deg,#007a3d,#ffffff)',
+    currency: 'KWD (দিনার)', timezone: 'BD -3 ঘণ্টা', weather: 'গরম', newsQuery: 'Kuwait Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'السلام عليكم', pron:'আস-সালামু আলাইকুম', en:'Peace be upon you'},
+        {bn:'ধন্যবাদ', foreign:'شكراً', pron:'শুকরান', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'واحد', pron:'ওয়াহিদ', en:'One'},{bn:'দুই', foreign:'اثنان', pron:'ইসনান', en:'Two'}] },
+    emergency: [{num:'112', label:'ইমার্জেন্সি'},{num:'+965 2535 9555', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  oman: {
+    name: 'Oman', nameBn: 'ওমান', flag: '🇴🇲',
+    lang: 'Arabic', langBn: 'আরবি',
+    color: 'linear-gradient(135deg,#db161b,#008000)',
+    currency: 'OMR (রিয়াল)', timezone: 'BD -2 ঘণ্টা', weather: 'গরম', newsQuery: 'Oman Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'السلام عليكم', pron:'আস-সালামু আলাইকুম', en:'Peace be upon you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'واحد', pron:'ওয়াহিদ', en:'One'}] },
+    emergency: [{num:'9999', label:'পুলিশ'},{num:'+968 2460 4444', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  bahrain: {
+    name: 'Bahrain', nameBn: 'বাহরাইন', flag: '🇧🇭',
+    lang: 'Arabic', langBn: 'আরবি',
+    color: 'linear-gradient(135deg,#ce1126,#ffffff)',
+    currency: 'BHD (দিনার)', timezone: 'BD -3 ঘণ্টা', weather: 'গরম', newsQuery: 'Bahrain Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'السلام عليكم', pron:'আস-সালামু আলাইকুম', en:'Peace be upon you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'واحد', pron:'ওয়াহিদ', en:'One'}] },
+    emergency: [{num:'999', label:'ইমার্জেন্সি'},{num:'+973 1721 5500', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  jordan: {
+    name: 'Jordan', nameBn: 'জর্ডান', flag: '🇯🇴',
+    lang: 'Arabic', langBn: 'আরবি',
+    color: 'linear-gradient(135deg,#007a3d,#ce1126)',
+    currency: 'JOD (দিনার)', timezone: 'BD -3 ঘণ্টা', weather: 'চার ঋতু', newsQuery: 'Jordan Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'السلام عليكم', pron:'আস-সালামু আলাইকুম', en:'Peace be upon you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'واحد', pron:'ওয়াহিদ', en:'One'}] },
+    emergency: [{num:'911', label:'ইমার্জেন্সি'},{num:'+962 6 552 9292', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  japan: {
+    name: 'Japan', nameBn: 'জাপান', flag: '🇯🇵',
+    lang: 'Japanese', langBn: 'জাপানি',
+    color: 'linear-gradient(135deg,#bc002d,#8a0020)', hot: true,
+    currency: 'JPY (ইয়েন)', timezone: 'BD +3 ঘণ্টা', weather: 'শীতে ঠান্ডা', newsQuery: 'Japan Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'こんにちは (Konnichiwa)', pron:'কোননিচিওয়া', en:'Hello'},
+        {bn:'শুভ সকাল', foreign:'おはよう (Ohayou)', pron:'ওহাইয়ো', en:'Good morning'},
+        {bn:'ধন্যবাদ', foreign:'ありがとう (Arigatou)', pron:'আরিগাতো', en:'Thank you'},
+        {bn:'বিদায়', foreign:'さようなら (Sayounara)', pron:'সায়োনারা', en:'Goodbye'}
+      ],
+      '💬 দৈনন্দিন': [
+        {bn:'আমি বুঝি না', foreign:'わかりません (Wakarimasen)', pron:'ওয়াকারিমাসেন', en:"I don't understand"},
+        {bn:'সাহায্য করুন', foreign:'助けて (Tasukete)', pron:'তাসুকেতে', en:'Help me'},
+        {bn:'দুঃখিত', foreign:'すみません (Sumimasen)', pron:'সুমিমাসেন', en:'Excuse me'}
+      ],
+      '🚨 জরুরি': [
+        {bn:'সাহায্য!', foreign:'助けて！(Tasukete!)', pron:'তাসুকেতে!', en:'Help!'},
+        {bn:'পুলিশ', foreign:'警察 (Keisatsu)', pron:'কেইসাৎসু', en:'Police'}
+      ]
+    },
+    vocab: {
+      '🔢 সংখ্যা': [
+        {bn:'এক', foreign:'一 (Ichi)', pron:'ইচি', en:'One'},
+        {bn:'দুই', foreign:'二 (Ni)', pron:'নি', en:'Two'},
+        {bn:'তিন', foreign:'三 (San)', pron:'সান', en:'Three'},
+        {bn:'দশ', foreign:'十 (Juu)', pron:'জু', en:'Ten'}
+      ],
+      '🎨 রং': [
+        {bn:'লাল', foreign:'赤 (Aka)', pron:'আকা', en:'Red'},
+        {bn:'নীল', foreign:'青 (Ao)', pron:'আও', en:'Blue'},
+        {bn:'সবুজ', foreign:'緑 (Midori)', pron:'মিদোরি', en:'Green'}
+      ]
+    },
+    emergency: [
+      {num:'110', label:'পুলিশ'},
+      {num:'119', label:'অ্যাম্বুলেন্স/ফায়ার'},
+      {num:'+81 3 3585 6771', label:'বাংলাদেশ দূতাবাস'}
+    ]
+  },
+  
+  southkorea: {
+    name: 'South Korea', nameBn: 'দক্ষিণ কোরিয়া', flag: '🇰🇷',
+    lang: 'Korean', langBn: 'কোরিয়ান',
+    color: 'linear-gradient(135deg,#003478,#001f47)', hot: true,
+    currency: 'KRW (ওয়ান)', timezone: 'BD +3 ঘণ্টা', weather: 'চার ঋতু', newsQuery: 'South Korea Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'안녕하세요 (Annyeonghaseyo)', pron:'আনইয়োংহাসেয়ো', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'감사합니다 (Gamsahamnida)', pron:'কামসাহামনিদা', en:'Thank you'},
+        {bn:'বিদায়', foreign:'안녕히 가세요', pron:'আনইয়োংহি গাসেয়ো', en:'Goodbye'}
+      ],
+      '💬 দৈনন্দিন': [
+        {bn:'আমি বুঝি না', foreign:'이해 못해요', pron:'ইহে মোতেয়ো', en:"I don't understand"},
+        {bn:'সাহায্য করুন', foreign:'도와주세요', pron:'দোওয়াজুসেয়ো', en:'Help me'}
+      ],
+      '🚨 জরুরি': [
+        {bn:'সাহায্য!', foreign:'도와주세요!', pron:'দোওয়াজুসেয়ো!', en:'Help!'},
+        {bn:'পুলিশ', foreign:'경찰', pron:'কিয়োংচাল', en:'Police'}
+      ]
+    },
+    vocab: {
+      '🔢 সংখ্যা': [
+        {bn:'এক', foreign:'일 (Il)', pron:'ইল', en:'One'},
+        {bn:'দুই', foreign:'이 (I)', pron:'ই', en:'Two'},
+        {bn:'তিন', foreign:'삼 (Sam)', pron:'সাম', en:'Three'}
+      ]
+    },
+    emergency: [
+      {num:'112', label:'পুলিশ'},
+      {num:'119', label:'অ্যাম্বুলেন্স'},
+      {num:'+82 2 796 0748', label:'বাংলাদেশ দূতাবাস'}
+    ]
+  },
+  
+  italy: {
+    name: 'Italy', nameBn: 'ইতালি', flag: '🇮🇹',
+    lang: 'Italian', langBn: 'ইতালিয়ান',
+    color: 'linear-gradient(135deg,#009246,#ce2b37)', hot: true,
+    currency: 'EUR (ইউরো)', timezone: 'BD -4 ঘণ্টা', weather: 'ভূমধ্যসাগরীয়', newsQuery: 'Italy Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'Ciao', pron:'চাউ', en:'Hello'},
+        {bn:'শুভ সকাল', foreign:'Buongiorno', pron:'বুওনজোর্নো', en:'Good morning'},
+        {bn:'ধন্যবাদ', foreign:'Grazie', pron:'গ্রাৎসিয়ে', en:'Thank you'},
+        {bn:'বিদায়', foreign:'Arrivederci', pron:'আরিভেদেরচি', en:'Goodbye'}
+      ],
+      '💬 দৈনন্দিন': [
+        {bn:'আমি বুঝি না', foreign:'Non capisco', pron:'নন কাপিস্কো', en:"I don't understand"},
+        {bn:'সাহায্য করুন', foreign:'Aiutami', pron:'আইউতামি', en:'Help me'}
+      ],
+      '🚨 জরুরি': [
+        {bn:'সাহায্য!', foreign:'Aiuto!', pron:'আইউতো!', en:'Help!'},
+        {bn:'পুলিশ', foreign:'Polizia', pron:'পোলিৎসিয়া', en:'Police'}
+      ]
+    },
+    vocab: {
+      '🔢 সংখ্যা': [
+        {bn:'এক', foreign:'Uno', pron:'উনো', en:'One'},
+        {bn:'দুই', foreign:'Due', pron:'দুয়ে', en:'Two'},
+        {bn:'তিন', foreign:'Tre', pron:'ত্রে', en:'Three'}
+      ]
+    },
+    emergency: [
+      {num:'112', label:'ইমার্জেন্সি'},
+      {num:'113', label:'পুলিশ'},
+      {num:'+39 06 808 3591', label:'বাংলাদেশ দূতাবাস'}
+    ]
+  },
+  
+  uk: {
+    name: 'United Kingdom', nameBn: 'যুক্তরাজ্য', flag: '🇬🇧',
+    lang: 'English', langBn: 'ইংরেজি',
+    color: 'linear-gradient(135deg,#012169,#c8102e)',
+    currency: 'GBP (পাউন্ড)', timezone: 'BD -5/6 ঘণ্টা', weather: 'বৃষ্টিময়', newsQuery: 'UK Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'Hello', pron:'হ্যালো', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'Thank you', pron:'থ্যাংক ইউ', en:'Thank you'}
+      ],
+      '🚨 জরুরি': [
+        {bn:'সাহায্য!', foreign:'Help!', pron:'হেল্প!', en:'Help!'},
+        {bn:'পুলিশ', foreign:'Police', pron:'পুলিশ', en:'Police'}
+      ]
+    },
+    vocab: {
+      '🔢 সংখ্যা': [
+        {bn:'এক', foreign:'One', pron:'ওয়ান', en:'One'},
+        {bn:'দুই', foreign:'Two', pron:'টু', en:'Two'},
+        {bn:'তিন', foreign:'Three', pron:'থ্রি', en:'Three'}
+      ]
+    },
+    emergency: [
+      {num:'999', label:'ইমার্জেন্সি'},
+      {num:'+44 20 7584 0081', label:'বাংলাদেশ দূতাবাস'}
+    ]
+  },
+  
+  usa: {
+    name: 'USA', nameBn: 'আমেরিকা', flag: '🇺🇸',
+    lang: 'English', langBn: 'ইংরেজি',
+    color: 'linear-gradient(135deg,#3c3b6e,#b22234)',
+    currency: 'USD (ডলার)', timezone: 'BD -10/11 ঘণ্টা', weather: 'বিভিন্ন', newsQuery: 'USA Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'Hello', pron:'হ্যালো', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'Thank you', pron:'থ্যাংক ইউ', en:'Thank you'}
+      ],
+      '🚨 জরুরি': [
+        {bn:'সাহায্য!', foreign:'Help!', pron:'হেল্প!', en:'Help!'},
+        {bn:'পুলিশ', foreign:'Police', pron:'পুলিশ', en:'Police'}
+      ]
+    },
+    vocab: {
+      '🔢 সংখ্যা': [
+        {bn:'এক', foreign:'One', pron:'ওয়ান', en:'One'},
+        {bn:'দুই', foreign:'Two', pron:'টু', en:'Two'}
+      ]
+    },
+    emergency: [
+      {num:'911', label:'ইমার্জেন্সি'},
+      {num:'+1 202 244 6745', label:'বাংলাদেশ দূতাবাস'}
+    ]
+  },
+  
+  canada: {
+    name: 'Canada', nameBn: 'কানাডা', flag: '🇨🇦',
+    lang: 'English/French', langBn: 'ইংরেজি/ফরাসি',
+    color: 'linear-gradient(135deg,#ff0000,#ffffff)',
+    currency: 'CAD (ডলার)', timezone: 'BD -10/11 ঘণ্টা', weather: 'শীতে ঠান্ডা', newsQuery: 'Canada Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'Hello / Bonjour', pron:'হ্যালো / বনজুর', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'Thank you / Merci', pron:'থ্যাংক ইউ / মেরসি', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'One', pron:'ওয়ান', en:'One'}] },
+    emergency: [{num:'911', label:'ইমার্জেন্সি'},{num:'+1 613 236 0182', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  australia: {
+    name: 'Australia', nameBn: 'অস্ট্রেলিয়া', flag: '🇦🇺',
+    lang: 'English', langBn: 'ইংরেজি',
+    color: 'linear-gradient(135deg,#00008b,#ff0000)',
+    currency: 'AUD (ডলার)', timezone: 'BD +4/6 ঘণ্টা', weather: 'দক্ষিণে ঠান্ডা', newsQuery: 'Australia Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'Hello', pron:'হ্যালো', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'Thank you', pron:'থ্যাংক ইউ', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'One', pron:'ওয়ান', en:'One'}] },
+    emergency: [{num:'000', label:'ইমার্জেন্সি'},{num:'+61 2 6262 3122', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  singapore: {
+    name: 'Singapore', nameBn: 'সিঙ্গাপুর', flag: '🇸🇬',
+    lang: 'English/Malay', langBn: 'ইংরেজি/মালয়',
+    color: 'linear-gradient(135deg,#ef3340,#ffffff)',
+    currency: 'SGD (ডলার)', timezone: 'BD +2 ঘণ্টা', weather: 'গরম', newsQuery: 'Singapore Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'Hello', pron:'হ্যালো', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'Thank you / Terima kasih', pron:'থ্যাংক ইউ', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'One/Satu', pron:'ওয়ান/সাতু', en:'One'}] },
+    emergency: [{num:'999', label:'পুলিশ'},{num:'+65 6255 0075', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  thailand: {
+    name: 'Thailand', nameBn: 'থাইল্যান্ড', flag: '🇹🇭',
+    lang: 'Thai', langBn: 'থাই',
+    color: 'linear-gradient(135deg,#a51931,#f4f5f8)',
+    currency: 'THB (বাথ)', timezone: 'BD +1 ঘণ্টা', weather: 'গরম', newsQuery: 'Thailand Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'สวัสดี (Sawasdee)', pron:'সাওয়াসদি', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'ขอบคุณ (Khop khun)', pron:'খোপ খুন', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'หนึ่ง', pron:'নুয়েং', en:'One'},{bn:'দুই', foreign:'สอง', pron:'সং', en:'Two'}] },
+    emergency: [{num:'191', label:'পুলিশ'},{num:'+66 2 636 0320', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  turkey: {
+    name: 'Turkey', nameBn: 'তুরস্ক', flag: '🇹🇷',
+    lang: 'Turkish', langBn: 'তুর্কি',
+    color: 'linear-gradient(135deg,#e30a17,#ffffff)',
+    currency: 'TRY (লিরা)', timezone: 'BD -3 ঘণ্টা', weather: 'চার ঋতু', newsQuery: 'Turkey Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'Merhaba', pron:'মেরহাবা', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'Teşekkür ederim', pron:'তেশেক্কুর এদেরিম', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'Bir', pron:'বির', en:'One'},{bn:'দুই', foreign:'İki', pron:'ইকি', en:'Two'}] },
+    emergency: [{num:'112', label:'ইমার্জেন্সি'},{num:'+90 312 490 6666', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  china: {
+    name: 'China', nameBn: 'চায়না', flag: '🇨🇳',
+    lang: 'Mandarin', langBn: 'ম্যান্ডারিন',
+    color: 'linear-gradient(135deg,#de2910,#ffde00)',
+    currency: 'CNY (ইউয়ান)', timezone: 'BD +2 ঘণ্টা', weather: 'বিভিন্ন', newsQuery: 'China Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'你好 (Nǐ hǎo)', pron:'নিহাও', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'谢谢 (Xièxiè)', pron:'শিয়ে শিয়ে', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'一', pron:'য়ি', en:'One'},{bn:'দুই', foreign:'二', pron:'আর', en:'Two'}] },
+    emergency: [{num:'110', label:'পুলিশ'},{num:'+86 10 6532 3706', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  germany: {
+    name: 'Germany', nameBn: 'জার্মানি', flag: '🇩🇪',
+    lang: 'German', langBn: 'জার্মান',
+    color: 'linear-gradient(135deg,#000000,#dd0000)',
+    currency: 'EUR (ইউরো)', timezone: 'BD -5 ঘণ্টা', weather: 'শীতে ঠান্ডা', newsQuery: 'Germany Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'Hallo', pron:'হালো', en:'Hello'},
+        {bn:'ধন্যবাদ', foreign:'Danke', pron:'ডাংকে', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'Eins', pron:'আইনস', en:'One'},{bn:'দুই', foreign:'Zwei', pron:'সভাই', en:'Two'}] },
+    emergency: [{num:'112', label:'ইমার্জেন্সি'},{num:'+49 30 398 9750', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  maldives: {
+    name: 'Maldives', nameBn: 'মালদ্বীপ', flag: '🇲🇻',
+    lang: 'Dhivehi/English', langBn: 'দিভেহি/ইংরেজি',
+    color: 'linear-gradient(135deg,#d21034,#007e3a)',
+    currency: 'MVR (রুফিয়া)', timezone: 'BD +1 ঘণ্টা', weather: 'গ্রীষ্মমণ্ডলীয়', newsQuery: 'Maldives Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'Assalamu Alaikum', pron:'আসসালামু আলাইকুম', en:'Islamic greeting'},
+        {bn:'ধন্যবাদ', foreign:'Thank you', pron:'থ্যাংক ইউ', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'One', pron:'ওয়ান', en:'One'}] },
+    emergency: [{num:'119', label:'পুলিশ/অ্যাম্বুলেন্স'},{num:'+960 331 3585', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  brunei: {
+    name: 'Brunei', nameBn: 'ব্রুনাই', flag: '🇧🇳',
+    lang: 'Malay', langBn: 'মালয়',
+    color: 'linear-gradient(135deg,#f7e017,#000000)',
+    currency: 'BND (ডলার)', timezone: 'BD +2 ঘণ্টা', weather: 'গ্রীষ্মমণ্ডলীয়', newsQuery: 'Brunei Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'Assalamualaikum', pron:'আসসালামুয়ালাইকুম', en:'Islamic greeting'},
+        {bn:'ধন্যবাদ', foreign:'Terima kasih', pron:'তেরিমা কাসিহ', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'Satu', pron:'সাতু', en:'One'}] },
+    emergency: [{num:'993', label:'পুলিশ'},{num:'+673 222 2740', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  indonesia: {
+    name: 'Indonesia', nameBn: 'ইন্দোনেশিয়া', flag: '🇮🇩',
+    lang: 'Bahasa Indonesia', langBn: 'ইন্দোনেশিয়ান',
+    color: 'linear-gradient(135deg,#ce1126,#ffffff)',
+    currency: 'IDR (রুপিয়া)', timezone: 'BD +1 ঘণ্টা', weather: 'গ্রীষ্মমণ্ডলীয়', newsQuery: 'Indonesia Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'আসসালামু আলাইকুম', foreign:'Assalamualaikum', pron:'আসসালামুয়ালাইকুম', en:'Islamic greeting'},
+        {bn:'শুভ সকাল', foreign:'Selamat pagi', pron:'সেলামাত পাগি', en:'Good morning'},
+        {bn:'ধন্যবাদ', foreign:'Terima kasih', pron:'তেরিমা কাসিহ', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'Satu', pron:'সাতু', en:'One'},{bn:'দুই', foreign:'Dua', pron:'দুয়া', en:'Two'}] },
+    emergency: [{num:'110', label:'পুলিশ'},{num:'+62 21 522 4520', label:'বাংলাদেশ দূতাবাস'}]
+  },
+  
+  spain: {
+    name: 'Spain', nameBn: 'স্পেন', flag: '🇪🇸',
+    lang: 'Spanish', langBn: 'স্প্যানিশ',
+    color: 'linear-gradient(135deg,#aa151b,#f1bf00)',
+    currency: 'EUR (ইউরো)', timezone: 'BD -4 ঘণ্টা', weather: 'ভূমধ্যসাগরীয়', newsQuery: 'Spain Bangladesh',
+    phrases: {
+      '👋 শুভেচ্ছা': [
+        {bn:'হ্যালো', foreign:'Hola', pron:'ওলা', en:'Hello'},
+        {bn:'শুভ সকাল', foreign:'Buenos días', pron:'বুয়েনোস দিয়াস', en:'Good morning'},
+        {bn:'ধন্যবাদ', foreign:'Gracias', pron:'গ্রাসিয়াস', en:'Thank you'}
+      ]
+    },
+    vocab: { '🔢 সংখ্যা': [{bn:'এক', foreign:'Uno', pron:'উনো', en:'One'},{bn:'দুই', foreign:'Dos', pron:'দোস', en:'Two'}] },
+    emergency: [{num:'112', label:'ইমার্জেন্সি'},{num:'+34 91 345 1300', label:'বাংলাদেশ দূতাবাস'}]
+  }
+};
+</script>
+
+</body>
+</html>
