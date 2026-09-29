@@ -1,1 +1,2180 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#6366f1">
+<meta name="description" content="প্রবাসীদের জন্য সম্পূর্ণ ফ্রি অ্যাপ — ভাষা, ম্যাপ, জরুরি সাহায্য, টাকা পাঠানো">
+<title>Bidesh Bangla — প্রবাসীদের সম্পূর্ণ অ্যাপ</title>
 
+<!-- Prevent theme flash -->
+<script>
+(function(){
+  try {
+    var t = JSON.parse(localStorage.getItem('bb_theme') || '"light"');
+    document.documentElement.setAttribute('data-theme', t);
+  } catch(e){}
+})();
+</script>
+
+<link rel="manifest" href="data:application/json,{%22name%22:%22Bidesh%20Bangla%22,%22short_name%22:%22Bidesh%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23fafbff%22,%22theme_color%22:%22%236366f1%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%236366f1'/%3E%3C/svg%3E%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22}]}">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --brand:#6366f1;--brand-dark:#4f46e5;--brand-light:#818cf8;--brand-soft:#eef2ff;
+  --accent:#10b981;--accent-soft:#ecfdf5;
+  --warning:#f59e0b;--danger:#ef4444;
+  --bg:#fafbff;--bg-alt:#f1f5f9;
+  --surface:#ffffff;--surface-hover:#f8fafc;
+  --text:#0f172a;--text-secondary:#475569;--text-muted:#94a3b8;
+  --border:#e2e8f0;--border-light:#f1f5f9;
+  --shadow-xs:0 1px 2px rgba(15,23,42,.04);
+  --shadow-sm:0 1px 3px rgba(15,23,42,.08);
+  --shadow-md:0 4px 6px -1px rgba(15,23,42,.08);
+  --shadow-lg:0 10px 15px -3px rgba(15,23,42,.08);
+  --shadow-xl:0 20px 25px -5px rgba(15,23,42,.1);
+  --shadow-brand:0 10px 25px -5px rgba(99,102,241,.3);
+  --radius:16px;--radius-md:12px;--radius-sm:8px;--radius-full:9999px;
+  --transition:.25s cubic-bezier(.4,0,.2,1);
+  --font-bn:'Hind Siliguri',system-ui,sans-serif;
+  --font-en:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#0b1020;--bg-alt:#131a2e;
+  --surface:#1a2238;--surface-hover:#222c47;
+  --text:#f8fafc;--text-secondary:#cbd5e1;--text-muted:#64748b;
+  --border:#2a3552;--border-light:#1e2844;
+  --brand-soft:rgba(99,102,241,.15);--accent-soft:rgba(16,185,129,.15);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-bn);background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--bg-alt)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--brand),var(--brand-dark));border-radius:10px}
+.container{max-width:1240px;margin:0 auto;padding:0 20px}
+.logo-svg{width:42px;height:42px;border-radius:12px;box-shadow:var(--shadow-brand);flex-shrink:0;transition:transform .3s}
+.brand:hover .logo-svg{transform:rotate(-8deg) scale(1.05)}
+.header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-light)}
+[data-theme="dark"] .header{background:rgba(26,34,56,.88);border-bottom-color:var(--border)}
+.header-inner{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;background:none;border:none;font-family:inherit;color:inherit;padding:0}
+.brand-text{display:flex;flex-direction:column;line-height:1.1;text-align:left}
+.brand-name{font-size:16px;font-weight:700;color:var(--text);font-family:var(--font-en)}
+.brand-tag{font-size:10px;color:var(--text-muted);font-weight:500}
+.nav{display:flex;gap:2px;align-items:center;flex-wrap:wrap}
+.nav-link{padding:8px 12px;color:var(--text-secondary);background:transparent;border:none;border-radius:9999px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.nav-link:hover{color:var(--text);background:var(--surface-hover)}
+.nav-link.active{color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-dark));box-shadow:var(--shadow-brand)}
+.header-actions{display:flex;gap:8px}
+.icon-btn{width:38px;height:38px;border-radius:11px;background:var(--surface);border:1px solid var(--border);color:var(--text-secondary);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .25s}
+.icon-btn:hover{background:var(--brand);color:#fff}
+.hero{padding:44px 22px 50px;text-align:center;background:radial-gradient(circle at 20% 0%,rgba(99,102,241,.18),transparent 50%),radial-gradient(circle at 80% 100%,rgba(16,185,129,.15),transparent 50%),linear-gradient(180deg,var(--bg),var(--bg-alt))}
+.hero h1{font-size:clamp(24px,4.2vw,40px);font-weight:700;line-height:1.15;margin-bottom:12px;color:var(--text)}
+.hero h1 .gradient{background:linear-gradient(135deg,var(--brand),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{font-size:clamp(13px,1.6vw,16px);color:var(--text-secondary);max-width:600px;margin:0 auto;line-height:1.7}
+.section{padding:44px 0}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.section-title{font-size:clamp(19px,2.6vw,26px);font-weight:700;color:var(--text);display:flex;align-items:center;gap:10px}
+.section-sub{font-size:12px;color:var(--text-muted);margin-top:4px;font-weight:500}
+.section-badge{font-size:12px;font-weight:600;color:var(--brand-dark);background:var(--brand-soft);padding:5px 14px;border-radius:9999px;border:1px solid rgba(99,102,241,.15)}
+[data-theme="dark"] .section-badge{color:var(--brand-light)}
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;max-width:900px;margin:32px auto 0;padding:0 16px}
+.quick-action{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;transition:all .25s;font-family:inherit;color:inherit;box-shadow:var(--shadow-xs)}
+.quick-action:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:var(--shadow-lg)}
+.quick-action-icon{font-size:32px;margin-bottom:8px;display:block}
+.quick-action-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;display:block}
+.quick-action-sub{font-size:10px;color:var(--text-muted);font-weight:500;display:block}
+.search-wrap{position:relative;margin-bottom:20px}
+.search-input{width:100%;padding:14px 50px 14px 20px;background:var(--surface);border:2px solid var(--border);border-radius:9999px;font-family:inherit;font-size:15px;color:var(--text);outline:none;transition:all .25s}
+.search-input:focus{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.search-input::placeholder{color:var(--text-muted)}
+.search-icon{position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none}
+.country-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.country-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .25s;overflow:hidden;font-family:inherit;color:inherit;box-shadow:var(--shadow-xs)}
+.country-card:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:var(--shadow-lg)}
+.country-flag{font-size:42px;display:block;margin-bottom:8px}
+.country-name{font-family:var(--font-en);font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.country-name-bn{font-size:12px;color:var(--brand);font-weight:600;margin-bottom:6px}
+.country-lang{font-size:10px;color:var(--text-muted);background:var(--bg-alt);padding:3px 10px;border-radius:9999px;display:inline-block;font-weight:600}
+.country-hot{position:absolute;top:8px;right:8px;background:linear-gradient(135deg,#f43f5e,#e11d48);color:#fff;font-size:8px;padding:2px 7px;border-radius:9999px;font-weight:700}
+.country-detail{display:none}
+.country-detail.active{display:block}
+.detail-header{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border-radius:16px;padding:22px;text-align:center;margin-bottom:16px}
+.detail-flag{font-size:60px;display:block;margin-bottom:8px}
+.detail-name{font-size:22px;font-weight:800;margin-bottom:4px;font-family:var(--font-en)}
+.detail-name-bn{font-size:15px;opacity:.9}
+.detail-lang{font-size:13px;opacity:.85;margin-top:4px}
+.detail-info{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.detail-chip{background:rgba(255,255,255,.2);padding:6px 12px;border-radius:9999px;font-size:11px;font-weight:600}
+.tabs-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;margin-bottom:14px}
+.tabs-row::-webkit-scrollbar{display:none}
+.tab{padding:8px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:9999px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--text-secondary);white-space:nowrap;transition:all .25s}
+.tab:hover{border-color:var(--brand);color:var(--brand)}
+.tab.active{color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand-dark));border-color:var(--brand)}
+.phrase-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow-xs)}
+.phrase-cat{font-size:14px;font-weight:700;color:var(--brand);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--border-light);display:flex;align-items:center;gap:8px}
+.phrase-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 8px;border-bottom:1px solid var(--border-light)}
+.phrase-row:last-child{border-bottom:none}
+.phrase-content{flex:1;min-width:0}
+.phrase-bn{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+.phrase-foreign{font-size:14px;color:var(--brand);font-weight:700;margin-bottom:2px;word-break:break-word}
+.phrase-pron{font-size:11px;color:var(--warning);font-style:italic;margin-bottom:2px}
+.phrase-en{font-size:11px;color:var(--text-muted);font-style:italic}
+.speak-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border:none;border-radius:50%;font-size:14px;cursor:pointer;flex-shrink:0;box-shadow:var(--shadow-brand);transition:transform .2s}
+.speak-btn:hover{transform:scale(1.1)}
+.speak-btn:active{transform:scale(0.95)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.vocab-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;font-family:inherit;color:inherit;box-shadow:var(--shadow-xs);transition:all .2s}
+.vocab-card:hover{transform:translateY(-3px);border-color:var(--brand)}
+.vocab-bn{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px}
+.vocab-foreign{font-size:14px;color:var(--brand);font-weight:700;margin-bottom:3px;word-break:break-word}
+.vocab-pron{font-size:10px;color:var(--warning);font-style:italic}
+.vocab-en{font-size:10px;color:var(--text-muted)}
+.back-link{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:9999px;font-family:inherit;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;margin-bottom:14px;transition:all .25s}
+.back-link:hover{border-color:var(--brand);color:var(--brand)}
+.map-wrap{position:relative;height:clamp(400px,60vh,600px);border-radius:16px;overflow:hidden;border:2px solid var(--border);box-shadow:var(--shadow-md);margin-bottom:16px}
+#map{width:100%;height:100%;z-index:1}
+.map-hint{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,.85);color:#fff;padding:8px 16px;border-radius:9999px;font-size:12px;font-weight:600;z-index:500;pointer-events:none;opacity:0;transition:opacity .3s;backdrop-filter:blur(8px)}
+.map-hint.show{opacity:1}
+.map-controls{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow-md)}
+.map-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.map-row:last-child{margin-bottom:0}
+.map-input{flex:1;min-width:170px;padding:12px 16px;background:var(--bg-alt);border:2px solid var(--border);border-radius:12px;font-family:inherit;font-size:14px;color:var(--text);outline:none;transition:border-color .25s}
+.map-input:focus{border-color:var(--brand)}
+select.map-input{cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:40px}
+.map-btn{padding:12px 22px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--shadow-brand);transition:transform .2s}
+.map-btn:hover{transform:translateY(-2px)}
+.map-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.map-btn.secondary{background:var(--surface);color:var(--text);border:1.5px solid var(--border);box-shadow:none}
+.map-btn.secondary:hover{border-color:var(--brand);color:var(--brand)}
+.route-info{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;padding:18px;border-radius:14px;margin-top:14px;display:none;box-shadow:var(--shadow-brand)}
+.route-info.active{display:block;animation:fadeIn .3s}
+.route-info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:10px}
+.route-info-item{background:rgba(255,255,255,.15);padding:12px;border-radius:10px;text-align:center}
+.route-info-item .label{font-size:10px;opacity:.85;font-weight:600;text-transform:uppercase}
+.route-info-item .value{font-size:18px;font-weight:800;margin-top:3px;font-family:var(--font-en)}
+.emg-header{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:26px 20px;border-radius:16px;text-align:center;margin-bottom:20px}
+.emg-header h2{font-size:20px;font-weight:800;margin-bottom:4px}
+.emg-header p{font-size:13px;opacity:.9}
+.emg-cat-title{font-size:15px;font-weight:700;color:var(--text);margin:20px 0 12px;padding-left:12px;border-left:4px solid var(--brand);display:flex;align-items:center;gap:8px}
+.emg-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-xs);transition:all .25s}
+.emg-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--brand)}
+.emg-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--brand-soft),var(--accent-soft));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.emg-info{flex:1;min-width:0}
+.emg-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.emg-detail{font-size:12px;color:var(--text-secondary);line-height:1.5;word-break:break-word}
+.emg-actions{display:flex;gap:6px;flex-shrink:0}
+.emg-actions a{width:38px;height:38px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;text-decoration:none;transition:transform .2s}
+.emg-actions a:hover{transform:scale(1.1)}
+.emg-actions a.call{background:#22c55e}
+.emg-actions a.map-link{background:#3b82f6}
+.bank-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.bank-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:16px 10px;text-align:center;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-xs)}
+.bank-card:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:var(--shadow-lg)}
+.bank-logo{width:56px;height:56px;margin:0 auto 10px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;font-family:var(--font-en)}
+.bank-name{font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px}
+.bank-tag{font-size:9px;color:var(--text-muted);font-weight:600}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--surface);border-radius:16px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;padding:22px;box-shadow:var(--shadow-xl);animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-light)}
+.modal-hdr h3{font-size:17px;font-weight:700;color:var(--brand);display:flex;align-items:center;gap:10px}
+.modal-close{background:rgba(239,68,68,.15);color:#ef4444;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:13px;transition:background .2s}
+.modal-close:hover{background:rgba(239,68,68,.25)}
+.modal-detail{padding:10px 0;border-bottom:1px solid var(--border-light);font-size:13px}
+.modal-detail:last-child{border-bottom:none}
+.modal-detail .label{color:var(--text-muted);font-weight:600;font-size:11px;text-transform:uppercase;margin-bottom:4px}
+.modal-detail .value{color:var(--text);font-weight:600;font-size:14px}
+.t-step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-light)}
+.t-step:last-child{border-bottom:none}
+.t-step-no{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;font-family:var(--font-en)}
+.t-step-body{flex:1}
+.t-step-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.t-step-desc{font-size:12px;color:var(--text-secondary);line-height:1.6}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.news-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;box-shadow:var(--shadow-xs);transition:all .25s;display:flex;flex-direction:column}
+.news-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.news-img{width:100%;height:160px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));display:flex;align-items:center;justify-content:center;font-size:50px;color:#fff;overflow:hidden}
+.news-img img{width:100%;height:100%;object-fit:cover}
+.news-body{padding:14px;display:flex;flex-direction:column;flex:1}
+.news-src{display:inline-block;background:var(--brand-soft);color:var(--brand-dark);padding:3px 10px;border-radius:9999px;font-size:10px;font-weight:700;margin-bottom:8px;align-self:flex-start}
+[data-theme="dark"] .news-src{color:var(--brand-light)}
+.news-title{font-size:14px;font-weight:700;line-height:1.5;color:var(--text);margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-desc{font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+.news-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);border-top:1px solid var(--border-light);padding-top:8px}
+.translator-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:var(--shadow-md);max-width:720px;margin:0 auto}
+.tc-header{text-align:center;margin-bottom:16px}
+.tc-header h2{font-size:18px;font-weight:700;color:var(--text);margin-bottom:3px}
+.tc-header p{font-size:12px;color:var(--text-muted)}
+.tc-input-wrap{position:relative;margin-bottom:10px}
+.tc-input-wrap textarea{width:100%;padding:14px 54px 14px 16px;border:2px solid var(--border);border-radius:12px;font-family:inherit;font-size:15px;background:var(--bg-alt);color:var(--text);outline:none;resize:vertical;line-height:1.6;min-height:60px;transition:all .25s}
+.tc-input-wrap textarea:focus{border-color:var(--brand);background:var(--surface)}
+.voice-btn{position:absolute;right:10px;bottom:10px;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#f43f5e,#dc2626);color:#fff;border:none;cursor:pointer;font-size:16px;box-shadow:0 4px 12px rgba(244,63,94,.4);z-index:2;transition:transform .2s}
+.voice-btn:active{transform:scale(0.95)}
+.voice-btn:disabled{background:var(--text-muted);cursor:not-allowed;box-shadow:none}
+.voice-btn.listening{animation:voicePulse 1.2s infinite}
+@keyframes voicePulse{0%,100%{box-shadow:0 0 0 0 rgba(244,63,94,.6)}50%{box-shadow:0 0 0 12px rgba(244,63,94,0)}}
+.country-pills{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:12px}
+.country-pills::-webkit-scrollbar{display:none}
+.pill{flex:0 0 auto;padding:8px 14px;background:var(--surface);border:2px solid var(--border);border-radius:9999px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--text-secondary);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:all .25s}
+.pill:hover{border-color:var(--brand);color:var(--text)}
+.pill.active{background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;border-color:var(--brand)}
+.pill .flag{font-size:16px}
+.listening-bar{display:none;align-items:center;gap:8px;padding:10px 14px;background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.3);border-radius:12px;margin-top:8px;font-size:12px;color:#dc2626;font-weight:600}
+.listening-bar.active{display:flex}
+.wave{display:inline-flex;gap:2px;align-items:center;height:14px}
+.wave span{width:2.5px;background:#dc2626;border-radius:2px;animation:waveAnim 1s ease infinite}
+.wave span:nth-child(1){animation-delay:0s;height:8px}
+.wave span:nth-child(2){animation-delay:.15s;height:14px}
+.wave span:nth-child(3){animation-delay:.3s;height:8px}
+.wave span:nth-child(4){animation-delay:.45s;height:12px}
+.wave span:nth-child(5){animation-delay:.6s;height:6px}
+@keyframes waveAnim{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.6)}}
+.toast-wrap{position:fixed;bottom:22px;right:22px;z-index:99999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:calc(100vw - 44px)}
+.toast{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--brand);padding:12px 18px;border-radius:12px;box-shadow:var(--shadow-lg);font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;animation:slideIn .3s;color:var(--text);pointer-events:auto;max-width:380px;line-height:1.5}
+.toast.success{border-left-color:var(--accent)}
+.toast.error{border-left-color:var(--danger)}
+.toast.warning{border-left-color:var(--warning)}
+@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(400px);opacity:0}}
+.page{display:none;min-height:70vh}
+.page.active{display:block;animation:fadeIn .4s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow-xs)}
+.hint{padding:20px;text-align:center;color:var(--text-muted);font-size:13px;border:2px dashed var(--border);border-radius:12px}
+.spinner{width:36px;height:36px;border:4px solid var(--border);border-top-color:var(--brand);border-radius:50%;margin:0 auto;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.help-box{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);border-radius:12px;padding:14px;margin-top:12px}
+.help-box-title{font-size:13px;font-weight:700;color:var(--warning);margin-bottom:8px}
+.help-box ul{font-size:12px;color:var(--text-secondary);line-height:1.9;padding-left:20px;margin:0}
+.help-box code{background:var(--bg-alt);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:11px}
+@media(max-width:900px){.nav-link span{display:none}.nav-link{padding:8px 10px}}
+@media(max-width:768px){
+  .container{padding:0 14px}.section{padding:32px 0}
+  .hero{padding:30px 16px 40px}
+  .quick-grid{grid-template-columns:repeat(2,1fr);gap:10px;padding:0 12px}
+  .country-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+  .country-flag{font-size:36px}
+  .header-inner{padding:8px 12px;gap:8px}
+  .brand-name{font-size:14px}.brand-tag{font-size:9px}.logo-svg{width:36px;height:36px}
+  .emg-card{flex-wrap:wrap}
+  .emg-actions{width:100%;justify-content:flex-end}
+  .map-wrap{height:380px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .quick-action{padding:14px 8px}.quick-action-icon{font-size:26px}.quick-action-name{font-size:11px}
+  .bank-grid{grid-template-columns:repeat(2,1fr)}
+  .news-grid{grid-template-columns:1fr}
+  .vocab-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="toast-wrap" id="toastWrap" role="status" aria-live="polite"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <button class="brand" data-nav="home" aria-label="হোমে যান">
+      <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs>
+        <rect width="100" height="100" rx="22" fill="url(#lg)"/>
+        <circle cx="50" cy="48" r="24" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <ellipse cx="50" cy="48" rx="10" ry="24" fill="none" stroke="#fff" stroke-width="2"/>
+        <line x1="26" y1="48" x2="74" y2="48" stroke="#fff" stroke-width="2"/>
+        <line x1="32" y1="38" x2="68" y2="38" stroke="#fff" stroke-width="1.5" opacity=".6"/>
+        <line x1="32" y1="58" x2="68" y2="58" stroke="#fff" stroke-width="1.5" opacity=".6"/>
+        <path d="M72 72 L86 64 L82 76 L88 78 L78 84 L74 78 Z" fill="#fbbf24"/>
+      </svg>
+      <div class="brand-text">
+        <span class="brand-name">Bidesh Bangla</span>
+        <span class="brand-tag">বিদেশ যাত্রার সহযোগী</span>
+      </div>
+    </button>
+    <nav class="nav" aria-label="প্রধান নেভিগেশন">
+      <button class="nav-link active" data-nav="home"><i class="fas fa-house"></i> <span>হোম</span></button>
+      <button class="nav-link" data-nav="learn"><i class="fas fa-graduation-cap"></i> <span>ভাষা</span></button>
+      <button class="nav-link" data-nav="map"><i class="fas fa-map-location-dot"></i> <span>ম্যাপ</span></button>
+      <button class="nav-link" data-nav="emergency"><i class="fas fa-triangle-exclamation"></i> <span>সাহায্য</span></button>
+      <button class="nav-link" data-nav="money"><i class="fas fa-money-bill-transfer"></i> <span>টাকা</span></button>
+      <button class="nav-link" data-nav="news"><i class="fas fa-newspaper"></i> <span>খবর</span></button>
+      <button class="nav-link" data-nav="namaz"><i class="fas fa-mosque"></i> <span>নামাজ</span></button>
+      <button class="nav-link" data-nav="translate"><i class="fas fa-language"></i> <span>অনুবাদ</span></button>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="থিম পরিবর্তন"><i class="fas fa-moon" id="themeIcon"></i></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<div class="page active" id="page-home">
+  <section class="hero">
+    <h1>প্রবাসীদের জন্য<br><span class="gradient">সম্পূর্ণ ফ্রি অ্যাপ</span></h1>
+    <p class="hero-desc">২৪টি দেশের ভাষা শিখুন • ম্যাপ দেখুন • জরুরি সাহায্য পান • টাকা পাঠান • খবর জানুন • নামাজের সময় দেখুন</p>
+  </section>
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <h2 class="section-title" style="margin-bottom:20px">🎯 প্রধান সেবাসমূহ</h2>
+      <div class="quick-grid">
+        <button class="quick-action" data-nav="learn"><span class="quick-action-icon">📚</span><span class="quick-action-name">ভাষা শিখুন</span><span class="quick-action-sub">২৪ দেশ</span></button>
+        <button class="quick-action" data-nav="map"><span class="quick-action-icon">🗺️</span><span class="quick-action-name">ম্যাপ</span><span class="quick-action-sub">রাস্তা ও সময়</span></button>
+        <button class="quick-action" data-nav="emergency"><span class="quick-action-icon">🚨</span><span class="quick-action-name">জরুরি সাহায্য</span><span class="quick-action-sub">দূতাবাস</span></button>
+        <button class="quick-action" data-nav="money"><span class="quick-action-icon">💸</span><span class="quick-action-name">টাকা পাঠান</span><span class="quick-action-sub">সব ব্যাংক</span></button>
+        <button class="quick-action" data-nav="news"><span class="quick-action-icon">📰</span><span class="quick-action-name">লাইভ খবর</span><span class="quick-action-sub">রিয়েল-টাইম</span></button>
+        <button class="quick-action" data-nav="namaz"><span class="quick-action-icon">🕌</span><span class="quick-action-name">নামাজের সময়</span><span class="quick-action-sub">২৪ দেশ</span></button>
+        <button class="quick-action" data-nav="translate"><span class="quick-action-icon">🎤</span><span class="quick-action-name">ভয়েস অনুবাদ</span><span class="quick-action-sub">২৪ ভাষা</span></button>
+        <button class="quick-action" id="installBtn"><span class="quick-action-icon">📱</span><span class="quick-action-name">অ্যাপ ইনস্টল</span><span class="quick-action-sub">হোম স্ক্রিনে</span></button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-learn">
+  <section class="section">
+    <div class="container">
+      <div id="learnListView">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">📚 কোন দেশের ভাষা শিখবেন?</h2>
+            <p class="section-sub">সার্চ করুন বা তালিকা থেকে সিলেক্ট করুন</p>
+          </div>
+          <span class="section-badge" id="learnCount">২৪ দেশ</span>
+        </div>
+        <div class="search-wrap">
+          <input type="search" class="search-input" id="learnSearch" placeholder="🔍 দেশ বা ভাষার নাম লিখুন..." aria-label="দেশ সার্চ">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+        <div class="country-grid" id="learnCountryGrid"></div>
+      </div>
+      <div id="learnDetailView" class="country-detail"></div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-map">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">🗺️ রাস্তা ও সময়</h2>
+          <p class="section-sub">আপনার লোকেশন থেকে এয়ারপোর্ট — দূরত্ব ও সময়</p>
+        </div>
+      </div>
+      <div class="map-controls" style="margin-bottom:12px">
+        <div class="map-row">
+          <input type="text" id="locationSearch" class="map-input" placeholder="🔍 শহর/এলাকার নাম লিখুন (যেমন: Kuala Lumpur)">
+        </div>
+        <div class="map-row">
+          <select id="fromCountry" class="map-input"><option value="">🌍 দেশ সিলেক্ট করুন</option></select>
+          <select id="toAirport" class="map-input"><option value="">✈️ এয়ারপোর্ট সিলেক্ট করুন</option></select>
+        </div>
+        <div class="map-row">
+          <button class="map-btn" id="routeBtn"><i class="fas fa-route"></i> রাস্তা দেখুন</button>
+          <button class="map-btn secondary" id="locBtn"><i class="fas fa-location-crosshairs"></i> আমার লোকেশন</button>
+          <button class="map-btn secondary" id="clearBtn"><i class="fas fa-eraser"></i> মুছুন</button>
+        </div>
+      </div>
+      <div class="map-wrap">
+        <div id="map"></div>
+        <div class="map-hint" id="mapHint">👆 ম্যাপে ক্লিক করে নিজের লোকেশন সেট করুন</div>
+      </div>
+      <div class="route-info" id="routeInfo">
+        <div style="font-size:15px;font-weight:700;margin-bottom:4px">🚗 রাস্তার তথ্য</div>
+        <div style="font-size:12px;opacity:.9" id="routeDescription">লোড হচ্ছে...</div>
+        <div class="route-info-grid" id="routeGrid"></div>
+      </div>
+      <div id="locationHelp"></div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-emergency">
+  <section class="section">
+    <div class="container">
+      <div class="emg-header">
+        <h2>🚨 জরুরি সাহায্য</h2>
+        <p>প্রবাসীরা ক্ষতিগ্রস্ত হলে বা মারা গেলে — কোথায় যাবেন</p>
+      </div>
+      <select id="emergencyCountry" class="map-input" style="width:100%;margin-bottom:20px" aria-label="দেশ সিলেক্ট"></select>
+      <div id="emergencyContent"></div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-money">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">💸 টাকা পাঠানোর গাইড</h2>
+          <p class="section-sub">বিদেশ থেকে বাংলাদেশে টাকা পাঠানোর সব উপায়</p>
+        </div>
+      </div>
+      <div class="card" style="background:linear-gradient(135deg,#10b981,#047857);color:#fff;border:none;margin-bottom:20px">
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">✅ নিরাপদ উপায়ে টাকা পাঠান</div>
+        <div style="font-size:13px;opacity:.95;line-height:1.7">শুধু অনুমোদিত ব্যাংক ও এক্সচেঞ্জ হাউজ ব্যবহার করুন। হুন্ডি অবৈধ।</div>
+      </div>
+      <h2 class="section-title" style="margin-bottom:14px">🏦 জনপ্রিয় ব্যাংক</h2>
+      <div class="bank-grid" id="bankGrid"></div>
+      <h2 class="section-title" style="margin:24px 0 14px">📝 টাকা পাঠানোর ৮টি ধাপ</h2>
+      <div class="card" id="transferSteps"></div>
+      <div class="card" style="margin-top:16px;border-left:4px solid var(--warning)">
+        <div style="font-size:14px;font-weight:700;color:var(--warning);margin-bottom:8px">⚠️ সতর্কতা</div>
+        <ul style="font-size:13px;color:var(--text-secondary);line-height:1.9;padding-left:20px">
+          <li>শুধু বাংলাদেশ ব্যাংক অনুমোদিত চ্যানেল ব্যবহার করুন</li>
+          <li>প্রতিটি লেনদেনের রশিদ সংরক্ষণ করুন</li>
+          <li>অপরিচিত কারো মাধ্যমে টাকা পাঠাবেন না</li>
+          <li>রেট যাচাই করে নিন</li>
+          <li>SMS/Email নোটিফিকেশন চেক করুন</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-news">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div><h2 class="section-title">📰 সর্বশেষ খবর</h2><p class="section-sub">রিয়েল-টাইম • Google News</p></div>
+        <span class="section-badge" id="newsBadge">🟢 লাইভ</span>
+      </div>
+      <div class="tabs-row" id="newsTabs">
+        <button class="tab active" data-topic="general">🌐 সাধারণ</button>
+        <button class="tab" data-topic="nation">🇧🇩 জাতীয়</button>
+        <button class="tab" data-topic="business">💼 ব্যবসা</button>
+        <button class="tab" data-topic="world">🌍 বিশ্ব</button>
+        <button class="tab" data-topic="sports">⚽ খেলা</button>
+        <button class="tab" data-topic="technology">💻 টেক</button>
+      </div>
+      <div class="news-grid" id="newsGrid"></div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-namaz">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div><h2 class="section-title">🕌 নামাজের সময়সূচী</h2><p class="section-sub">নির্বাচিত দেশ ও শহরের নির্ভুল সময়</p></div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <select id="namazCountry" class="map-input" style="flex:1;min-width:170px"></select>
+          <select id="namazCity" class="map-input" style="flex:1;min-width:170px"></select>
+        </div>
+      </div>
+      <div id="namazResult"></div>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-translate">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div><h2 class="section-title">🎤 ভয়েস অনুবাদ</h2><p class="section-sub">বাংলায় বলুন → সব ভাষায় অনুবাদ</p></div>
+      </div>
+      <div class="translator-card">
+        <div class="tc-header">
+          <h2>🌐 বাংলা → সব ভাষা</h2>
+          <p>লিখুন বা 🎤 চেপে বলুন → দেশ সিলেক্ট করুন</p>
+        </div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px">🎯 দেশ সিলেক্ট করুন</div>
+        <div class="country-pills" id="translatePills"></div>
+        <div class="tc-input-wrap">
+          <textarea id="translateInput" placeholder="এখানে বাংলায় লিখুন বা 🎤 চেপে বলুন..." rows="2"></textarea>
+          <button class="voice-btn" id="voiceBtn" aria-label="ভয়েস ইনপুট"><i class="fas fa-microphone" id="voiceIcon"></i></button>
+        </div>
+        <div class="listening-bar" id="listeningBar">
+          <span class="wave"><span></span><span></span><span></span><span></span><span></span></span>
+          <span>শুনছি... বাংলায় বলুন</span>
+        </div>
+        <div id="translationResult" style="margin-top:14px">
+          <div class="hint">উপরে লিখুন বা 🎤 চেপে বলুন — এখানেই অনুবাদ দেখাবে</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<div class="modal-overlay" id="bankModal" role="dialog" aria-modal="true">
+  <div class="modal-box" tabindex="-1">
+    <div class="modal-hdr">
+      <h3 id="bankModalTitle">ব্যাংক</h3>
+      <button class="modal-close" id="bankModalClose" aria-label="বন্ধ করুন">✕</button>
+    </div>
+    <div id="bankModalBody"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const $$ = sel => document.querySelectorAll(sel);
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function escapeJs(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'\\"')
+    .replace(/\n/g,'\\n').replace(/\r/g,'\\r').replace(/</g,'\\x3c');
+}
+
+const store = {
+  get(k, d = null) {
+    try { const v = localStorage.getItem('bb_' + k); return v ? JSON.parse(v) : d; }
+    catch { return d; }
+  },
+  set(k, v) { try { localStorage.setItem('bb_' + k, JSON.stringify(v)); } catch {} }
+};
+
+function debounce(fn, ms) {
+  let t;
+  return function(...args) {
+    clearTimeout(t);
+    t = setTimeout(() => fn.apply(this, args), ms);
+  };
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function toast(msg, type = 'info', dur = 3500) {
+  const wrap = $('toastWrap');
+  if (!wrap) return;
+  const icons = { success:'✅', error:'❌', warning:'⚠️', info:'ℹ️' };
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span>${icons[type] || icons.info}</span><span>${escapeHtml(msg)}</span>`;
+  wrap.appendChild(el);
+  setTimeout(() => {
+    el.style.animation = 'slideOut .3s forwards';
+    setTimeout(() => el.remove(), 300);
+  }, dur);
+}
+
+/* ============================================================
+   THEME
+   ============================================================ */
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  const icon = $('themeIcon');
+  if (icon) icon.className = t === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  store.set('theme', next);
+}
+
+/* ============================================================
+   PAGE NAVIGATION
+   ============================================================ */
+function showPage(id) {
+  $$('.page').forEach(p => p.classList.remove('active'));
+  const t = $('page-' + id);
+  if (!t) return;
+  t.classList.add('active');
+  $$('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.nav === id));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (history.replaceState) history.replaceState(null, '', '#' + id);
+
+  // Lazy init per page
+  if (id === 'learn') renderLearnCountries(state.searchTerm);
+  if (id === 'map') setTimeout(() => { initMap(); if (state.map) state.map.invalidateSize(); }, 150);
+  if (id === 'emergency') renderEmergency();
+  if (id === 'money') renderMoney();
+  if (id === 'news') loadNews(state.currentNewsTopic);
+  if (id === 'namaz') { initNamazSelect(); loadNamazTimes(); }
+  if (id === 'translate') initTranslatePills();
+}
+
+/* ============================================================
+   DATA: COUNTRIES
+   ============================================================ */
+const COUNTRIES = {
+  malaysia:{name:'Malaysia',nameBn:'মালয়েশিয়া',flag:'🇲🇾',lang:'Bahasa Melayu',langBn:'মালয় ভাষা',currency:'RM (Ringgit)',timezone:'BD +2 ঘণ্টা',weather:'২৫-৩৫°C',hot:true,
+    phrases:{'👋 শুভেচ্ছা':[
+      {bn:'আসসালামু আলাইকুম',foreign:'Assalamualaikum',pron:'আসসালামুয়ালাইকুম',en:'Islamic greeting'},
+      {bn:'শুভ সকাল',foreign:'Selamat pagi',pron:'সেলামাত পাগি',en:'Good morning'},
+      {bn:'শুভ সন্ধ্যা',foreign:'Selamat petang',pron:'সেলামাত পেতাং',en:'Good evening'},
+      {bn:'কি খবর',foreign:'Apa khabar',pron:'আপা খাবার',en:'How are you?'},
+      {bn:'আমি ভালো আছি',foreign:'Saya baik',pron:'সায়া বাইক',en:'I am fine'},
+      {bn:'ধন্যবাদ',foreign:'Terima kasih',pron:'তেরিমা কাসিহ',en:'Thank you'},
+      {bn:'বিদায়',foreign:'Selamat tinggal',pron:'সেলামাত তিঙ্গাল',en:'Goodbye'}
+    ],
+    '💬 দৈনন্দিন':[
+      {bn:'আমি বুঝতে পারছি না',foreign:'Saya tidak faham',pron:'সায়া তিদাক ফাহাম',en:"I don't understand"},
+      {bn:'ধীরে বলুন',foreign:'Cakap perlahan',pron:'চাকাপ পারলাহান',en:'Speak slowly'},
+      {bn:'সাহায্য করুন',foreign:'Tolong saya',pron:'তোলোং সায়া',en:'Help me'},
+      {bn:'আমি বাংলাদেশ থেকে',foreign:'Saya dari Bangladesh',pron:'সায়া দারি বাংলাদেশ',en:'From Bangladesh'},
+      {bn:'আমি এখানে কাজ করি',foreign:'Saya kerja di sini',pron:'সায়া কেরজা দি সিনি',en:'I work here'},
+      {bn:'ঠিক আছে',foreign:'Boleh',pron:'বোলেহ',en:'Okay'},
+      {bn:'হ্যাঁ',foreign:'Ya',pron:'ইয়া',en:'Yes'},
+      {bn:'না',foreign:'Tidak',pron:'তিদাক',en:'No'}
+    ],
+    '🛒 কেনাকাটা':[
+      {bn:'দাম কত',foreign:'Berapa harga',pron:'বেরাপা হারগা',en:'How much?'},
+      {bn:'কম হবে',foreign:'Boleh kurang',pron:'বোলেহ কুরাং',en:'Any discount?'},
+      {bn:'খুব বেশি',foreign:'Terlalu mahal',pron:'তেরলালু মাহাল',en:'Too expensive'},
+      {bn:'এটা কিনবো',foreign:'Saya nak beli ini',pron:'সায়া নাক বেলি ইনি',en:'I will buy this'}
+    ],
+    '🍜 খাবার':[
+      {bn:'পানি',foreign:'Air',pron:'আইর',en:'Water'},
+      {bn:'ভাত',foreign:'Nasi',pron:'নাসি',en:'Rice'},
+      {bn:'মুরগি',foreign:'Ayam',pron:'আয়াম',en:'Chicken'},
+      {bn:'গরু',foreign:'Daging lembu',pron:'দাগিং লেমবু',en:'Beef'},
+      {bn:'মাছ',foreign:'Ikan',pron:'ইকান',en:'Fish'}
+    ],
+    '🚕 যাতায়াত':[
+      {bn:'কোথায় যাবো',foreign:'Ke mana',pron:'কে মানা',en:'Where to?'},
+      {bn:'বাস স্টেশন',foreign:'Stesen bas',pron:'স্টেসেন বাস',en:'Bus station'},
+      {bn:'ট্যাক্সি',foreign:'Teksi',pron:'তেকসি',en:'Taxi'},
+      {bn:'এখানে থামুন',foreign:'Berhenti sini',pron:'বেরহেন্তি সিনি',en:'Stop here'},
+      {bn:'টিকিট কত',foreign:'Berapa tiket',pron:'বেরাপা তিকেত',en:'Ticket price?'}
+    ],
+    '🚨 জরুরি':[
+      {bn:'সাহায্য',foreign:'Tolong',pron:'তোলোং',en:'Help!'},
+      {bn:'পুলিশ ডাকুন',foreign:'Panggil polis',pron:'পাঙ্গিল পোলিস',en:'Call police'},
+      {bn:'আমি অসুস্থ',foreign:'Saya sakit',pron:'সায়া সাকিত',en:'I am sick'},
+      {bn:'পাসপোর্ট হারিয়েছে',foreign:'Pasport hilang',pron:'পাসপোর্ট হিলাং',en:'Passport lost'}
+    ]},
+    vocab:{'🔢 সংখ্যা':[
+      {bn:'এক',foreign:'Satu',pron:'সাতু',en:'One'},{bn:'দুই',foreign:'Dua',pron:'দুয়া',en:'Two'},
+      {bn:'তিন',foreign:'Tiga',pron:'তিগা',en:'Three'},{bn:'চার',foreign:'Empat',pron:'এমপাত',en:'Four'},
+      {bn:'পাঁচ',foreign:'Lima',pron:'লিমা',en:'Five'},{bn:'দশ',foreign:'Sepuluh',pron:'সেপুলুহ',en:'Ten'}],
+      '🎨 রং':[{bn:'লাল',foreign:'Merah',pron:'মেরাহ',en:'Red'},{bn:'নীল',foreign:'Biru',pron:'বিরু',en:'Blue'},{bn:'সবুজ',foreign:'Hijau',pron:'হিজাউ',en:'Green'},{bn:'কালো',foreign:'Hitam',pron:'হিতাম',en:'Black'}],
+      '👨‍👩‍👧 পরিবার':[{bn:'বাবা',foreign:'Ayah',pron:'আয়াহ',en:'Father'},{bn:'মা',foreign:'Ibu',pron:'ইবু',en:'Mother'},{bn:'ভাই',foreign:'Abang',pron:'আবাং',en:'Brother'},{bn:'বোন',foreign:'Kakak',pron:'কাকাক',en:'Sister'}],
+      '🕐 সময়':[{bn:'সকাল',foreign:'Pagi',pron:'পাগি',en:'Morning'},{bn:'রাত',foreign:'Malam',pron:'মালাম',en:'Night'},{bn:'আজ',foreign:'Hari ini',pron:'হারি ইনি',en:'Today'},{bn:'কাল',foreign:'Esok',pron:'এসোক',en:'Tomorrow'}]}
+  },
+  saudi:{name:'Saudi Arabia',nameBn:'সৌদি আরব',flag:'🇸🇦',lang:'Arabic',langBn:'আরবি',currency:'SAR (রিয়াল)',timezone:'BD -3 ঘণ্টা',weather:'গ্রীষ্মে ৪০°C+',hot:true,
+    phrases:{'👋 শুভেচ্ছা':[
+      {bn:'আসসালামু আলাইকুম',foreign:'السلام عليكم',pron:'আস-সালামু আলাইকুম',en:'Peace be upon you'},
+      {bn:'কেমন আছেন',foreign:'كيف حالك',pron:'কাইফা হালাক',en:'How are you?'},
+      {bn:'আলহামদুলিল্লাহ',foreign:'الحمد لله',pron:'আলহামদুলিল্লাহ',en:'Praise to God'},
+      {bn:'ধন্যবাদ',foreign:'شكراً',pron:'শুকরান',en:'Thank you'}
+    ],
+    '💬 দৈনন্দিন':[
+      {bn:'আমি বাংলাদেশী',foreign:'أنا بنغلاديشي',pron:'আনা বাংগলাদিশি',en:'I am Bangladeshi'},
+      {bn:'আমি বুঝি না',foreign:'لا أفهم',pron:'লা আফহাম',en:"I don't understand"},
+      {bn:'সাহায্য করুন',foreign:'ساعدني',pron:'সাইদনি',en:'Help me'},
+      {bn:'হ্যাঁ',foreign:'نعم',pron:'নাম',en:'Yes'},
+      {bn:'না',foreign:'لا',pron:'লা',en:'No'}
+    ],
+    '🚨 জরুরি':[
+      {bn:'সাহায্য',foreign:'ساعدني',pron:'সাইদনি',en:'Help!'},
+      {bn:'পুলিশ',foreign:'شرطة',pron:'শুরতা',en:'Police'},
+      {bn:'পাসপোর্ট হারিয়েছে',foreign:'فقدت جواز سفري',pron:'ফাকাদতু জাওয়াজ',en:'Passport lost'}
+    ]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'واحد',pron:'ওয়াহিদ',en:'One'},{bn:'দুই',foreign:'اثنان',pron:'ইসনান',en:'Two'},{bn:'তিন',foreign:'ثلاثة',pron:'সালাসা',en:'Three'}],
+      '🎨 রং':[{bn:'লাল',foreign:'أحمر',pron:'আহমার',en:'Red'},{bn:'নীল',foreign:'أزرق',pron:'আজরাক',en:'Blue'},{bn:'সবুজ',foreign:'أخضر',pron:'আখদার',en:'Green'}]}
+  },
+  uae:{name:'UAE',nameBn:'সংযুক্ত আরব আমিরাত',flag:'🇦🇪',lang:'Arabic',langBn:'আরবি',currency:'AED (দিরহাম)',timezone:'BD -2 ঘণ্টা',weather:'৩৫-৪৫°C',hot:true,
+    phrases:{'👋 শুভেচ্ছা':[
+      {bn:'আসসালামু আলাইকুম',foreign:'السلام عليكم',pron:'আস-সালামু আলাইকুম',en:'Peace be upon you'},
+      {bn:'কেমন আছেন',foreign:'كيف حالك',pron:'কাইফা হালাক',en:'How are you?'},
+      {bn:'ধন্যবাদ',foreign:'شكراً',pron:'শুকরান',en:'Thank you'}
+    ],
+    '🚨 জরুরি':[
+      {bn:'সাহায্য',foreign:'ساعدني',pron:'সাইদনি',en:'Help!'},
+      {bn:'পুলিশ',foreign:'شرطة',pron:'শুরতা',en:'Police'}
+    ]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'واحد',pron:'ওয়াহিদ',en:'One'},{bn:'দুই',foreign:'اثنان',pron:'ইসনান',en:'Two'}]}
+  },
+  qatar:{name:'Qatar',nameBn:'কাতার',flag:'🇶🇦',lang:'Arabic',langBn:'আরবি',currency:'QAR (রিয়াল)',timezone:'BD -3 ঘণ্টা',weather:'৩০-৪৫°C',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'আসসালামু আলাইকুম',foreign:'السلام عليكم',pron:'আস-সালামু আলাইকুম',en:'Peace be upon you'},{bn:'ধন্যবাদ',foreign:'شكراً',pron:'শুকরান',en:'Thank you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'واحد',pron:'ওয়াহিদ',en:'One'}]}
+  },
+  kuwait:{name:'Kuwait',nameBn:'কুয়েত',flag:'🇰🇼',lang:'Arabic',langBn:'আরবি',currency:'KWD (দিনার)',timezone:'BD -3 ঘণ্টা',weather:'গরম',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'আসসালামু আলাইকুম',foreign:'السلام عليكم',pron:'আস-সালামু আলাইকুম',en:'Peace be upon you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'واحد',pron:'ওয়াহিদ',en:'One'}]}
+  },
+  oman:{name:'Oman',nameBn:'ওমান',flag:'🇴🇲',lang:'Arabic',langBn:'আরবি',currency:'OMR (রিয়াল)',timezone:'BD -2 ঘণ্টা',weather:'গরম',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'আসসালামু আলাইকুম',foreign:'السلام عليكم',pron:'আস-সালামু আলাইকুম',en:'Peace be upon you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'واحد',pron:'ওয়াহিদ',en:'One'}]}
+  },
+  bahrain:{name:'Bahrain',nameBn:'বাহরাইন',flag:'🇧🇭',lang:'Arabic',langBn:'আরবি',currency:'BHD (দিনার)',timezone:'BD -3 ঘণ্টা',weather:'গরম',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'আসসালামু আলাইকুম',foreign:'السلام عليكم',pron:'আস-সালামু আলাইকুম',en:'Peace be upon you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'واحد',pron:'ওয়াহিদ',en:'One'}]}
+  },
+  jordan:{name:'Jordan',nameBn:'জর্ডান',flag:'🇯🇴',lang:'Arabic',langBn:'আরবি',currency:'JOD (দিনার)',timezone:'BD -3 ঘণ্টা',weather:'চার ঋতু',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'আসসালামু আলাইকুম',foreign:'السلام عليكم',pron:'আস-সালামু আলাইকুম',en:'Peace be upon you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'واحد',pron:'ওয়াহিদ',en:'One'}]}
+  },
+  japan:{name:'Japan',nameBn:'জাপান',flag:'🇯🇵',lang:'Japanese',langBn:'জাপানি',currency:'JPY (ইয়েন)',timezone:'BD +3 ঘণ্টা',weather:'শীতে ঠান্ডা',hot:true,
+    phrases:{'👋 শুভেচ্ছা':[
+      {bn:'হ্যালো',foreign:'こんにちは',pron:'কোননিচিওয়া',en:'Hello'},
+      {bn:'শুভ সকাল',foreign:'おはよう',pron:'ওহাইয়ো',en:'Good morning'},
+      {bn:'ধন্যবাদ',foreign:'ありがとう',pron:'আরিগাতো',en:'Thank you'},
+      {bn:'বিদায়',foreign:'さようなら',pron:'সায়োনারা',en:'Goodbye'}
+    ],
+    '💬 দৈনন্দিন':[
+      {bn:'আমি বুঝি না',foreign:'わかりません',pron:'ওয়াকারিমাসেন',en:"I don't understand"},
+      {bn:'সাহায্য করুন',foreign:'助けて',pron:'তাসুকেতে',en:'Help me'},
+      {bn:'দুঃখিত',foreign:'すみません',pron:'সুমিমাসেন',en:'Sorry'}
+    ],
+    '🚨 জরুরি':[{bn:'সাহায্য',foreign:'助けて',pron:'তাসুকেতে',en:'Help!'},{bn:'পুলিশ',foreign:'警察',pron:'কেইসাৎসু',en:'Police'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'一',pron:'ইচি',en:'One'},{bn:'দুই',foreign:'二',pron:'নি',en:'Two'},{bn:'তিন',foreign:'三',pron:'সান',en:'Three'}]}
+  },
+  southkorea:{name:'South Korea',nameBn:'দক্ষিণ কোরিয়া',flag:'🇰🇷',lang:'Korean',langBn:'কোরিয়ান',currency:'KRW (ওয়ান)',timezone:'BD +3 ঘণ্টা',weather:'চার ঋতু',hot:true,
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'안녕하세요',pron:'আনইয়োংহাসেয়ো',en:'Hello'},{bn:'ধন্যবাদ',foreign:'감사합니다',pron:'কামসাহামনিদা',en:'Thank you'}],
+      '🚨 জরুরি':[{bn:'সাহায্য',foreign:'도와주세요',pron:'দোওয়াজুসেয়ো',en:'Help!'},{bn:'পুলিশ',foreign:'경찰',pron:'কিয়োংচাল',en:'Police'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'일',pron:'ইল',en:'One'},{bn:'দুই',foreign:'이',pron:'ই',en:'Two'}]}
+  },
+  italy:{name:'Italy',nameBn:'ইতালি',flag:'🇮🇹',lang:'Italian',langBn:'ইতালিয়ান',currency:'EUR (ইউরো)',timezone:'BD -4 ঘণ্টা',weather:'ভূমধ্যসাগরীয়',hot:true,
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'Ciao',pron:'চাউ',en:'Hello'},{bn:'ধন্যবাদ',foreign:'Grazie',pron:'গ্রাৎসিয়ে',en:'Thank you'}],
+      '🚨 জরুরি':[{bn:'সাহায্য',foreign:'Aiuto',pron:'আইউতো',en:'Help!'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'Uno',pron:'উনো',en:'One'},{bn:'দুই',foreign:'Due',pron:'দুয়ে',en:'Two'}]}
+  },
+  uk:{name:'United Kingdom',nameBn:'যুক্তরাজ্য',flag:'🇬🇧',lang:'English',langBn:'ইংরেজি',currency:'GBP (পাউন্ড)',timezone:'BD -5/6 ঘণ্টা',weather:'বৃষ্টিময়',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'Hello',pron:'হ্যালো',en:'Hello'},{bn:'ধন্যবাদ',foreign:'Thank you',pron:'থ্যাংক ইউ',en:'Thank you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'One',pron:'ওয়ান',en:'One'},{bn:'দুই',foreign:'Two',pron:'টু',en:'Two'}]}
+  },
+  usa:{name:'USA',nameBn:'আমেরিকা',flag:'🇺🇸',lang:'English',langBn:'ইংরেজি',currency:'USD (ডলার)',timezone:'BD -10/11 ঘণ্টা',weather:'বিভিন্ন',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'Hello',pron:'হ্যালো',en:'Hello'},{bn:'ধন্যবাদ',foreign:'Thank you',pron:'থ্যাংক ইউ',en:'Thank you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'One',pron:'ওয়ান',en:'One'}]}
+  },
+  canada:{name:'Canada',nameBn:'কানাডা',flag:'🇨🇦',lang:'English/French',langBn:'ইংরেজি/ফরাসি',currency:'CAD (ডলার)',timezone:'BD -10/11 ঘণ্টা',weather:'শীতে ঠান্ডা',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'Hello',pron:'হ্যালো',en:'Hello'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'One',pron:'ওয়ান',en:'One'}]}
+  },
+  australia:{name:'Australia',nameBn:'অস্ট্রেলিয়া',flag:'🇦🇺',lang:'English',langBn:'ইংরেজি',currency:'AUD (ডলার)',timezone:'BD +4/6 ঘণ্টা',weather:'দক্ষিণে ঠান্ডা',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'Hello',pron:'হ্যালো',en:'Hello'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'One',pron:'ওয়ান',en:'One'}]}
+  },
+  singapore:{name:'Singapore',nameBn:'সিঙ্গাপুর',flag:'🇸🇬',lang:'English/Malay',langBn:'ইংরেজি/মালয়',currency:'SGD (ডলার)',timezone:'BD +2 ঘণ্টা',weather:'গরম',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'Hello',pron:'হ্যালো',en:'Hello'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'One',pron:'ওয়ান',en:'One'}]}
+  },
+  thailand:{name:'Thailand',nameBn:'থাইল্যান্ড',flag:'🇹🇭',lang:'Thai',langBn:'থাই',currency:'THB (বাথ)',timezone:'BD +1 ঘণ্টা',weather:'গরম',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'สวัสดี',pron:'সাওয়াসদি',en:'Hello'},{bn:'ধন্যবাদ',foreign:'ขอบคุณ',pron:'খোপ খুন',en:'Thank you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'หนึ่ง',pron:'নুয়েং',en:'One'}]}
+  },
+  turkey:{name:'Turkey',nameBn:'তুরস্ক',flag:'🇹🇷',lang:'Turkish',langBn:'তুর্কি',currency:'TRY (লিরা)',timezone:'BD -3 ঘণ্টা',weather:'চার ঋতু',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'Merhaba',pron:'মেরহাবা',en:'Hello'},{bn:'ধন্যবাদ',foreign:'Teşekkür ederim',pron:'তেশেক্কুর এদেরিম',en:'Thank you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'Bir',pron:'বির',en:'One'}]}
+  },
+  china:{name:'China',nameBn:'চায়না',flag:'🇨🇳',lang:'Mandarin',langBn:'ম্যান্ডারিন',currency:'CNY (ইউয়ান)',timezone:'BD +2 ঘণ্টা',weather:'বিভিন্ন',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'你好',pron:'নিহাও',en:'Hello'},{bn:'ধন্যবাদ',foreign:'谢谢',pron:'শিয়ে শিয়ে',en:'Thank you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'一',pron:'য়ি',en:'One'}]}
+  },
+  germany:{name:'Germany',nameBn:'জার্মানি',flag:'🇩🇪',lang:'German',langBn:'জার্মান',currency:'EUR (ইউরো)',timezone:'BD -5 ঘণ্টা',weather:'শীতে ঠান্ডা',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'Hallo',pron:'হালো',en:'Hello'},{bn:'ধন্যবাদ',foreign:'Danke',pron:'ডাংকে',en:'Thank you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'Eins',pron:'আইনস',en:'One'}]}
+  },
+  maldives:{name:'Maldives',nameBn:'মালদ্বীপ',flag:'🇲🇻',lang:'Dhivehi/English',langBn:'দিভেহি/ইংরেজি',currency:'MVR (রুফিয়া)',timezone:'BD +1 ঘণ্টা',weather:'গ্রীষ্মমণ্ডলীয়',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'আসসালামু আলাইকুম',foreign:'Assalamu Alaikum',pron:'আসসালামু আলাইকুম',en:'Islamic greeting'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'One',pron:'ওয়ান',en:'One'}]}
+  },
+  brunei:{name:'Brunei',nameBn:'ব্রুনাই',flag:'🇧🇳',lang:'Malay',langBn:'মালয়',currency:'BND (ডলার)',timezone:'BD +2 ঘণ্টা',weather:'গ্রীষ্মমণ্ডলীয়',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'আসসালামু আলাইকুম',foreign:'Assalamualaikum',pron:'আসসালামুয়ালাইকুম',en:'Islamic greeting'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'Satu',pron:'সাতু',en:'One'}]}
+  },
+  indonesia:{name:'Indonesia',nameBn:'ইন্দোনেশিয়া',flag:'🇮🇩',lang:'Bahasa Indonesia',langBn:'ইন্দোনেশিয়ান',currency:'IDR (রুপিয়া)',timezone:'BD +1 ঘণ্টা',weather:'গ্রীষ্মমণ্ডলীয়',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'আসসালামু আলাইকুম',foreign:'Assalamualaikum',pron:'আসসালামুয়ালাইকুম',en:'Islamic greeting'},{bn:'ধন্যবাদ',foreign:'Terima kasih',pron:'তেরিমা কাসিহ',en:'Thank you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'Satu',pron:'সাতু',en:'One'}]}
+  },
+  spain:{name:'Spain',nameBn:'স্পেন',flag:'🇪🇸',lang:'Spanish',langBn:'স্প্যানিশ',currency:'EUR (ইউরো)',timezone:'BD -4 ঘণ্টা',weather:'ভূমধ্যসাগরীয়',
+    phrases:{'👋 শুভেচ্ছা':[{bn:'হ্যালো',foreign:'Hola',pron:'ওলা',en:'Hello'},{bn:'ধন্যবাদ',foreign:'Gracias',pron:'গ্রাসিয়াস',en:'Thank you'}]},
+    vocab:{'🔢 সংখ্যা':[{bn:'এক',foreign:'Uno',pron:'উনো',en:'One'},{bn:'দুই',foreign:'Dos',pron:'দোস',en:'Two'}]}
+  }
+};
+
+/* ============================================================
+   DATA: EMERGENCY
+   ============================================================ */
+const EMERGENCY_DATA = {
+  malaysia:{embassy:{name:'বাংলাদেশ হাই কমিশন, কুয়ালালামপুর',address:'Level 6, Wisma MISC, No 2, Jalan Conlay, 50450 Kuala Lumpur',phone:'+60 3-2141 2000'},police:{name:'পুলিশ / অ্যাম্বুলেন্স',phone:'999'},fire:{name:'ফায়ার সার্ভিস',phone:'994'},hospital:{name:'Kuala Lumpur General Hospital',address:'Jalan Pahang, 50586 Kuala Lumpur',phone:'+60 3-2615 5555'},helpline:{name:'শ্রমিক হেল্পলাইন',phone:'15999'}},
+  saudi:{embassy:{name:'বাংলাদেশ দূতাবাস, রিয়াদ',address:'Diplomatic Quarter, Riyadh 11693',phone:'+966 11 488 0000'},police:{name:'পুলিশ / অ্যাম্বুলেন্স',phone:'999'},fire:{name:'ফায়ার সার্ভিস',phone:'998'},hospital:{name:'King Fahad Medical City',address:'Riyadh 11525',phone:'937'}},
+  uae:{embassy:{name:'বাংলাদেশ দূতাবাস, আবুধাবি',address:'Villa No. 21, Street 21, Al Mushrif Area, Abu Dhabi',phone:'+971 2 444 1111'},police:{name:'পুলিশ',phone:'999'},ambulance:{name:'অ্যাম্বুলেন্স',phone:'998'},fire:{name:'ফায়ার সার্ভিস',phone:'997'},hospital:{name:'Rashid Hospital, Dubai',address:'Oud Metha Road, Dubai',phone:'+971 4 219 2000'}},
+  qatar:{embassy:{name:'বাংলাদেশ দূতাবাস, দোহা',address:'Building 11, Street 990, Zone 64, Doha',phone:'+974 4451 6666'},police:{name:'ইমার্জেন্সি',phone:'999'}},
+  kuwait:{embassy:{name:'বাংলাদেশ দূতাবাস, কুয়েত সিটি',address:'Block 4, Street 20, Villa 3, Abdullah Al-Salem',phone:'+965 2535 9555'},police:{name:'ইমার্জেন্সি',phone:'112'}},
+  oman:{embassy:{name:'বাংলাদেশ দূতাবাস, মাস্কাট',address:'Way No. 3011, Villa 3559, Shatti Al Qurum, Muscat',phone:'+968 2460 4444'},police:{name:'পুলিশ',phone:'9999'}},
+  bahrain:{embassy:{name:'বাংলাদেশ দূতাবাস, মানামা',address:'Villa 21, Road 3819, Block 338, Adliya, Manama',phone:'+973 1721 5500'},police:{name:'ইমার্জেন্সি',phone:'999'}},
+  jordan:{embassy:{name:'বাংলাদেশ দূতাবাস, আম্মান',address:'Al-Amir Rashid Street 12, Abdoun, Amman',phone:'+962 6 552 9292'},police:{name:'ইমার্জেন্সি',phone:'911'}},
+  japan:{embassy:{name:'বাংলাদেশ দূতাবাস, টোকিও',address:'4-17-5, Shirokanedai, Minato-ku, Tokyo 108-0071',phone:'+81 3 3585 6771'},police:{name:'পুলিশ',phone:'110'},ambulance:{name:'অ্যাম্বুলেন্স / ফায়ার',phone:'119'},hospital:{name:'Tokyo Medical and Surgical Clinic',address:'32 Shiba-koen, Minato-ku, Tokyo',phone:'+81 3 3436 3028'}},
+  southkorea:{embassy:{name:'বাংলাদেশ দূতাবাস, সিউল',address:'310-3, Jangchung-dong 2-ga, Jung-gu, Seoul',phone:'+82 2 796 0748'},police:{name:'পুলিশ',phone:'112'},ambulance:{name:'অ্যাম্বুলেন্স / ফায়ার',phone:'119'}},
+  italy:{embassy:{name:'বাংলাদেশ দূতাবাস, রোম',address:'Via Antonio Bertoloni 14, 00197 Roma',phone:'+39 06 808 3591'},police:{name:'পুলিশ / ইমার্জেন্সি',phone:'112'},ambulance:{name:'অ্যাম্বুলেন্স',phone:'118'},fire:{name:'ফায়ার সার্ভিস',phone:'115'}},
+  uk:{embassy:{name:'বাংলাদেশ হাই কমিশন, লন্ডন',address:'28 Queens Gate, London SW7 5JA',phone:'+44 20 7584 0081'},police:{name:'ইমার্জেন্সি',phone:'999'},ambulance:{name:'NHS Non-emergency',phone:'111'}},
+  usa:{embassy:{name:'বাংলাদেশ দূতাবাস, ওয়াশিংটন ডিসি',address:'3510 International Drive NW, Washington DC 20008',phone:'+1 202 244 6745'},police:{name:'ইমার্জেন্সি',phone:'911'}},
+  canada:{embassy:{name:'বাংলাদেশ হাই কমিশন, অটোয়া',address:'275 Slater Street, Suite 1100, Ottawa ON K1P 5H9',phone:'+1 613 236 0182'},police:{name:'ইমার্জেন্সি',phone:'911'}},
+  australia:{embassy:{name:'বাংলাদেশ হাই কমিশন, ক্যানবেরা',address:"43 Culgoa Circuit, O'Malley ACT 2606",phone:'+61 2 6262 3122'},police:{name:'ইমার্জেন্সি',phone:'000'}},
+  singapore:{embassy:{name:'বাংলাদেশ হাই কমিশন, সিঙ্গাপুর',address:'91 Penang Lane, Singapore 238128',phone:'+65 6255 0075'},police:{name:'পুলিশ',phone:'999'},ambulance:{name:'অ্যাম্বুলেন্স / ফায়ার',phone:'995'}},
+  thailand:{embassy:{name:'বাংলাদেশ দূতাবাস, ব্যাংকক',address:'107/1 Soi 45, Sukhumvit Road, Bangkok 10110',phone:'+66 2 636 0320'},police:{name:'পুলিশ',phone:'191'},ambulance:{name:'অ্যাম্বুলেন্স',phone:'1669'}},
+  turkey:{embassy:{name:'বাংলাদেশ দূতাবাস, আঙ্কারা',address:'Birlik Mah. 2. Cadde No. 30, Çankaya, Ankara',phone:'+90 312 490 6666'},police:{name:'ইমার্জেন্সি',phone:'112'}},
+  china:{embassy:{name:'বাংলাদেশ দূতাবাস, বেইজিং',address:'No. 42 Guanghua Lu, Chaoyang District, Beijing 100600',phone:'+86 10 6532 3706'},police:{name:'পুলিশ',phone:'110'},ambulance:{name:'অ্যাম্বুলেন্স',phone:'120'}},
+  germany:{embassy:{name:'বাংলাদেশ দূতাবাস, বার্লিন',address:'Dovestraße 1, 10587 Berlin',phone:'+49 30 398 9750'},police:{name:'পুলিশ',phone:'110'},ambulance:{name:'অ্যাম্বুলেন্স / ফায়ার',phone:'112'}},
+  maldives:{embassy:{name:'বাংলাদেশ হাই কমিশন, মালে',address:'G. Ufaa, 3rd Floor, Haveeree Hingun, Male',phone:'+960 331 3585'},police:{name:'পুলিশ / অ্যাম্বুলেন্স',phone:'119'}},
+  brunei:{embassy:{name:'বাংলাদেশ হাই কমিশন, বন্দর সেরি বেগাওয়ান',address:'No. 11, Simpang 83-20, Jalan Kebangsaan',phone:'+673 222 2740'},police:{name:'পুলিশ',phone:'993'},fire:{name:'ফায়ার',phone:'995'}},
+  indonesia:{embassy:{name:'বাংলাদেশ দূতাবাস, জাকার্তা',address:'Jl. Mendawai No. 3, Kebayoran Baru, Jakarta 12130',phone:'+62 21 522 4520'},police:{name:'পুলিশ',phone:'110'},ambulance:{name:'অ্যাম্বুলেন্স',phone:'118'}},
+  spain:{embassy:{name:'বাংলাদেশ দূতাবাস, মাদ্রিদ',address:'Calle de Velázquez 32, 4º Izquierda, 28001 Madrid',phone:'+34 91 345 1300'},police:{name:'ইমার্জেন্সি',phone:'112'}}
+};
+
+/* ============================================================
+   DATA: AIRPORTS
+   ============================================================ */
+const AIRPORTS = {
+  bangladesh:{name:'🇧🇩 বাংলাদেশ',airports:[
+    {code:'DAC',name:'হযরত শাহজালাল আন্তর্জাতিক, ঢাকা',lat:23.8433,lng:90.3978},
+    {code:'CGP',name:'শাহ আমানত আন্তর্জাতিক, চট্টগ্রাম',lat:22.2496,lng:91.8133},
+    {code:'ZYL',name:'ওসমানী আন্তর্জাতিক, সিলেট',lat:24.9632,lng:91.8668},
+    {code:'CXB',name:'কক্সবাজার বিমানবন্দর',lat:21.4522,lng:91.9636}
+  ]},
+  malaysia:{name:'🇲🇾 মালয়েশিয়া',airports:[
+    {code:'KUL',name:'Kuala Lumpur International Airport',lat:2.7456,lng:101.7099},
+    {code:'PEN',name:'Penang International Airport',lat:5.2971,lng:100.2768},
+    {code:'JHB',name:'Senai International Airport',lat:1.6413,lng:103.6698}
+  ]},
+  saudi:{name:'🇸🇦 সৌদি আরব',airports:[
+    {code:'RUH',name:'King Khalid Intl Airport, Riyadh',lat:24.9576,lng:46.6988},
+    {code:'JED',name:'King Abdulaziz Intl Airport, Jeddah',lat:21.6796,lng:39.1565},
+    {code:'DMM',name:'King Fahd Intl Airport, Dammam',lat:26.4711,lng:49.7979}
+  ]},
+  uae:{name:'🇦🇪 সংযুক্ত আরব আমিরাত',airports:[
+    {code:'DXB',name:'Dubai International Airport',lat:25.2532,lng:55.3657},
+    {code:'AUH',name:'Abu Dhabi International Airport',lat:24.4330,lng:54.6511},
+    {code:'SHJ',name:'Sharjah International Airport',lat:25.3286,lng:55.5172}
+  ]},
+  qatar:{name:'🇶🇦 কাতার',airports:[{code:'DOH',name:'Hamad International Airport, Doha',lat:25.2731,lng:51.6080}]},
+  kuwait:{name:'🇰🇼 কুয়েত',airports:[{code:'KWI',name:'Kuwait International Airport',lat:29.2266,lng:47.9689}]},
+  oman:{name:'🇴🇲 ওমান',airports:[{code:'MCT',name:'Muscat International Airport',lat:23.5933,lng:58.2844}]},
+  bahrain:{name:'🇧🇭 বাহরাইন',airports:[{code:'BAH',name:'Bahrain International Airport',lat:26.2708,lng:50.6336}]},
+  jordan:{name:'🇯🇴 জর্ডান',airports:[{code:'AMM',name:'Queen Alia Intl Airport, Amman',lat:31.7226,lng:35.9932}]},
+  japan:{name:'🇯🇵 জাপান',airports:[
+    {code:'NRT',name:'Narita International Airport',lat:35.7720,lng:140.3929},
+    {code:'HND',name:'Haneda Airport, Tokyo',lat:35.5494,lng:139.7798}
+  ]},
+  southkorea:{name:'🇰🇷 দক্ষিণ কোরিয়া',airports:[{code:'ICN',name:'Incheon International Airport',lat:37.4602,lng:126.4407}]},
+  italy:{name:'🇮🇹 ইতালি',airports:[{code:'FCO',name:'Rome Fiumicino Airport',lat:41.8003,lng:12.2389}]},
+  uk:{name:'🇬🇧 যুক্তরাজ্য',airports:[
+    {code:'LHR',name:'London Heathrow Airport',lat:51.4700,lng:-0.4543},
+    {code:'LGW',name:'London Gatwick Airport',lat:51.1537,lng:-0.1821}
+  ]},
+  usa:{name:'🇺🇸 আমেরিকা',airports:[
+    {code:'JFK',name:'JFK International, New York',lat:40.6413,lng:-73.7781},
+    {code:'LAX',name:'Los Angeles International',lat:33.9416,lng:-118.4085}
+  ]},
+  canada:{name:'🇨🇦 কানাডা',airports:[{code:'YYZ',name:'Toronto Pearson International',lat:43.6777,lng:-79.6248}]},
+  australia:{name:'🇦🇺 অস্ট্রেলিয়া',airports:[{code:'SYD',name:'Sydney Kingsford Smith Airport',lat:-33.9399,lng:151.1753}]},
+  singapore:{name:'🇸🇬 সিঙ্গাপুর',airports:[{code:'SIN',name:'Singapore Changi Airport',lat:1.3644,lng:103.9915}]},
+  thailand:{name:'🇹🇭 থাইল্যান্ড',airports:[{code:'BKK',name:'Suvarnabhumi Airport, Bangkok',lat:13.6900,lng:100.7501}]},
+  turkey:{name:'🇹🇷 তুরস্ক',airports:[{code:'IST',name:'Istanbul Airport',lat:41.2753,lng:28.7519}]},
+  china:{name:'🇨🇳 চায়না',airports:[{code:'PEK',name:'Beijing Capital International',lat:40.0799,lng:116.6031}]},
+  germany:{name:'🇩🇪 জার্মানি',airports:[{code:'FRA',name:'Frankfurt Airport',lat:50.0379,lng:8.5622}]},
+  maldives:{name:'🇲🇻 মালদ্বীপ',airports:[{code:'MLE',name:'Velana International Airport, Male',lat:4.1918,lng:73.5290}]},
+  brunei:{name:'🇧🇳 ব্রুনাই',airports:[{code:'BWN',name:'Brunei International Airport',lat:4.9442,lng:114.9283}]},
+  indonesia:{name:'🇮🇩 ইন্দোনেশিয়া',airports:[{code:'CGK',name:'Soekarno-Hatta Intl, Jakarta',lat:-6.1256,lng:106.6558}]},
+  spain:{name:'🇪🇸 স্পেন',airports:[{code:'MAD',name:'Madrid-Barajas Airport',lat:40.4936,lng:-3.5668}]}
+};
+
+/* ============================================================
+   DATA: BANKS
+   ============================================================ */
+const BANKS = [
+  {key:'bkash',name:'bKash',tag:'Mobile Banking',color:'linear-gradient(135deg,#e2136e,#c2005e)',icon:'bK',details:{type:'মোবাইল ব্যাংকিং',sendFrom:'মালয়েশিয়া, সৌদি, UAE, কাতার, কুয়েত, ওমান, সিঙ্গাপুর',rate:'মার্কেট রেট',steps:['bKash অ্যাপ বা এজেন্টে যান','Send Money সিলেক্ট করুন','পরিবারের bKash নাম্বার দিন','টাকা পাঠান','SMS নোটিফিকেশন পাবেন']}},
+  {key:'nagad',name:'Nagad',tag:'Mobile Banking',color:'linear-gradient(135deg,#f7941d,#e07b00)',icon:'N',details:{type:'মোবাইল ব্যাংকিং',sendFrom:'মালয়েশিয়া, সৌদি, UAE, কাতার, কুয়েত',rate:'মার্কেট রেট',steps:['Nagad অ্যাপ ওপেন করুন','Send Money সিলেক্ট করুন','রিসিভারের নাম্বার দিন','পরিমাণ লিখুন','কনফার্ম করুন']}},
+  {key:'rocket',name:'Rocket',tag:'DBBL Mobile',color:'linear-gradient(135deg,#8b2f8b,#6b1f6b)',icon:'R',details:{type:'মোবাইল ব্যাংকিং',sendFrom:'মালয়েশিয়া, সৌদি, UAE, কাতার',rate:'মার্কেট রেট',steps:['Rocket অ্যাপ/এজেন্ট','Send Money','নাম্বার দিন','পরিমাণ','PIN দিয়ে কনফার্ম']}},
+  {key:'westernunion',name:'Western Union',tag:'Remittance',color:'linear-gradient(135deg,#000000,#fbbf24)',icon:'WU',details:{type:'রেমিট্যান্স সার্ভিস',sendFrom:'বিশ্বের প্রায় সব দেশে',rate:'প্রতিযোগিতামূলক',steps:['নিকটস্থ এজেন্টে যান','পাসপোর্ট দিন','রিসিভারের তথ্য দিন','টাকা জমা দিন','MTCN নাম্বার পান','পরিবারকে MTCN জানান']}},
+  {key:'moneygram',name:'MoneyGram',tag:'Remittance',color:'linear-gradient(135deg,#ef4444,#b91c1c)',icon:'MG',details:{type:'রেমিট্যান্স সার্ভিস',sendFrom:'বিশ্বের ২০০+ দেশ',rate:'মার্কেট রেট',steps:['MoneyGram এজেন্টে যান','Receive Reference Number','পরিবারকে নাম্বার দিন','পরিবার ID নিয়ে collect করবে']}},
+  {key:'ria',name:'RIA Money',tag:'Remittance',color:'linear-gradient(135deg,#fbbf24,#f59e0b)',icon:'RIA',details:{type:'রেমিট্যান্স সার্ভিস',sendFrom:'১৬০+ দেশ',rate:'মার্কেট রেট',steps:['RIA এজেন্টে যান','রিসিভারের তথ্য দিন','টাকা জমা দিন','PIN নাম্বার পান','পরিবারকে জানান']}},
+  {key:'prabhu',name:'Prabhu Money',tag:'Remittance',color:'linear-gradient(135deg,#3b82f6,#1d4ed8)',icon:'PM',details:{type:'রেমিট্যান্স',sendFrom:'মালয়েশিয়া, সৌদি, কুয়েত, কাতার, UAE',rate:'ভালো রেট',steps:['Prabhu এজেন্ট','ID দেখান','রিসিভারের তথ্য','টাকা জমা','রিসিট নিন']}},
+  {key:'instantcash',name:'Instant Cash',tag:'Remittance',color:'linear-gradient(135deg,#10b981,#047857)',icon:'IC',details:{type:'রেমিট্যান্স',sendFrom:'UAE, সৌদি, ওমান, কাতার, কুয়েত',rate:'মার্কেট রেট',steps:['এজেন্টে যান','পাসপোর্ট/ID','রিসিভারের নাম-নাম্বার','টাকা জমা','নাম্বার পান']}},
+  {key:'sonali',name:'Sonali Bank',tag:'State Bank',color:'linear-gradient(135deg,#0ea5e9,#0369a1)',icon:'SB',details:{type:'রাষ্ট্রীয় ব্যাংক',sendFrom:'বিদেশে শাখা আছে',rate:'অফিসিয়াল রেট',steps:['নিকটস্থ শাখায় যান','রিমিট্যান্স ফর্ম পূরণ','পাসপোর্ট + ভিসা কপি','টাকা জমা','পরিবার ব্যাংক থেকে collect করবে']}},
+  {key:'islami',name:'Islami Bank',tag:'Islamic Banking',color:'linear-gradient(135deg,#16a34a,#15803d)',icon:'IB',details:{type:'ইসলামি ব্যাংক',sendFrom:'মালয়েশিয়া, সৌদি, UAE',rate:'শরিয়াহ কমপ্লায়েন্ট',steps:['ইসলামি ব্যাংক এজেন্ট','রিসিভারের অ্যাকাউন্ট নাম্বার','টাকা জমা','SMS নোটিফিকেশন']}},
+  {key:'agrani',name:'Agrani Bank',tag:'State Bank',color:'linear-gradient(135deg,#7c3aed,#6d28d9)',icon:'AB',details:{type:'রাষ্ট্রীয় ব্যাংক',sendFrom:'সৌদি, UAE, কুয়েত',rate:'অফিসিয়াল রেট',steps:['শাখায় যান','কাগজপত্র জমা','টাকা পাঠান','পরিবার collect করবে']}},
+  {key:'city',name:'City Bank',tag:'Private Bank',color:'linear-gradient(135deg,#dc2626,#991b1b)',icon:'CB',details:{type:'বেসরকারি ব্যাংক',sendFrom:'মালয়েশিয়া, সৌদি, UAE, কাতার',rate:'মার্কেট রেট',steps:['City Bank শাখা/এজেন্ট','অ্যাকাউন্ট তথ্য','টাকা জমা','পরিবার ব্যাংকে collect করবে']}}
+];
+
+const TRANSFER_STEPS = [
+  {title:'সঠিক সার্ভিস বেছে নিন',desc:'নিকটস্থ অনুমোদিত ব্যাংক বা এক্সচেঞ্জ হাউজ নির্বাচন করুন।'},
+  {title:'প্রয়োজনীয় কাগজপত্র নিন',desc:'পাসপোর্ট, ভিসা/আইডি কার্ড এবং রিসিভারের নাম, ঠিকানা, ফোন নাম্বার।'},
+  {title:'রেট যাচাই করুন',desc:'একাধিক সার্ভিসে রেট যাচাই করুন। লেনদেন ফি কত সেটা জেনে নিন।'},
+  {title:'লেনদেন করুন',desc:'এজেন্ট/শাখায় ফর্ম পূরণ করুন। টাকা জমা দিন। সবসময় রশিদ নিন।'},
+  {title:'ট্র্যাকিং নাম্বার রাখুন',desc:'প্রতিটি লেনদেনে একটি ট্র্যাকিং/MTCN নাম্বার পাবেন। এটা পরিবারকে জানান।'},
+  {title:'পরিবারকে জানান',desc:'পরিবারকে ট্র্যাকিং নাম্বার, পরিমাণ, ব্যাংকের তথ্য জানান।'},
+  {title:'SMS/Email চেক করুন',desc:'টাকা পাঠানোর পর SMS/Email নোটিফিকেশন আসবে। সবসময় সংরক্ষণ করুন।'},
+  {title:'সমস্যা হলে',desc:'টাকা না পৌঁছালে সার্ভিস প্রোভাইডার এবং বাংলাদেশ দূতাবাসে জানান।'}
+];
+
+/* ============================================================
+   DATA: NAMAZ CITIES
+   ============================================================ */
+const NAMAZ_CITIES = {
+  malaysia:{country:'Malaysia',cities:['Kuala Lumpur','Penang'],default:'Kuala Lumpur'},
+  saudi:{country:'Saudi Arabia',cities:['Riyadh','Jeddah','Makkah','Madinah'],default:'Riyadh'},
+  uae:{country:'United Arab Emirates',cities:['Dubai','Abu Dhabi'],default:'Dubai'},
+  qatar:{country:'Qatar',cities:['Doha'],default:'Doha'},
+  kuwait:{country:'Kuwait',cities:['Kuwait City'],default:'Kuwait City'},
+  oman:{country:'Oman',cities:['Muscat'],default:'Muscat'},
+  bahrain:{country:'Bahrain',cities:['Manama'],default:'Manama'},
+  jordan:{country:'Jordan',cities:['Amman'],default:'Amman'},
+  japan:{country:'Japan',cities:['Tokyo','Osaka'],default:'Tokyo'},
+  southkorea:{country:'South Korea',cities:['Seoul'],default:'Seoul'},
+  italy:{country:'Italy',cities:['Rome','Milan'],default:'Rome'},
+  uk:{country:'United Kingdom',cities:['London','Manchester'],default:'London'},
+  usa:{country:'United States',cities:['New York','Los Angeles'],default:'New York'},
+  canada:{country:'Canada',cities:['Toronto','Vancouver'],default:'Toronto'},
+  australia:{country:'Australia',cities:['Sydney','Melbourne'],default:'Sydney'},
+  singapore:{country:'Singapore',cities:['Singapore'],default:'Singapore'},
+  thailand:{country:'Thailand',cities:['Bangkok'],default:'Bangkok'},
+  turkey:{country:'Turkey',cities:['Istanbul'],default:'Istanbul'},
+  china:{country:'China',cities:['Beijing','Shanghai'],default:'Beijing'},
+  germany:{country:'Germany',cities:['Berlin','Frankfurt'],default:'Berlin'},
+  maldives:{country:'Maldives',cities:['Male'],default:'Male'},
+  brunei:{country:'Brunei',cities:['Bandar Seri Begawan'],default:'Bandar Seri Begawan'},
+  indonesia:{country:'Indonesia',cities:['Jakarta'],default:'Jakarta'},
+  spain:{country:'Spain',cities:['Madrid','Barcelona'],default:'Madrid'}
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const state = {
+  currentLearnCountry:null,
+  currentLearnTab:'phrases',
+  selectedTranslateCountry:'malaysia',
+  isListening:false,
+  recognition:null,
+  map:null,
+  routeLine:null,
+  userMarker:null,
+  accuracyCircle:null,
+  airportMarker:null,
+  userCoords:null,
+  newsCache:{},
+  currentNewsTopic:'general',
+  searchTerm:'',
+  mapClicked:false
+};
+
+/* ============================================================
+   LEARN
+   ============================================================ */
+function renderLearnCountries(filter = '') {
+  const grid = $('learnCountryGrid');
+  if (!grid) return;
+  const q = filter.toLowerCase().trim();
+  let list = Object.entries(COUNTRIES);
+  if (q) {
+    list = list.filter(([k, c]) =>
+      c.name.toLowerCase().includes(q) || c.nameBn.includes(q) ||
+      c.lang.toLowerCase().includes(q) || c.langBn.includes(q)
+    );
+  }
+  list.sort((a,b) => (b[1].hot?1:0) - (a[1].hot?1:0) || a[1].name.localeCompare(b[1].name));
+  const cnt = $('learnCount');
+  if (cnt) cnt.textContent = `${list.length} দেশ`;
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-secondary)">কোনো দেশ পাওয়া যায়নি</div>';
+    return;
+  }
+  grid.innerHTML = list.map(([key, c]) => `
+    <div class="country-card" data-country="${key}" tabindex="0" role="button">
+      ${c.hot ? '<span class="country-hot">🔥 HOT</span>' : ''}
+      <span class="country-flag">${c.flag}</span>
+      <div class="country-name">${escapeHtml(c.name)}</div>
+      <div class="country-name-bn">${escapeHtml(c.nameBn)}</div>
+      <span class="country-lang">${escapeHtml(c.lang)}</span>
+    </div>
+  `).join('');
+}
+
+function openLearnCountry(key) {
+  const c = COUNTRIES[key];
+  if (!c) return;
+  state.currentLearnCountry = key;
+  state.currentLearnTab = 'phrases';
+  $('learnListView').style.display = 'none';
+  const detail = $('learnDetailView');
+  detail.classList.add('active');
+  detail.innerHTML = `
+    <button class="back-link" id="backToLearn"><i class="fas fa-arrow-left"></i> সব দেশে ফিরুন</button>
+    <div class="detail-header">
+      <span class="detail-flag">${c.flag}</span>
+      <div class="detail-name">${escapeHtml(c.name)}</div>
+      <div class="detail-name-bn">${escapeHtml(c.nameBn)}</div>
+      <div class="detail-lang">🗣️ ${escapeHtml(c.langBn)} (${escapeHtml(c.lang)})</div>
+      <div class="detail-info">
+        <div class="detail-chip">💰 ${escapeHtml(c.currency)}</div>
+        <div class="detail-chip">🕐 ${escapeHtml(c.timezone)}</div>
+        <div class="detail-chip">🌤️ ${escapeHtml(c.weather)}</div>
+      </div>
+    </div>
+    <div class="tabs-row" id="learnTabs">
+      <button class="tab active" data-tab="phrases">💬 বাক্য শিখুন</button>
+      <button class="tab" data-tab="vocab">📖 শব্দকোষ</button>
+    </div>
+    <div id="learnTabContent"></div>
+  `;
+  renderLearnTab('phrases');
+}
+
+function backToLearnList() {
+  $('learnDetailView').classList.remove('active');
+  $('learnListView').style.display = 'block';
+  renderLearnCountries(state.searchTerm);
+}
+
+function renderLearnTab(tab) {
+  const key = state.currentLearnCountry;
+  const c = COUNTRIES[key];
+  if (!c) return;
+  const content = $('learnTabContent');
+  if (!content) return;
+
+  if (tab === 'phrases') {
+    if (!c.phrases || !Object.keys(c.phrases).length) {
+      content.innerHTML = '<div class="hint">📝 বাক্য শীঘ্রই আসছে</div>';
+      return;
+    }
+    let html = '';
+    for (const [cat, list] of Object.entries(c.phrases)) {
+      html += `<div class="phrase-card"><div class="phrase-cat">${escapeHtml(cat)}</div>`;
+      html += list.map(p => `
+        <div class="phrase-row">
+          <div class="phrase-content">
+            <div class="phrase-bn">${escapeHtml(p.bn)}</div>
+            <div class="phrase-foreign">${escapeHtml(p.foreign)}</div>
+            ${p.pron ? `<div class="phrase-pron">🗣️ ${escapeHtml(p.pron)}</div>` : ''}
+            <div class="phrase-en">${escapeHtml(p.en)}</div>
+          </div>
+          <button class="speak-btn" data-speak="${escapeHtml(p.foreign)}" data-lang="${escapeHtml(c.lang)}" aria-label="শুনুন">
+            <i class="fas fa-volume-up"></i>
+          </button>
+        </div>`).join('');
+      html += '</div>';
+    }
+    content.innerHTML = html;
+  } else {
+    if (!c.vocab || !Object.keys(c.vocab).length) {
+      content.innerHTML = '<div class="hint">📖 শব্দকোষ শীঘ্রই আসছে</div>';
+      return;
+    }
+    let html = '';
+    for (const [cat, list] of Object.entries(c.vocab)) {
+      html += `<h3 style="margin:18px 0 12px;color:var(--brand);font-size:15px;font-weight:700">${escapeHtml(cat)}</h3><div class="vocab-grid">`;
+      html += list.map(v => `
+        <button class="vocab-card" data-speak="${escapeHtml(v.foreign)}" data-lang="${escapeHtml(c.lang)}">
+          <div class="vocab-bn">${escapeHtml(v.bn)}</div>
+          <div class="vocab-foreign">${escapeHtml(v.foreign)}</div>
+          ${v.pron ? `<div class="vocab-pron">${escapeHtml(v.pron)}</div>` : ''}
+          <div class="vocab-en">${escapeHtml(v.en)}</div>
+        </button>`).join('');
+      html += '</div>';
+    }
+    content.innerHTML = html;
+  }
+}
+
+/* ============================================================
+   SPEECH
+   ============================================================ */
+const LANG_CODE_MAP = {
+  'Bahasa Melayu':'ms-MY','Arabic':'ar-SA','Japanese':'ja-JP','Korean':'ko-KR',
+  'Italian':'it-IT','English':'en-US','English/Malay':'en-US','English/French':'en-US',
+  'Thai':'th-TH','Turkish':'tr-TR','Mandarin':'zh-CN','German':'de-DE','Spanish':'es-ES',
+  'Dhivehi/English':'en-US','Bahasa Indonesia':'id-ID'
+};
+
+function speak(text, langHint) {
+  if (!('speechSynthesis' in window)) { toast('এই ব্রাউজারে ভয়েস সাপোর্ট নেই', 'error'); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = LANG_CODE_MAP[langHint] || 'en-US';
+  u.rate = 0.85;
+  u.onerror = e => { if (e.error !== 'canceled') toast('🔇 ভয়েস চালানো যায়নি', 'warning', 2000); };
+  window.speechSynthesis.speak(u);
+}
+function speakByCode(text, code) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = code;
+  u.rate = 0.9;
+  u.onerror = () => {};
+  window.speechSynthesis.speak(u);
+}
+
+/* ============================================================
+   MAP
+   ============================================================ */
+function initMap() {
+  if (state.map) return;
+  const mapEl = $('map');
+  if (!mapEl) return;
+  if (typeof L === 'undefined') {
+    mapEl.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-secondary)">⚠️ ম্যাপ লোড হয়নি। ইন্টারনেট চেক করুন।</div>';
+    return;
+  }
+
+  state.map = L.map('map', { zoomControl: true }).setView([23.6850, 90.3563], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap', maxZoom: 19
+  }).addTo(state.map);
+
+  // ✅ MAP CLICK = manually set location
+  state.map.on('click', e => {
+    const { lat, lng } = e.latlng;
+    state.userCoords = { lat, lng };
+    state.mapClicked = true;
+    plotUserMarker(lat, lng, 0);
+    toast(`📍 এখানেই ধরলাম (${lat.toFixed(4)}, ${lng.toFixed(4)})`, 'success', 2500);
+    hideMapHint();
+  });
+
+  // Populate country select
+  const cs = $('fromCountry');
+  if (cs && cs.options.length <= 1) {
+    Object.entries(AIRPORTS).forEach(([k, v]) => {
+      const opt = document.createElement('option');
+      opt.value = k;
+      opt.textContent = v.name;
+      cs.appendChild(opt);
+    });
+  }
+
+  // Show hint once on first load
+  setTimeout(() => showMapHint(), 800);
+}
+
+function showMapHint() {
+  const h = $('mapHint');
+  if (h) h.classList.add('show');
+}
+function hideMapHint() {
+  const h = $('mapHint');
+  if (h) h.classList.remove('show');
+}
+
+function plotUserMarker(lat, lng, accuracy = 0) {
+  if (!state.map) return;
+  state.map.setView([lat, lng], Math.max(state.map.getZoom(), 13));
+
+  if (state.userMarker) state.map.removeLayer(state.userMarker);
+  if (state.accuracyCircle) state.map.removeLayer(state.accuracyCircle);
+
+  if (accuracy && accuracy > 0) {
+    state.accuracyCircle = L.circle([lat, lng], {
+      radius: accuracy, color:'#3b82f6', fillColor:'#3b82f6',
+      fillOpacity: 0.15, weight: 1
+    }).addTo(state.map);
+  }
+
+  state.userMarker = L.marker([lat, lng], {
+    draggable: true,
+    icon: L.divIcon({
+      html:'<div style="background:#3b82f6;width:22px;height:22px;border-radius:50%;border:3px solid #fff;box-shadow:0 4px 12px rgba(59,130,246,.6);"></div>',
+      iconSize:[22,22],iconAnchor:[11,11],className:''
+    })
+  }).addTo(state.map);
+
+  state.userMarker.bindPopup(`
+    <div style="font-family:'Hind Siliguri',sans-serif;font-size:12px;line-height:1.6;min-width:140px">
+      <b>📍 আপনার লোকেশন</b><br>
+      Lat: ${lat.toFixed(5)}<br>
+      Lng: ${lng.toFixed(5)}<br>
+      <button id="popupRouteBtn" style="margin-top:6px;padding:5px 12px;background:#6366f1;color:#fff;border:none;border-radius:6px;font-size:11px;cursor:pointer;font-weight:600">🚗 এখান থেকে রুট</button>
+    </div>
+  `).openPopup();
+
+  state.userMarker.on('dragend', e => {
+    const c = e.target.getLatLng();
+    state.userCoords = { lat: c.lat, lng: c.lng };
+    toast('📍 নতুন অবস্থান সেট হয়েছে', 'success', 2000);
+  });
+
+  // Attach popup button handler after popup opens
+  setTimeout(() => {
+    const btn = document.getElementById('popupRouteBtn');
+    if (btn) btn.addEventListener('click', calculateRoute);
+  }, 100);
+}
+
+function updateAirportList() {
+  const ck = $('fromCountry').value;
+  const sel = $('toAirport');
+  sel.innerHTML = '<option value="">✈️ এয়ারপোর্ট সিলেক্ট করুন</option>';
+  if (!ck || !AIRPORTS[ck]) return;
+  AIRPORTS[ck].airports.forEach((a, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `${a.code} — ${a.name}`;
+    sel.appendChild(opt);
+  });
+}
+
+async function useMyLocation() {
+  if (!state.map) { initMap(); await new Promise(r => setTimeout(r, 100)); }
+  if (state.map) state.map.invalidateSize();
+
+  // HTTPS check
+  const isSecure = location.protocol === 'https:' ||
+                   location.hostname === 'localhost' ||
+                   location.hostname === '127.0.0.1' ||
+                   location.hostname === '';
+  if (!isSecure) {
+    toast('⚠️ লোকেশন পেতে HTTPS বা localhost দরকার। অথবা ম্যাপে ক্লিক করে নিজে সেট করুন।', 'error', 8000);
+    showLocationHelp();
+    showMapHint();
+    return;
+  }
+
+  if (!navigator.geolocation) {
+    toast('❌ এই ব্রাউজারে লোকেশন সাপোর্ট নেই', 'error', 4000);
+    showLocationHelp();
+    return;
+  }
+
+  // Permission pre-check
+  if (navigator.permissions) {
+    try {
+      const p = await navigator.permissions.query({ name: 'geolocation' });
+      if (p.state === 'denied') {
+        toast('❌ লোকেশন permission ব্লকড। Browser settings থেকে অনুমতি দিন।', 'error', 8000);
+        showLocationHelp();
+        return;
+      }
+    } catch(e) {}
+  }
+
+  toast('📍 লোকেশন নেওয়া হচ্ছে...', 'info', 5000);
+
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const { latitude, longitude, accuracy } = pos.coords;
+      state.userCoords = { lat: latitude, lng: longitude };
+      plotUserMarker(latitude, longitude, accuracy);
+      toast(`✅ লোকেশন পাওয়া গেছে (±${Math.round(accuracy)}m)`, 'success', 2500);
+      hideMapHint();
+    },
+    err => {
+      const errors = {
+        1:'❌ আপনি লোকেশন permission দেননি। Address bar-এর 🔒 → Location → Allow করুন।',
+        2:'❌ লোকেশন পাওয়া যাচ্ছে না। GPS/Wi-Fi চালু করুন।',
+        3:'⏱️ সময় শেষ। আবার চেষ্টা করুন।'
+      };
+      toast(errors[err.code] || '❌ লোকেশন পাওয়া যায়নি', 'error', 8000);
+      console.warn('Geolocation error:', err.code, err.message);
+      showLocationHelp();
+      showMapHint();
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+  );
+}
+
+function showLocationHelp() {
+  const box = $('locationHelp');
+  if (!box) return;
+  box.innerHTML = `
+    <div class="help-box">
+      <div class="help-box-title">📍 লোকেশন না পেলে কী করবেন?</div>
+      <ul>
+        <li><b>সহজ সমাধান:</b> ম্যাপে <b>যেকোনো জায়গায় ক্লিক করুন</b> — সেখানেই আপনার লোকেশন ধরবে ✅</li>
+        <li><b>Browser permission:</b> Address bar-এর 🔒 → Location → Allow</li>
+        <li><b>Phone-এ GPS:</b> Location services চালু করুন</li>
+        <li><b>Chrome settings:</b> <code>chrome://settings/content/location</code> চেক করুন</li>
+        <li><b>HTTPS দরকার:</b> <code>file://</code> দিয়ে খুললে কাজ করবে না — <code>localhost</code> বা HTTPS use করুন</li>
+        <li><b>উপরের সার্চ বক্স:</b> শহরের নাম লিখে সার্চ করুন</li>
+      </ul>
+    </div>`;
+}
+
+async function searchLocation() {
+  const q = $('locationSearch').value.trim();
+  if (!q) return;
+  if (!state.map) initMap();
+  toast('🔍 খোঁজা হচ্ছে...', 'info', 2000);
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(q)}`;
+    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!data.length) { toast('❌ কিছু পাওয়া যায়নি', 'error'); return; }
+    const { lat, lon, display_name } = data[0];
+    state.userCoords = { lat: parseFloat(lat), lng: parseFloat(lon) };
+    plotUserMarker(parseFloat(lat), parseFloat(lon), 0);
+    toast(`📍 ${display_name.split(',')[0]}`, 'success', 2500);
+    hideMapHint();
+  } catch (e) {
+    console.error('Search error:', e);
+    toast('❌ সার্চ ব্যর্থ — আবার চেষ্টা করুন', 'error');
+  }
+}
+
+async function calculateRoute() {
+  const ck = $('fromCountry').value;
+  const idx = $('toAirport').value;
+  if (!ck || idx === '') { toast('দেশ ও এয়ারপোর্ট সিলেক্ট করুন', 'warning'); return; }
+  if (!state.userCoords) {
+    toast('আগে "আমার লোকেশন" চাপুন বা ম্যাপে ক্লিক করুন', 'warning', 4000);
+    showMapHint();
+    return;
+  }
+  const airport = AIRPORTS[ck].airports[parseInt(idx)];
+  if (!airport) return;
+
+  toast('🔄 রাস্তা খোঁজা হচ্ছে...', 'info', 3000);
+  const btn = $('routeBtn');
+  btn.disabled = true;
+
+  try {
+    const url = `https://router.project-osrm.org/route/v1/driving/${state.userCoords.lng},${state.userCoords.lat};${airport.lng},${airport.lat}?overview=full&geometries=geojson`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!data.routes || !data.routes.length) throw new Error('no routes');
+
+    const route = data.routes[0];
+    const coords = route.geometry.coordinates.map(c => [c[1], c[0]]);
+
+    if (state.routeLine) state.map.removeLayer(state.routeLine);
+    state.routeLine = L.polyline(coords, { color:'#6366f1', weight:5, opacity:.85 }).addTo(state.map);
+
+    if (state.airportMarker) state.map.removeLayer(state.airportMarker);
+    state.airportMarker = L.marker([airport.lat, airport.lng], {
+      icon: L.divIcon({
+        html:'<div style="background:#ef4444;width:28px;height:28px;border-radius:50%;border:3px solid #fff;box-shadow:0 4px 12px rgba(239,68,68,.5);display:flex;align-items:center;justify-content:center;font-size:14px;">✈️</div>',
+        iconSize:[28,28],iconAnchor:[14,14]
+      })
+    }).addTo(state.map).bindPopup(`✈️ ${escapeHtml(airport.name)}`).openPopup();
+
+    state.map.fitBounds(state.routeLine.getBounds(), { padding:[40,40] });
+
+    const km = (route.distance / 1000).toFixed(1);
+    const min = Math.round(route.duration / 60);
+    const h = Math.floor(min / 60), m = min % 60;
+
+    $('routeInfo').classList.add('active');
+    $('routeDescription').textContent = `${airport.name} পর্যন্ত`;
+    $('routeGrid').innerHTML = `
+      <div class="route-info-item"><div class="label">দূরত্ব</div><div class="value">${km} কিমি</div></div>
+      <div class="route-info-item"><div class="label">সময়</div><div class="value">${h > 0 ? h + 'ঘ ' : ''}${m}মিনিট</div></div>
+      <div class="route-info-item"><div class="label">কোড</div><div class="value">${airport.code}</div></div>
+    `;
+    toast(`✅ ${km} কিমি — ${h > 0 ? h + 'ঘ ' : ''}${m}মিনিট`, 'success');
+  } catch (e) {
+    console.error('Route error:', e);
+    toast('❌ রাস্তা বের করা যায়নি — আবার চেষ্টা করুন', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function clearRoute() {
+  if (state.routeLine && state.map) { state.map.removeLayer(state.routeLine); state.routeLine = null; }
+  if (state.airportMarker && state.map) { state.map.removeLayer(state.airportMarker); state.airportMarker = null; }
+  if (state.userMarker && state.map) { state.map.removeLayer(state.userMarker); state.userMarker = null; }
+  if (state.accuracyCircle && state.map) { state.map.removeLayer(state.accuracyCircle); state.accuracyCircle = null; }
+  state.userCoords = null;
+  state.mapClicked = false;
+  $('routeInfo').classList.remove('active');
+  const help = $('locationHelp');
+  if (help) help.innerHTML = '';
+  toast('🧹 সব মুছে ফেলা হয়েছে', 'info', 1500);
+  showMapHint();
+}
+
+/* ============================================================
+   EMERGENCY
+   ============================================================ */
+function initEmergencySelect() {
+  const sel = $('emergencyCountry');
+  if (!sel || sel.options.length > 0) return;
+  sel.innerHTML = Object.entries(COUNTRIES).map(([k, c]) =>
+    `<option value="${k}">${c.flag} ${escapeHtml(c.nameBn)}</option>`
+  ).join('');
+  sel.value = 'malaysia';
+}
+
+function renderEmergency() {
+  initEmergencySelect();
+  const sel = $('emergencyCountry');
+  const key = sel ? sel.value : 'malaysia';
+  const d = EMERGENCY_DATA[key];
+  const c = COUNTRIES[key];
+  const content = $('emergencyContent');
+  if (!d) {
+    content.innerHTML = '<div class="hint">তথ্য শীঘ্রই আসছে</div>';
+    return;
+  }
+  const flag = c ? c.flag : '🌍';
+  const nameBn = c ? c.nameBn : '';
+  let html = '';
+
+  if (d.embassy) {
+    html += `<div class="emg-cat-title">${flag} বাংলাদেশ দূতাবাস — ${escapeHtml(nameBn)}</div>
+      <div class="emg-card">
+        <div class="emg-icon">🏛️</div>
+        <div class="emg-info">
+          <div class="emg-name">${escapeHtml(d.embassy.name)}</div>
+          <div class="emg-detail">📍 ${escapeHtml(d.embassy.address)}<br>📱 ${escapeHtml(d.embassy.phone)}</div>
+        </div>
+        <div class="emg-actions">
+          <a href="tel:${escapeHtml(d.embassy.phone)}" class="call" aria-label="কল"><i class="fas fa-phone"></i></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.embassy.address)}" target="_blank" rel="noopener" class="map-link" aria-label="ম্যাপ"><i class="fas fa-map-marker-alt"></i></a>
+        </div>
+      </div>`;
+  }
+
+  const nums = [];
+  if (d.police) nums.push({...d.police, icon:'🚓'});
+  if (d.ambulance) nums.push({...d.ambulance, icon:'🚑'});
+  if (d.fire) nums.push({...d.fire, icon:'🚒'});
+  if (d.helpline) nums.push({...d.helpline, icon:'📞'});
+  if (nums.length) {
+    html += `<div class="emg-cat-title">🚨 ইমার্জেন্সি নাম্বার</div>`;
+    nums.forEach(n => {
+      html += `<div class="emg-card">
+        <div class="emg-icon">${n.icon}</div>
+        <div class="emg-info"><div class="emg-name">${escapeHtml(n.name)}</div><div class="emg-detail">📱 ${escapeHtml(n.phone)}</div></div>
+        <div class="emg-actions"><a href="tel:${escapeHtml(n.phone)}" class="call" aria-label="কল"><i class="fas fa-phone"></i></a></div>
+      </div>`;
+    });
+  }
+
+  if (d.hospital) {
+    html += `<div class="emg-cat-title">🏥 হাসপাতাল</div>
+      <div class="emg-card">
+        <div class="emg-icon">🏥</div>
+        <div class="emg-info">
+          <div class="emg-name">${escapeHtml(d.hospital.name)}</div>
+          <div class="emg-detail">📍 ${escapeHtml(d.hospital.address)}<br>📱 ${escapeHtml(d.hospital.phone)}</div>
+        </div>
+        <div class="emg-actions">
+          <a href="tel:${escapeHtml(d.hospital.phone)}" class="call" aria-label="কল"><i class="fas fa-phone"></i></a>
+          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(d.hospital.address)}" target="_blank" rel="noopener" class="map-link" aria-label="ম্যাপ"><i class="fas fa-map-marker-alt"></i></a>
+        </div>
+      </div>`;
+  }
+
+  html += `<div class="card" style="border-left:4px solid var(--warning);margin-top:20px">
+    <div style="font-size:15px;font-weight:700;color:var(--warning);margin-bottom:10px">⚠️ জরুরি অবস্থায় করণীয়</div>
+    <ol style="font-size:13px;color:var(--text-secondary);line-height:1.9;padding-left:20px">
+      <li>প্রথমে <strong>স্থানীয় ইমার্জেন্সি নাম্বারে</strong> কল করুন</li>
+      <li>তারপর <strong>বাংলাদেশ দূতাবাসে</strong> জানান</li>
+      <li>পরিবারকে জানানোর আগে দূতাবাসকে জানান</li>
+      <li>প্রয়োজনীয় কাগজপত্র (পাসপোর্ট, ভিসা) সাথে রাখুন</li>
+      <li>যদি মৃত্যু ঘটে — দূতাবাসকে জানালে তারা মৃতদেহ দেশে পাঠানোর ব্যবস্থা করবে</li>
+      <li>সবসময় <strong>রশিদ, রিপোর্ট</strong> সংরক্ষণ করুন</li>
+    </ol>
+  </div>`;
+  content.innerHTML = html;
+}
+
+/* ============================================================
+   MONEY
+   ============================================================ */
+function renderMoney() {
+  const grid = $('bankGrid');
+  if (grid && !grid.children.length) {
+    grid.innerHTML = BANKS.map(b => `
+      <div class="bank-card" data-bank="${b.key}" tabindex="0" role="button">
+        <div class="bank-logo" style="background:${b.color}">${escapeHtml(b.icon)}</div>
+        <div class="bank-name">${escapeHtml(b.name)}</div>
+        <div class="bank-tag">${escapeHtml(b.tag)}</div>
+      </div>
+    `).join('');
+  }
+  const steps = $('transferSteps');
+  if (steps && !steps.children.length) {
+    steps.innerHTML = TRANSFER_STEPS.map((s, i) => `
+      <div class="t-step">
+        <div class="t-step-no">${i+1}</div>
+        <div class="t-step-body">
+          <div class="t-step-title">${escapeHtml(s.title)}</div>
+          <div class="t-step-desc">${escapeHtml(s.desc)}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function openBank(key) {
+  const b = BANKS.find(x => x.key === key);
+  if (!b) return;
+  $('bankModalTitle').innerHTML = `<span style="display:inline-flex;width:32px;height:32px;border-radius:8px;background:${b.color};color:#fff;align-items:center;justify-content:center;font-size:12px;font-weight:800">${escapeHtml(b.icon)}</span> ${escapeHtml(b.name)}`;
+  $('bankModalBody').innerHTML = `
+    <div class="modal-detail"><div class="label">ধরন</div><div class="value">${escapeHtml(b.details.type)}</div></div>
+    <div class="modal-detail"><div class="label">কোথা থেকে পাঠানো যায়</div><div class="value">${escapeHtml(b.details.sendFrom)}</div></div>
+    <div class="modal-detail"><div class="label">রেট</div><div class="value">${escapeHtml(b.details.rate)}</div></div>
+    <div class="modal-detail"><div class="label">ধাপে ধাপে</div>
+      <ol style="padding-left:20px;margin-top:6px;color:var(--text);font-size:13px;line-height:1.8">
+        ${b.details.steps.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+      </ol>
+    </div>`;
+  const modal = $('bankModal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const box = modal.querySelector('.modal-box');
+  if (box) box.focus();
+}
+function closeBankModal() {
+  const modal = $('bankModal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ============================================================
+   NEWS
+   ============================================================ */
+const NEWS_SOURCES = {
+  general:['https://news.google.com/rss?hl=bn&gl=BD&ceid=BD:bn','https://feeds.bbci.co.uk/bengali/rss.xml'],
+  nation:['https://news.google.com/rss/search?q=Bangladesh&hl=bn&gl=BD&ceid=BD:bn'],
+  business:['https://news.google.com/rss/search?q=business&hl=bn&gl=BD&ceid=BD:bn'],
+  world:['https://news.google.com/rss/search?q=world&hl=bn&gl=BD&ceid=BD:bn'],
+  sports:['https://news.google.com/rss/search?q=sports&hl=bn&gl=BD&ceid=BD:bn'],
+  technology:['https://news.google.com/rss/search?q=technology&hl=bn&gl=BD&ceid=BD:bn']
+};
+
+const CORS_PROXIES = [
+  'https://api.allorigins.win/raw?url=',
+  'https://corsproxy.io/?url=',
+  'https://api.codetabs.com/v1/proxy?quest='
+];
+
+function stripHtml(html) {
+  if (!html) return '';
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return (tmp.textContent || '').trim().substring(0, 200);
+}
+function extractSource(t) {
+  if (!t) return 'News';
+  const p = t.split(' - ');
+  return p.length > 1 ? p[p.length - 1].trim() : 'News';
+}
+function getXmlText(item, tag) {
+  const el = item.querySelector(tag);
+  return el ? (el.textContent || '').trim() : '';
+}
+function extractImg(item, desc) {
+  try {
+    const mc = item.getElementsByTagName('media:content');
+    if (mc.length && mc[0].getAttribute('url')) return mc[0].getAttribute('url');
+    const mt = item.getElementsByTagName('media:thumbnail');
+    if (mt.length && mt[0].getAttribute('url')) return mt[0].getAttribute('url');
+    const enc = item.querySelector('enclosure');
+    if (enc && enc.getAttribute('url')) return enc.getAttribute('url');
+    if (desc) { const m = desc.match(/<img[^>]+src=["']([^"']+)["']/); if (m) return m[1]; }
+  } catch(e) {}
+  return '';
+}
+
+async function fetchRSS(urls, max = 10) {
+  for (const rssUrl of urls) {
+    for (const proxy of CORS_PROXIES) {
+      try {
+        const res = await fetch(proxy + encodeURIComponent(rssUrl), { signal: AbortSignal.timeout(8000) });
+        if (!res.ok) continue;
+        const text = await res.text();
+        if (!text.includes('<item')) continue;
+        const xml = new DOMParser().parseFromString(text, 'text/xml');
+        const items = xml.querySelectorAll('item');
+        if (!items.length) continue;
+        const articles = [];
+        for (let i = 0; i < Math.min(items.length, max); i++) {
+          const it = items[i];
+          const title = getXmlText(it, 'title');
+          const link = getXmlText(it, 'link');
+          const pubDate = getXmlText(it, 'pubDate');
+          const desc = getXmlText(it, 'description');
+          const src = getXmlText(it, 'source');
+          const img = extractImg(it, desc);
+          if (!title || !link) continue;
+          articles.push({
+            title, url: link,
+            description: stripHtml(desc),
+            image: img,
+            publishedAt: pubDate || new Date().toISOString(),
+            source: { name: src || extractSource(title) }
+          });
+        }
+        if (articles.length) return articles;
+      } catch(e) { continue; }
+    }
+  }
+  throw new Error('সব proxy failed');
+}
+
+function timeAgo(date) {
+  try {
+    const s = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
+    if (s < 60) return 'এইমাত্র';
+    const m = Math.floor(s / 60);
+    if (m < 60) return `${m} মিনিট আগে`;
+    const h = Math.floor(m / 60);
+    if (h < 24) return `${h} ঘণ্টা আগে`;
+    const d = Math.floor(h / 24);
+    if (d < 7) return `${d} দিন আগে`;
+    return new Date(date).toLocaleDateString('bn-BD');
+  } catch { return ''; }
+}
+
+async function loadNews(topic = 'general') {
+  state.currentNewsTopic = topic;
+  $$('#newsTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.topic === topic));
+  const grid = $('newsGrid');
+  if (!grid) return;
+
+  const cached = state.newsCache[topic] || store.get('news_' + topic);
+  if (cached && Date.now() - cached.t < 24 * 60 * 60 * 1000) {
+    renderNews(cached.data, grid);
+    return;
+  }
+
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px"><div class="spinner"></div><div style="margin-top:14px;font-size:13px;color:var(--text-muted)">খবর লোড হচ্ছে...</div></div>';
+
+  try {
+    const articles = await fetchRSS(NEWS_SOURCES[topic] || NEWS_SOURCES.general, 10);
+    const cacheObj = { data: articles, t: Date.now() };
+    state.newsCache[topic] = cacheObj;
+    store.set('news_' + topic, cacheObj);
+    renderNews(articles, grid);
+    const badge = $('newsBadge');
+    if (badge) badge.textContent = `🟢 ${new Date().toLocaleTimeString('bn-BD', {hour:'2-digit',minute:'2-digit'})}`;
+  } catch(e) {
+    console.error('News error:', e);
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-secondary)">⚠️ খবর লোড করা যায়নি<br><small style="color:var(--text-muted)">ইন্টারনেট বা proxy সমস্যা হতে পারে</small><br><button class="map-btn" id="retryNews" style="margin-top:14px">🔄 আবার চেষ্টা</button></div>';
+    const rb = $('retryNews');
+    if (rb) rb.addEventListener('click', () => loadNews(state.currentNewsTopic));
+  }
+}
+
+function renderNews(articles, container) {
+  if (!articles || !articles.length) {
+    container.innerHTML = '<div class="hint">কোনো খবর পাওয়া যায়নি</div>';
+    return;
+  }
+  container.innerHTML = articles.map((a, i) => {
+    const img = a.image
+      ? `<img src="${escapeHtml(a.image)}" alt="" loading="lazy" onerror="this.parentNode.textContent='📰'">`
+      : '📰';
+    return `<article class="news-card" data-news-index="${i}" tabindex="0" role="link">
+      <div class="news-img">${img}</div>
+      <div class="news-body">
+        <div class="news-src">🌐 ${escapeHtml(a.source.name)}</div>
+        <div class="news-title">${escapeHtml(a.title)}</div>
+        <div class="news-desc">${escapeHtml(a.description || '')}</div>
+        <div class="news-meta"><span>📅 ${escapeHtml(timeAgo(a.publishedAt))}</span><span style="color:var(--brand);font-weight:700">পড়ুন →</span></div>
+      </div>
+    </article>`;
+  }).join('');
+  // Store for delegation
+  container.dataset.articles = JSON.stringify(articles.map(a => ({ url: a.url })));
+}
+
+/* ============================================================
+   NAMAZ
+   ============================================================ */
+function initNamazSelect() {
+  const cSel = $('namazCountry');
+  if (!cSel) return;
+  if (cSel.options.length === 0) {
+    cSel.innerHTML = Object.entries(NAMAZ_CITIES).map(([k]) => {
+      const c = COUNTRIES[k];
+      return c ? `<option value="${k}">${c.flag} ${escapeHtml(c.nameBn)}</option>` : '';
+    }).join('');
+    // Auto-detect from timezone
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    const guess = { 'Asia/Kuala_Lumpur':'malaysia', 'Asia/Riyadh':'saudi', 'Asia/Dubai':'uae',
+      'Asia/Qatar':'qatar', 'Asia/Kuwait':'kuwait', 'Asia/Muscat':'oman', 'Asia/Bahrain':'bahrain',
+      'Asia/Tokyo':'japan', 'Asia/Seoul':'southkorea', 'Europe/Rome':'italy', 'Europe/London':'uk',
+      'America/New_York':'usa', 'America/Toronto':'canada', 'Australia/Sydney':'australia',
+      'Asia/Singapore':'singapore', 'Asia/Bangkok':'thailand', 'Europe/Istanbul':'turkey',
+      'Asia/Shanghai':'china', 'Europe/Berlin':'germany', 'Asia/Jakarta':'indonesia', 'Europe/Madrid':'spain'
+    };
+    cSel.value = guess[tz] || 'malaysia';
+  }
+  updateCitySelect();
+}
+
+function updateCitySelect() {
+  const cSel = $('namazCountry');
+  const citySel = $('namazCity');
+  if (!cSel || !citySel) return;
+  const d = NAMAZ_CITIES[cSel.value];
+  if (!d) return;
+  citySel.innerHTML = d.cities.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+  citySel.value = d.default;
+}
+
+async function loadNamazTimes() {
+  const cSel = $('namazCountry');
+  const citySel = $('namazCity');
+  if (!cSel || !citySel) return;
+  const ck = cSel.value;
+  const city = citySel.value;
+  const d = NAMAZ_CITIES[ck];
+  if (!d) return;
+  const result = $('namazResult');
+  result.innerHTML = '<div style="text-align:center;padding:40px"><div class="spinner"></div></div>';
+
+  try {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2,'0');
+    const mm = String(today.getMonth()+1).padStart(2,'0');
+    const yyyy = today.getFullYear();
+    const url = `https://api.aladhan.com/v1/timingsByCity/${dd}-${mm}-${yyyy}?city=${encodeURIComponent(city)}&country=${encodeURIComponent(d.country)}&method=2`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    const json = await res.json();
+    if (json.code !== 200) throw new Error('API error');
+    renderNamaz(json.data, city);
+  } catch(e) {
+    console.error('Namaz error:', e);
+    result.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-secondary)">⚠️ লোড করা যায়নি<br><button class="map-btn" id="retryNamaz" style="margin-top:14px">🔄 আবার চেষ্টা</button></div>';
+    const rb = $('retryNamaz');
+    if (rb) rb.addEventListener('click', loadNamazTimes);
+  }
+}
+
+function renderNamaz(data, city) {
+  const t = data.timings;
+  const prayers = [
+    {key:'Fajr',bn:'ফজর',icon:'🌅'}, {key:'Sunrise',bn:'সূর্যোদয়',icon:'☀️'},
+    {key:'Dhuhr',bn:'যোহর',icon:'🌤️'}, {key:'Asr',bn:'আসর',icon:'🌇'},
+    {key:'Maghrib',bn:'মাগরিব',icon:'🌆'}, {key:'Isha',bn:'ইশা',icon:'🌙'}
+  ];
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  let next = null, nt = Infinity;
+  prayers.forEach(p => {
+    if (p.key === 'Sunrise') return;
+    const ts = (t[p.key] || '').split(' ')[0];
+    const [h, m] = ts.split(':').map(Number);
+    const pm = h * 60 + m;
+    if (pm > nowMin && pm < nt) { nt = pm; next = p.key; }
+  });
+  if (!next) next = 'Fajr';
+
+  const h = data.date.hijri;
+  const nextPrayer = prayers.find(p => p.key === next);
+
+  $('namazResult').innerHTML = `
+    <div style="text-align:center;background:linear-gradient(135deg,#10b981,#047857);color:#fff;border-radius:16px;padding:20px;margin-bottom:16px">
+      <div style="font-size:11px;opacity:.9;margin-bottom:5px">📅 হিজরি তারিখ</div>
+      <div style="font-size:18px;font-weight:700">${escapeHtml(h.day)} ${escapeHtml(h.month.en)} ${escapeHtml(h.year)}</div>
+      <div style="font-size:12px;opacity:.85;margin-top:3px">${escapeHtml(h.month.ar)} — ${escapeHtml(h.weekday.en)}</div>
+      <div style="font-size:11px;opacity:.8;margin-top:6px">📍 ${escapeHtml(city)}</div>
+    </div>
+    <div style="text-align:center;background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border-radius:16px;padding:20px;margin-bottom:16px">
+      <div style="font-size:11px;opacity:.9;margin-bottom:5px">🕌 পরবর্তী নামাজ</div>
+      <div style="font-size:24px;font-weight:800;margin-bottom:3px">${nextPrayer ? nextPrayer.bn : next}</div>
+      <div style="font-size:20px;font-weight:700;color:#ffd700">${escapeHtml(t[next])}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px">
+      ${prayers.map(p => `
+        <div style="background:var(--surface);border:${p.key === next ? '2px solid var(--brand)' : '1px solid var(--border)'};border-radius:14px;padding:14px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <span style="font-size:22px">${p.icon}</span>
+            <div><div style="font-size:14px;font-weight:700;color:var(--text)">${p.bn}</div><div style="font-size:10px;color:var(--text-muted)">${p.key}</div></div>
+          </div>
+          <div style="font-size:20px;font-weight:800;color:var(--brand);font-family:var(--font-en)">${escapeHtml(t[p.key])}</div>
+        </div>
+      `).join('')}
+    </div>`;
+}
+
+/* ============================================================
+   TRANSLATE
+   ============================================================ */
+const COUNTRY_LANG_CODES = {
+  malaysia:'ms', saudi:'ar', uae:'ar', qatar:'ar', kuwait:'ar', oman:'ar', bahrain:'ar', jordan:'ar',
+  japan:'ja', southkorea:'ko', italy:'it', uk:'en', usa:'en', canada:'en', australia:'en',
+  singapore:'en', thailand:'th', turkey:'tr', china:'zh-CN', germany:'de', maldives:'en',
+  brunei:'ms', indonesia:'id', spain:'es'
+};
+
+async function googleTranslate(text, target) {
+  if (!text || !target) return null;
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=bn&tl=${target}&dt=t&q=${encodeURIComponent(text)}`;
+
+  // Try direct first
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data[0]) {
+        let r = '';
+        data[0].forEach(p => { if (p && p[0]) r += p[0]; });
+        if (r) return r;
+      }
+    }
+  } catch(e) {}
+
+  // Fallback via proxies
+  for (const proxy of CORS_PROXIES) {
+    try {
+      const res = await fetch(proxy + encodeURIComponent(url), { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) continue;
+      const txt = await res.text();
+      try {
+        const data = JSON.parse(txt);
+        if (data && data[0]) {
+          let r = '';
+          data[0].forEach(p => { if (p && p[0]) r += p[0]; });
+          if (r) return r;
+        }
+      } catch(e) {}
+    } catch(e) { continue; }
+  }
+  return null;
+}
+
+function initTranslatePills() {
+  const pills = $('translatePills');
+  if (!pills) return;
+  if (pills.children.length === 0) {
+    pills.innerHTML = Object.entries(COUNTRIES).map(([k, c]) =>
+      `<button class="pill ${k === state.selectedTranslateCountry ? 'active' : ''}" data-key="${k}"><span class="flag">${c.flag}</span><span>${escapeHtml(c.nameBn)}</span></button>`
+    ).join('');
+  }
+  const ta = $('translateInput');
+  if (ta && !ta.dataset.bound) {
+    ta.dataset.bound = '1';
+    ta.addEventListener('input', debounce(e => {
+      const t = e.target.value.trim();
+      if (!t) {
+        $('translationResult').innerHTML = '<div class="hint">উপরে লিখুন বা 🎤 চেপে বলুন</div>';
+        return;
+      }
+      doTranslate(t, state.selectedTranslateCountry);
+    }, 900));
+  }
+}
+
+async function doTranslate(text, key) {
+  const container = $('translationResult');
+  const c = COUNTRIES[key];
+  const code = COUNTRY_LANG_CODES[key];
+  if (!c || !code) return;
+
+  container.innerHTML = '<div style="padding:20px;text-align:center"><div class="spinner"></div></div>';
+  const result = await googleTranslate(text, code);
+
+  if (!result) {
+    container.innerHTML = '<div style="padding:20px;text-align:center;color:var(--danger);font-size:13px">⚠️ অনুবাদ করা যায়নি — ইন্টারনেট বা proxy সমস্যা</div>';
+    return;
+  }
+
+  container.innerHTML = `
+    <div style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;padding:20px;border-radius:14px;text-align:center">
+      <div style="font-size:11px;opacity:.85;margin-bottom:4px">🇧🇩 "${escapeHtml(text)}"</div>
+      <div style="font-size:14px;opacity:.6;margin:6px 0">⬇</div>
+      <div style="font-size:11px;opacity:.85;margin-bottom:8px">${c.flag} ${escapeHtml(c.nameBn)} — ${escapeHtml(c.langBn)}</div>
+      <div style="font-size:22px;font-weight:800;color:#ffd700;margin-bottom:14px;word-break:break-word">${escapeHtml(result)}</div>
+      <button id="speakTranslation" style="padding:8px 16px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:9999px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px">
+        <i class="fas fa-volume-up"></i> শুনুন
+      </button>
+    </div>`;
+
+  const sb = $('speakTranslation');
+  if (sb) sb.addEventListener('click', () => speakByCode(result, code));
+
+  setTimeout(() => speakByCode(result, code), 400);
+}
+
+/* ============================================================
+   VOICE INPUT
+   ============================================================ */
+function toggleVoice() {
+  if (state.isListening) stopVoice();
+  else startVoice();
+}
+
+function startVoice() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    toast('❌ ভয়েস সাপোর্ট নেই — Chrome/Edge ব্যবহার করুন', 'error', 5000);
+    return;
+  }
+  if (!state.recognition) {
+    state.recognition = new SR();
+    state.recognition.lang = 'bn-BD';
+    state.recognition.continuous = false;
+    state.recognition.interimResults = true;
+  }
+  const rec = state.recognition;
+  state.isListening = true;
+  $('voiceBtn').classList.add('listening');
+  $('voiceIcon').className = 'fas fa-stop';
+  $('listeningBar').classList.add('active');
+
+  rec.onresult = ev => {
+    let txt = '';
+    for (let i = ev.resultIndex; i < ev.results.length; i++) {
+      txt += ev.results[i][0].transcript;
+    }
+    $('translateInput').value = txt;
+    if (ev.results[0].isFinal) {
+      setTimeout(() => doTranslate(txt.trim(), state.selectedTranslateCountry), 300);
+    }
+  };
+  rec.onerror = e => {
+    if (e.error === 'not-allowed') toast('❌ মাইক্রোফোন permission দিন', 'error', 5000);
+    else if (e.error !== 'aborted') toast('🎤 ভয়েস error: ' + e.error, 'warning', 3000);
+    stopVoice();
+  };
+  rec.onend = () => stopVoice();
+
+  try {
+    rec.start();
+    toast('🎤 শুনছি... বাংলায় বলুন', 'info', 2500);
+  } catch(e) {
+    stopVoice();
+    toast('❌ ভয়েস চালু করা যায়নি', 'error');
+  }
+}
+
+function stopVoice() {
+  if (!state.isListening) return;
+  state.isListening = false;
+  $('voiceBtn').classList.remove('listening');
+  $('voiceIcon').className = 'fas fa-microphone';
+  $('listeningBar').classList.remove('active');
+  try { if (state.recognition) state.recognition.stop(); } catch(e) {}
+}
+
+/* ============================================================
+   PWA
+   ============================================================ */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
+async function installPWA() {
+  if (!deferredPrompt) {
+    toast('ℹ️ Browser মেনু থেকে "Add to Home Screen" বা "Install" চাপুন', 'info', 5000);
+    return;
+  }
+  deferredPrompt.prompt();
+  try {
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') toast('✅ ইনস্টল সফল', 'success');
+  } catch(e) {}
+  deferredPrompt = null;
+}
+
+/* ============================================================
+   GLOBAL EVENT DELEGATION
+   ============================================================ */
+document.addEventListener('click', e => {
+  // Nav links
+  const navBtn = e.target.closest('[data-nav]');
+  if (navBtn) { showPage(navBtn.dataset.nav); return; }
+
+  // Learn country card
+  const countryCard = e.target.closest('[data-country]');
+  if (countryCard) { openLearnCountry(countryCard.dataset.country); return; }
+
+  // Back to learn
+  if (e.target.closest('#backToLearn')) { backToLearnList(); return; }
+
+  // Learn tabs
+  const learnTab = e.target.closest('#learnTabs .tab');
+  if (learnTab) {
+    const tab = learnTab.dataset.tab;
+    state.currentLearnTab = tab;
+    $$('#learnTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+    renderLearnTab(tab);
+    return;
+  }
+
+  // Speak buttons (learn)
+  const speakBtn = e.target.closest('[data-speak]');
+  if (speakBtn) {
+    speak(speakBtn.dataset.speak, speakBtn.dataset.lang);
+    return;
+  }
+
+  // Bank card
+  const bankCard = e.target.closest('[data-bank]');
+  if (bankCard) { openBank(bankCard.dataset.bank); return; }
+
+  // News card
+  const newsCard = e.target.closest('[data-news-index]');
+  if (newsCard) {
+    const container = newsCard.parentElement;
+    try {
+      const articles = JSON.parse(container.dataset.articles || '[]');
+      const idx = parseInt(newsCard.dataset.newsIndex);
+      if (articles[idx] && articles[idx].url) window.open(articles[idx].url, '_blank', 'noopener');
+    } catch(e) {}
+    return;
+  }
+
+  // Translate pill
+  const pill = e.target.closest('#translatePills .pill');
+  if (pill) {
+    state.selectedTranslateCountry = pill.dataset.key;
+    $$('#translatePills .pill').forEach(p => p.classList.toggle('active', p === pill));
+    const ta = $('translateInput');
+    if (ta && ta.value.trim()) doTranslate(ta.value.trim(), pill.dataset.key);
+    return;
+  }
+
+  // News tab
+  const newsTab = e.target.closest('#newsTabs .tab');
+  if (newsTab) { loadNews(newsTab.dataset.topic); return; }
+
+  // Modal close via backdrop
+  if (e.target.id === 'bankModal') closeBankModal();
+});
+
+// Keyboard accessibility
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeBankModal();
+    stopVoice();
+  }
+  if (e.key === 'Enter') {
+    const focused = document.activeElement;
+    if (focused && focused.dataset.country) openLearnCountry(focused.dataset.country);
+    if (focused && focused.dataset.bank) openBank(focused.dataset.bank);
+  }
+});
+
+/* ============================================================
+   WIRE UP BUTTONS (once)
+   ============================================================ */
+function wireControls() {
+  const themeBtn = $('themeBtn');
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+  const installBtn = $('installBtn');
+  if (installBtn) installBtn.addEventListener('click', installPWA);
+
+  const learnSearch = $('learnSearch');
+  if (learnSearch) learnSearch.addEventListener('input', debounce(e => {
+    state.searchTerm = e.target.value;
+    renderLearnCountries(state.searchTerm);
+  }, 200));
+
+  const fromCountry = $('fromCountry');
+  if (fromCountry) fromCountry.addEventListener('change', updateAirportList);
+
+  const routeBtn = $('routeBtn');
+  if (routeBtn) routeBtn.addEventListener('click', calculateRoute);
+
+  const locBtn = $('locBtn');
+  if (locBtn) locBtn.addEventListener('click', useMyLocation);
+
+  const clearBtn = $('clearBtn');
+  if (clearBtn) clearBtn.addEventListener('click', clearRoute);
+
+  const locationSearch = $('locationSearch');
+  if (locationSearch) locationSearch.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); searchLocation(); }
+  });
+
+  const emgSel = $('emergencyCountry');
+  if (emgSel) emgSel.addEventListener('change', renderEmergency);
+
+  const nzCountry = $('namazCountry');
+  if (nzCountry) nzCountry.addEventListener('change', () => { updateCitySelect(); loadNamazTimes(); });
+
+  const nzCity = $('namazCity');
+  if (nzCity) nzCity.addEventListener('change', loadNamazTimes);
+
+  const voiceBtn = $('voiceBtn');
+  if (voiceBtn) voiceBtn.addEventListener('click', toggleVoice);
+
+  const bankClose = $('bankModalClose');
+  if (bankClose) bankClose.addEventListener('click', closeBankModal);
+}
+
+/* ============================================================
+   SERVICE WORKER (inline via blob)
+   ============================================================ */
+function registerSW() {
+  if (!('serviceWorker' in navigator)) return;
+  if (location.protocol === 'file:') return;
+  try {
+    const swCode = `
+      const CACHE = 'bb-v14';
+      self.addEventListener('install', e => { self.skipWaiting(); });
+      self.addEventListener('activate', e => {
+        e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))));
+        self.clients.claim();
+      });
+      self.addEventListener('fetch', e => {
+        const url = new URL(e.request.url);
+        if (e.request.method !== 'GET') return;
+        if (url.hostname.includes('openstreetmap') || url.hostname.includes('aladhan') || url.hostname.includes('router.project-osrm')) {
+          e.respondWith(
+            caches.open(CACHE).then(c => c.match(e.request).then(r => {
+              const fetchP = fetch(e.request).then(res => { if (res.ok) c.put(e.request, res.clone()); return res; }).catch(() => r);
+              return r || fetchP;
+            }))
+          );
+        }
+      });
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const url = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(url).catch(() => {});
+  } catch(e) {}
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init() {
+  console.log('%c🌍 Bidesh Bangla v14 — Fixed', 'color:#6366f1;font-size:18px;font-weight:bold');
+  console.log('%c✅ Map click • Voice fallback • HTTPS check • Esc key • PWA', 'color:#10b981;font-size:13px');
+
+  const saved = store.get('theme', 'light');
+  applyTheme(saved);
+
+  wireControls();
+  initEmergencySelect();
+  renderMoney();
+  renderLearnCountries();
+  initNamazSelect();
+  registerSW();
+
+  const hash = location.hash.replace('#', '');
+  const validPages = ['home','learn','map','emergency','money','news','namaz','translate'];
+  if (validPages.includes(hash)) {
+    setTimeout(() => showPage(hash), 100);
+  } else {
+    showPage('home');
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+
+</body>
+</html>
